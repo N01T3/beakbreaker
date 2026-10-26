@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>BeakBreaker</title>
+  <rect width="512" height="512" fill="#F5E9D3"/>
+  <rect x="16" y="16" width="480" height="480" fill="none" stroke="#1B1B1B" stroke-width="16"/>
+  <!-- sol do sertão -->
+  <circle cx="380" cy="130" r="56" fill="#F4B400" stroke="#1B1B1B" stroke-width="8"/>
+  <!-- chão -->
+  <path d="M40 430 L472 430" stroke="#1B1B1B" stroke-width="12"/>
+  <path d="M60 455 L120 455 M170 455 L250 455 M300 455 L380 455 M410 455 L452 455" stroke="#1B1B1B" stroke-width="6"/>
+  <!-- cauda -->
+  <path d="M150 300 C90 250 80 170 120 120 C130 190 160 220 190 250 C170 190 180 140 220 110 C215 180 230 230 250 260 Z" fill="#1B1B1B"/>
+  <!-- corpo -->
+  <path d="M170 280 C170 220 240 200 300 220 C350 236 370 290 340 340 C310 380 220 385 190 350 C175 330 170 305 170 280 Z" fill="#1B1B1B"/>
+  <!-- cortes de xilo no corpo -->
+  <path d="M215 300 L265 290 M220 325 L285 312 M235 348 L300 335" stroke="#F5E9D3" stroke-width="7" stroke-linecap="round"/>
+  <!-- pescoço e cabeça -->
+  <path d="M290 230 C300 190 300 160 320 140 C340 125 370 135 372 160 C374 185 355 200 345 225 Z" fill="#1B1B1B"/>
+  <!-- crista -->
+  <path d="M318 140 L322 112 L334 132 L342 104 L350 130 L362 110 L362 146 Z" fill="#C0392B" stroke="#1B1B1B" stroke-width="5"/>
+  <!-- bico -->
+  <path d="M370 158 L402 168 L370 178 Z" fill="#F4B400" stroke="#1B1B1B" stroke-width="5"/>
+  <!-- barbela -->
+  <path d="M358 184 C366 200 356 212 348 204 C344 196 348 188 358 184 Z" fill="#C0392B" stroke="#1B1B1B" stroke-width="4"/>
+  <!-- olho -->
+  <circle cx="350" cy="155" r="7" fill="#F5E9D3"/>
+  <!-- pernas -->
+  <path d="M245 375 L235 430 M290 372 L300 430" stroke="#1B1B1B" stroke-width="12" stroke-linecap="round"/>
+  <path d="M215 430 L255 430 M282 430 L322 430" stroke="#1B1B1B" stroke-width="10" stroke-linecap="round"/>
+</svg>

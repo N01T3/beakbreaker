@@ -14,6 +14,7 @@ import { RoostersTabView } from './RoostersTabView.js';
 import { ClanTabView } from './ClanTabView.js';
 import { StoreTabView } from './StoreTabView.js';
 import { CordelStageCanvas } from '../canvas/stage/CordelStageCanvas.js';
+import { PlatformBridgeBar } from './PlatformBridgeBar.js';
 
 export const BeakBreakerWebApp = defineComponent({
   name: 'BeakBreakerWebApp',
@@ -85,6 +86,7 @@ export const BeakBreakerWebApp = defineComponent({
             },
             `Saldo de Milho: ${store.milho}`,
           ),
+          h(PlatformBridgeBar),
         ]),
         h('div', { style: { marginTop: '12px' } }, [
           h(FtueGateView, {

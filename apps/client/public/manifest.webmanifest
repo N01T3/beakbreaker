@@ -1,0 +1,20 @@
+{
+  "name": "BeakBreaker: Os Campeões do Sertão",
+  "short_name": "BeakBreaker",
+  "description": "Galos de cordel em xilogravura no coração do Sertão.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5E9D3",
+  "theme_color": "#1B1B1B",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

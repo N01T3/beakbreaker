@@ -1,21 +1,25 @@
 import { test, expect } from 'playwright/test';
 
 test.describe('BeakBreaker Web E2E — ECA Digital, FTUE, 5 Abas Cordel Pop, Arena 3v3 & Chocadeira Pity', () => {
-  test('Fluxo completo E2E: Gate 18+ -> FTUE #5 Brisa do Rio -> 5 Abas -> Colheita -> Arena 3v3 (1x/2x/3x, Torcida, PAH!) -> Chocadeira Pity & Limite Mensal', async ({
+  test('Fluxo completo E2E: Gate 18+ -> FTUE #5 -> Fazenda -> Arena 3v3 (Sinergias, Corta-Canto, PAH!) -> Loja Pix QR & Chocadeira -> PWA Bridge', async ({
     page,
   }) => {
     await page.goto('/');
 
-    // 1. Aprovação no Gate 18+ (ECA Digital) e escolha do ovo no FTUE com Vô Tonho recebendo #5 Brisa do Rio
+    // 1. Gate 18+ (ECA Digital) e escolha do ovo no FTUE com #5 Brisa do Rio
     await expect(page.getByTestId('age-gate-modal')).toBeVisible();
     await page.getByTestId('input-birth-year').fill('1994');
     await page.getByTestId('btn-confirm-18plus').click();
 
     await expect(page.getByTestId('ftue-egg-selection')).toBeVisible();
     await page.getByTestId('btn-egg-2').click();
-
     await expect(page.getByTestId('ftue-awarded-banner')).toBeVisible();
     await expect(page.getByTestId('ftue-rooster-name')).toContainText('#5 Brisa do Rio');
+
+    // 1B. Barra de Ponte Nativa Capacitor & PWA
+    await expect(page.getByTestId('platform-bridge-bar')).toBeVisible();
+    await page.getByTestId('btn-save-snapshot').click();
+    await expect(page.getByTestId('snapshot-save-status')).toContainText('Progresso salvo');
 
     // 2. Colheita de Milho na Fazenda Viva 2.0 e Torres dos Santos Padroeiros
     await expect(page.getByTestId('tab-content-fazenda')).toBeVisible();
@@ -41,7 +45,7 @@ test.describe('BeakBreaker Web E2E — ECA Digital, FTUE, 5 Abas Cordel Pop, Are
     await expect(page.getByTestId('farm-raid-status')).toBeVisible();
     await page.getByTestId('btn-test-revenge-lock').click();
 
-    // 3. Navegação pela aba Lutar: Arena 3v3, velocidades 1x -> 2x -> 3x, Torcida e balão "PAH!"
+    // 3. Navegação pela aba Lutar: Arena 3v3, velocidades 1x/2x/3x, Torcida, Sinergias e Corta-Canto
     await page.getByTestId('nav-tab-Lutar').click();
     await expect(page.getByTestId('tab-content-lutar')).toBeVisible();
 
@@ -60,7 +64,14 @@ test.describe('BeakBreaker Web E2E — ECA Digital, FTUE, 5 Abas Cordel Pop, Are
     const popupsText = await page.getByTestId('xilo-popup-container').textContent();
     expect(popupsText).toContain('PAH!');
 
-    // 4. Navegação pelas abas Galos (Ninhal, Santuário 24 Receitas, Orbes) e Bando (Labirinto, Roda, TV Sertão)
+    // 3B. Painel de Sinergias e Corta-Canto (6 Ticks)
+    await expect(page.getByTestId('arena-synergy-panel')).toBeVisible();
+    await page.getByTestId('btn-cycle-trio').click();
+    await expect(page.getByTestId('active-trio-name')).toBeVisible();
+    await page.getByTestId('btn-corta-canto').click();
+    await expect(page.getByTestId('corta-canto-status')).toContainText('Interrompido');
+
+    // 4. Abas Galos (Ninhal, Santuário 24 Receitas, Orbes) e Bando (Colosso, Guerra, Labirinto)
     await page.getByTestId('nav-tab-Galos').click();
     await expect(page.getByTestId('tab-content-galos')).toBeVisible();
     await expect(page.getByTestId('album-summary-text')).toContainText('40 aves');
@@ -87,13 +98,14 @@ test.describe('BeakBreaker Web E2E — ECA Digital, FTUE, 5 Abas Cordel Pop, Are
     await page.getByTestId('btn-watch-tv-sertao').click();
     await expect(page.getByTestId('festival-reward-status')).toBeVisible();
 
-    // 5. Aba Loja: Disparo de tiro na Chocadeira atualizando Pity (X/80) e Limite Mensal de Gastos (ECA Digital)
+    // 5. Aba Loja: Chocadeira Pity, Limite Mensal ECA e QR Code Pix Oficial
     await page.getByTestId('nav-tab-Loja').click();
     await expect(page.getByTestId('tab-content-loja')).toBeVisible();
     await expect(page.getByTestId('chocadeira-pity-counter')).toContainText('0/80');
 
     await page.getByTestId('btn-pull-1x').click();
     await expect(page.getByTestId('chocadeira-pity-counter')).toContainText('1/80');
+    await expect(page.getByTestId('chocadeira-summon-log')).toBeVisible();
 
     await page.getByTestId('btn-pull-10x').click();
     await expect(page.getByTestId('chocadeira-pity-counter')).toContainText('11/80');
@@ -102,5 +114,13 @@ test.describe('BeakBreaker Web E2E — ECA Digital, FTUE, 5 Abas Cordel Pop, Are
     await page.getByTestId('btn-buy-pix-coroas').click();
     await expect(page.getByTestId('store-tx-status')).toContainText('+345 Coroas');
     await expect(page.getByTestId('history-90-days')).toContainText('1 registro(s)');
+
+    // 5B. Checkout Pix com QR Code SVG Xilogravura e Webhook
+    await expect(page.getByTestId('pix-checkout-panel')).toBeVisible();
+    await page.getByTestId('btn-generate-pix-qr').click();
+    await expect(page.getByTestId('pix-qr-preview')).toBeVisible();
+    await expect(page.getByTestId('pix-emv-code')).toContainText('000201');
+    await page.getByTestId('btn-simulate-pix-webhook').click();
+    await expect(page.getByTestId('pix-webhook-status')).toContainText('Pix confirmado');
   });
 });

@@ -1,6 +1,8 @@
 import { defineComponent, h, ref, type PropType } from 'vue';
 import { CORDEL_PALETTE, CordelWoodFrame, DualCombatBar } from '@beakbreaker/ui-cordel';
 import type { WebRuntime } from './createWebRuntime.js';
+import { cordelAudio } from '../services/AudioService.js';
+import { ArenaTeamSynergyPanel } from './panels/ArenaTeamSynergyPanel.js';
 
 export const ArenaTabView = defineComponent({
   name: 'ArenaTabView',
@@ -48,7 +50,10 @@ export const ArenaTabView = defineComponent({
                         padding: '10px 16px',
                         fontWeight: 'bold',
                       },
-                      onClick: () => props.runtime.runArenaBattle3v3(),
+                      onClick: () => {
+                        cordelAudio.playXiloHitSfx();
+                        props.runtime.runArenaBattle3v3();
+                      },
                     },
                     'Executar Duelo 3v3',
                   ),
@@ -92,7 +97,10 @@ export const ArenaTabView = defineComponent({
                         padding: '10px 16px',
                         fontWeight: 'bold',
                       },
-                      onClick: () => props.runtime.triggerTorcida(),
+                      onClick: () => {
+                        cordelAudio.playTorcidaCheer();
+                        props.runtime.triggerTorcida();
+                      },
                     },
                     `Torcida (+Canto) [${props.runtime.state.torcidaTriggeredCount}]`,
                   ),
@@ -140,6 +148,7 @@ export const ArenaTabView = defineComponent({
                   h('button', { type: 'button', 'data-testid': 'btn-tower-advance', onClick: handleAdvanceTower }, 'Subir Andar da Torre'),
                 ]),
               ]),
+              h(ArenaTeamSynergyPanel, { runtime: props.runtime }),
             ]),
           ],
         },

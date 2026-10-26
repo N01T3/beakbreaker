@@ -35,6 +35,25 @@ if (!fs.existsSync(path.join(CLIENT_DIST, 'index.html'))) {
   process.exit(1);
 }
 
+const MANIFEST_PATH = path.join(CLIENT_DIST, 'manifest.webmanifest');
+if (!fs.existsSync(MANIFEST_PATH)) {
+  console.error('[CAPACITOR ERROR] Missing apps/client/dist/manifest.webmanifest (PWA manifest)');
+  process.exit(1);
+}
+let manifest;
+try {
+  manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
+} catch (err) {
+  console.error(`[CAPACITOR ERROR] Invalid JSON in dist/manifest.webmanifest: ${err.message}`);
+  process.exit(1);
+}
+for (const field of ['name', 'short_name', 'display']) {
+  if (typeof manifest[field] !== 'string' || manifest[field].length === 0) {
+    console.error(`[CAPACITOR ERROR] dist/manifest.webmanifest missing field "${field}"`);
+    process.exit(1);
+  }
+}
+
 const sizeBytes = getDirectorySize(CLIENT_DIST);
 const sizeMb = (sizeBytes / (1024 * 1024)).toFixed(2);
 if (sizeBytes > MAX_BUNDLE_BYTES) {
@@ -43,5 +62,5 @@ if (sizeBytes > MAX_BUNDLE_BYTES) {
 }
 
 console.log(
-  `Capacitor Pipeline Gate (Web -> Android -> iOS) PASSED: dist=${sizeMb} MB (< 40 MB), appId=br.com.beakbreaker.sertao`,
+  `Capacitor Pipeline Gate (Web -> Android -> iOS) PASSED: dist=${sizeMb} MB (< 40 MB), appId=br.com.beakbreaker.sertao, manifest=${manifest.short_name}/${manifest.display}`,
 );

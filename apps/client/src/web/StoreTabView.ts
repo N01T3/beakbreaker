@@ -6,6 +6,7 @@ import {
   calculateExplicitPullOdds,
 } from '@beakbreaker/ui-cordel';
 import type { WebRuntime } from './createWebRuntime.js';
+import { PixCheckoutPanel } from './panels/PixCheckoutPanel.js';
 
 export const StoreTabView = defineComponent({
   name: 'StoreTabView',
@@ -151,6 +152,11 @@ export const StoreTabView = defineComponent({
                   `Histórico de Transações (90 dias): ${txs.length} registro(s)`,
                 ),
               ]),
+              h(PixCheckoutPanel, {
+                runtime: props.runtime,
+                currentPity: props.currentPity,
+                onGrantCoroas: props.onGrantCoroas,
+              }),
             ]),
           ],
         },
