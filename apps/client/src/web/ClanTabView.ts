@@ -1,0 +1,117 @@
+import { defineComponent, h, ref, type PropType } from 'vue';
+import { CORDEL_PALETTE, CordelWoodFrame } from '@beakbreaker/ui-cordel';
+import type { WebRuntime } from './createWebRuntime.js';
+
+export const ClanTabView = defineComponent({
+  name: 'ClanTabView',
+  props: {
+    runtime: { type: Object as PropType<WebRuntime>, required: true },
+  },
+  setup(props) {
+    const capturedTerritory = ref('forte_do_cangaco');
+
+    const handleAttackColossus = () => {
+      const res = props.runtime.clan.recordRaidDamage(7_500_000);
+      props.runtime.state.colossusHp = res.remainingHp;
+      props.runtime.state.colossusPhase = res.phase;
+    };
+
+    const handleAdvanceRace = () => {
+      const updated = props.runtime.liveOps.heroRaceScene.advanceNode('p_1', 5);
+      if (updated) {
+        props.runtime.state.heroRaceLap = updated.lap;
+      }
+    };
+
+    const handleCaptureNode = (nodeId: string) => {
+      props.runtime.clan.getWarMap().captureNode(nodeId, 'bando_lampiao');
+      capturedTerritory.value = nodeId;
+    };
+
+    return () => {
+      const nodes = props.runtime.clan.getWarMap().getAllNodes().slice(0, 4);
+
+      return h(
+        CordelWoodFrame,
+        {
+          title: 'Bando (Clã 30 Membros) & Eventos LiveOps',
+          subtitle: `Temporada Ativa: ${props.runtime.liveOps.getActiveSeasonName()}`,
+        },
+        {
+          default: () => [
+            h('div', { 'data-testid': 'tab-content-bando' }, [
+              h('div', { class: 'cordel-card', 'data-testid': 'colossus-raid-panel' }, [
+                h('h3', 'Raid do Galo Colosso (3 Fases: Brasa -> Lua -> Fúria)'),
+                h(
+                  'p',
+                  { 'data-testid': 'colossus-status' },
+                  `HP Restante: ${props.runtime.state.colossusHp.toLocaleString('pt-BR')} | Fase Atual: ${props.runtime.state.colossusPhase}`,
+                ),
+                h(
+                  'button',
+                  {
+                    type: 'button',
+                    'data-testid': 'btn-raid-attack',
+                    style: {
+                      backgroundColor: CORDEL_PALETTE.vermelhoCrista,
+                      color: CORDEL_PALETTE.cremePapel,
+                      border: '2px solid #1B1B1B',
+                      padding: '8px 14px',
+                      fontWeight: 'bold',
+                    },
+                    onClick: handleAttackColossus,
+                  },
+                  'Atacar Galo Colosso (-7.5M HP)',
+                ),
+              ]),
+              h('div', { class: 'cordel-card', 'data-testid': 'territory-war-panel' }, [
+                h(
+                  'h3',
+                  `Guerra de Territórios (${props.runtime.clan.getWarMap().getVillageCount()} Vilarejos + Fortes)`,
+                ),
+                h('p', `Último Território Dominado: ${capturedTerritory.value}`),
+                h(
+                  'div',
+                  { style: { display: 'flex', gap: '8px', flexWrap: 'wrap' } },
+                  nodes.map((node) =>
+                    h(
+                      'button',
+                      {
+                        key: node.id,
+                        type: 'button',
+                        'data-testid': `btn-capture-${node.id}`,
+                        onClick: () => handleCaptureNode(node.id),
+                      },
+                      `Conquistar ${node.name} (+${node.pointsPerHour} pts/h)`,
+                    ),
+                  ),
+                ),
+              ]),
+              h('div', { class: 'cordel-card', 'data-testid': 'hero-race-panel' }, [
+                h(
+                  'h3',
+                  `Corrida de Heróis (${props.runtime.state.heroRaceLap}/18 Voltas — Garantia Ave Heroica na Volta 15)`,
+                ),
+                h(
+                  'button',
+                  {
+                    type: 'button',
+                    'data-testid': 'btn-advance-hero-race',
+                    style: {
+                      backgroundColor: CORDEL_PALETTE.amareloMilho,
+                      border: '2px solid #1B1B1B',
+                      padding: '8px 14px',
+                      fontWeight: 'bold',
+                    },
+                    onClick: handleAdvanceRace,
+                  },
+                  'Avançar +1 Volta na Corrida de Heróis',
+                ),
+              ]),
+            ]),
+          ],
+        },
+      );
+    };
+  },
+});

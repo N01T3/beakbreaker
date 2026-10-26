@@ -1,0 +1,20 @@
+{
+  "name": "@beakbreaker/genetics-engine",
+  "version": "5.0.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@beakbreaker/combat-core": "workspace:*",
+    "@beakbreaker/game-data": "workspace:*",
+    "zod": "^3.24.0"
+  }
+}

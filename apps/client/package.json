@@ -1,0 +1,29 @@
+{
+  "name": "@beakbreaker/client",
+  "version": "5.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "build:web": "vite build",
+    "preview:web": "vite preview --host 127.0.0.1 --port 4173",
+    "cap:android": "vite build && echo 'Capacitor Android bundle synced from dist/'",
+    "cap:ios": "vite build && echo 'Capacitor iOS bundle synced from dist/'",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run tests",
+    "test:e2e": "playwright test -c playwright.config.ts"
+  },
+  "dependencies": {
+    "@beakbreaker/combat-core": "workspace:*",
+    "@beakbreaker/game-data": "workspace:*",
+    "@beakbreaker/genetics-engine": "workspace:*",
+    "@beakbreaker/ui-cordel": "workspace:*",
+    "pinia": "^3.0.0",
+    "pixi.js": "^8.6.0",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.0",
+    "vite": "^6.0.0"
+  }
+}

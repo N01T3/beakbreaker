@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>BeakBreaker: Os Campeões do Sertão</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #1B1B1B;
+        color: #1B1B1B;
+        font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+      }
+      #app {
+        max-width: 960px;
+        margin: 0 auto;
+        min-height: 100vh;
+        background-color: #F5E9D3;
+        border-left: 4px solid #1B1B1B;
+        border-right: 4px solid #1B1B1B;
+        display: flex;
+        flex-direction: column;
+      }
+      button {
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .cordel-card {
+        border: 3px solid #1B1B1B;
+        background: #F5E9D3;
+        box-shadow: 4px 4px 0px #1B1B1B;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+      .cordel-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 10px;
+      }
+      .cordel-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border: 2px solid #1B1B1B;
+        font-weight: 700;
+        font-size: 12px;
+        background: #F4B400;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "@beakbreaker/server",
+  "version": "5.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@beakbreaker/combat-core": "workspace:*",
+    "@beakbreaker/game-data": "workspace:*",
+    "@beakbreaker/genetics-engine": "workspace:*",
+    "fastify": "^5.2.0",
+    "zod": "^3.24.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@beakbreaker/economy-sim",
+  "version": "5.0.0",
+  "type": "module",
+  "scripts": {
+    "audit-economy": "tsx src/index.ts",
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@beakbreaker/combat-core": "workspace:*",
+    "@beakbreaker/game-data": "workspace:*",
+    "@beakbreaker/genetics-engine": "workspace:*"
+  }
+}

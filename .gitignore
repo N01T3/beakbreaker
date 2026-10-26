@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.turbo/
+*.log
+coverage/
+docs/GDD_v5.0.pdf

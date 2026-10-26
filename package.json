@@ -1,0 +1,23 @@
+{
+  "name": "beakbreaker-monorepo",
+  "version": "5.0.0",
+  "private": true,
+  "packageManager": "pnpm@12.15.0",
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "lint:legal": "node scripts/check-legal-and-size.mjs",
+    "verify:gate1": "pnpm --filter @beakbreaker/balance-sim run verify-gate-1",
+    "verify:economy": "pnpm --filter @beakbreaker/economy-sim run audit-economy",
+    "test:e2e": "pnpm --filter @beakbreaker/client run test:e2e"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "turbo": "^2.4.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "zod": "^3.24.0"
+  }
+}
