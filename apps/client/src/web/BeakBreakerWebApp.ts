@@ -13,6 +13,7 @@ import { ArenaTabView } from './ArenaTabView.js';
 import { RoostersTabView } from './RoostersTabView.js';
 import { ClanTabView } from './ClanTabView.js';
 import { StoreTabView } from './StoreTabView.js';
+import { CordelStageCanvas } from '../canvas/stage/CordelStageCanvas.js';
 
 export const BeakBreakerWebApp = defineComponent({
   name: 'BeakBreakerWebApp',
@@ -91,6 +92,18 @@ export const BeakBreakerWebApp = defineComponent({
             onFtueReady: () => {
               store.setAgeVerified(true);
             },
+          }),
+        ]),
+        h('div', { style: { marginTop: '12px' } }, [
+          h(CordelStageCanvas, {
+            activeTab: store.activeHubTab,
+            sedeLevel: store.sedeLevel,
+            storedMilho: runtime.state.storedPerchMilho,
+            activeTowers: runtime.state.unlockedTowers.length,
+            roosterCount: runtime.roosters40.length,
+            unitBars: runtime.state.unitBars,
+            popups: runtime.state.activePopups,
+            heroRaceLap: runtime.state.heroRaceLap,
           }),
         ]),
         h('main', { 'data-testid': 'active-tab-stage', style: { marginTop: '12px' } }, [

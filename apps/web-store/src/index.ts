@@ -155,3 +155,6 @@ export class OfficialPixWebStore {
       .digest('hex');
   }
 }
+
+export * from './portal.js';
+

@@ -2,6 +2,7 @@ import { defineComponent, h, type PropType } from 'vue';
 import { CORDEL_PALETTE, CordelWoodFrame } from '@beakbreaker/ui-cordel';
 import type { WebRuntime } from './createWebRuntime.js';
 import type { SaintTowerId } from '../canvas/scenes/farm/IsoFarmScene.js';
+import { PvpRaidDefensePanel } from './panels/PvpRaidDefensePanel.js';
 
 const SAINT_TOWERS: readonly SaintTowerId[] = [
   'Torre de São Jorge',
@@ -136,6 +137,7 @@ export const FarmTabView = defineComponent({
                   }),
                 ),
               ]),
+              h(PvpRaidDefensePanel, { runtime: props.runtime }),
             ]),
           ],
         },

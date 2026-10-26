@@ -9,64 +9,48 @@ import { BillingService, registerBillingRoutes } from './modules/billing.js';
 import { ClanAndWarService, registerClanRoutes } from './modules/clan.js';
 import { FarmService, registerFarmRoutes } from './modules/farm.js';
 import { GachaAndGeneticsService, registerGachaRoutes } from './modules/gacha.js';
+import {
+  buildFastifyApp,
+  buildFastifyServer,
+  createServerContainer,
+  ensureDefaultPlayer,
+  registerApiRoutes,
+  type ServerContainer,
+} from './routes/apiRoutes.js';
 import { SocketHub } from './ws/SocketHub.js';
 
-export interface ServerContext {
+export interface ServerContext extends ServerContainer {
   app: FastifyInstance;
-  db: InMemoryDatabase;
-  redis: InMemoryRedisStore;
-  locks: RedlockManager;
-  revengeGuard: RevengeGuard;
-  ecaService: EcaComplianceService;
-  farmService: FarmService;
-  battleService: BattleService;
-  gachaService: GachaAndGeneticsService;
-  clanService: ClanAndWarService;
-  billingService: BillingService;
-  socketHub: SocketHub;
-  liveOps: LiveOpsWorkers;
 }
 
 export async function buildServer(): Promise<ServerContext> {
   const app = Fastify({ logger: false });
-  const db = new InMemoryDatabase();
-  const redis = new InMemoryRedisStore();
-  const locks = new RedlockManager(redis);
-  const revengeGuard = new RevengeGuard(db, redis);
-  const ecaService = new EcaComplianceService(db);
-  const farmService = new FarmService(db, locks);
-  const battleService = new BattleService(db);
-  const gachaService = new GachaAndGeneticsService(db, locks);
-  const clanService = new ClanAndWarService(db, locks);
-  const billingService = new BillingService(db, locks, ecaService);
-  const socketHub = new SocketHub(db);
-  const liveOps = new LiveOpsWorkers(db);
+  const container = createServerContainer();
 
   app.get('/health', async () => ({ status: 'ok', version: '5.0.0' }));
 
-  await registerAuth18PlusRoutes(app, ecaService);
-  await registerFarmRoutes(app, farmService);
-  await registerBattleRoutes(app, battleService);
-  await registerGachaRoutes(app, gachaService);
-  await registerClanRoutes(app, clanService);
-  await registerBillingRoutes(app, billingService);
+  await registerAuth18PlusRoutes(app, container.ecaService);
+  await registerFarmRoutes(app, container.farmService);
+  await registerBattleRoutes(app, container.battleService);
+  await registerGachaRoutes(app, container.gachaService);
+  await registerClanRoutes(app, container.clanService);
+  await registerBillingRoutes(app, container.billingService);
+  await registerApiRoutes(app, container);
 
   return {
     app,
-    db,
-    redis,
-    locks,
-    revengeGuard,
-    ecaService,
-    farmService,
-    battleService,
-    gachaService,
-    clanService,
-    billingService,
-    socketHub,
-    liveOps,
+    ...container,
   };
 }
+
+export {
+  buildFastifyApp,
+  buildFastifyServer,
+  createServerContainer,
+  ensureDefaultPlayer,
+  registerApiRoutes,
+  type ServerContainer,
+};
 
 export * from './db/schema.js';
 export * from './jobs/LiveOpsWorkers.js';
@@ -78,4 +62,5 @@ export * from './modules/billing.js';
 export * from './modules/clan.js';
 export * from './modules/farm.js';
 export * from './modules/gacha.js';
+export * from './server.js';
 export * from './ws/SocketHub.js';

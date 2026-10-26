@@ -1,6 +1,7 @@
 import { defineComponent, h, ref, type PropType } from 'vue';
 import { CORDEL_PALETTE, CordelWoodFrame } from '@beakbreaker/ui-cordel';
 import type { WebRuntime } from './createWebRuntime.js';
+import { LiveOpsFestivalPanel } from './panels/LiveOpsFestivalPanel.js';
 
 export const ClanTabView = defineComponent({
   name: 'ClanTabView',
@@ -108,6 +109,7 @@ export const ClanTabView = defineComponent({
                   'Avançar +1 Volta na Corrida de Heróis',
                 ),
               ]),
+              h(LiveOpsFestivalPanel, { runtime: props.runtime }),
             ]),
           ],
         },

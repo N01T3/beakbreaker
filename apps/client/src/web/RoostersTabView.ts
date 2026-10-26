@@ -6,6 +6,7 @@ import {
   RoosterAtletaCard,
 } from '@beakbreaker/ui-cordel';
 import type { WebRuntime } from './createWebRuntime.js';
+import { GeneticsSanctuaryPanel } from './panels/GeneticsSanctuaryPanel.js';
 
 export const RoostersTabView = defineComponent({
   name: 'RoostersTabView',
@@ -140,6 +141,7 @@ export const RoostersTabView = defineComponent({
                   } (Total: ${props.runtime.roosters40.length} aves).`,
                 ),
               ]),
+              h(GeneticsSanctuaryPanel, { runtime: props.runtime }),
             ]),
           ],
         },
