@@ -56,6 +56,7 @@ export * from './web/panels/ArvoreDaVidaOrbesPanel.js';
 export * from './web/panels/GrimorioSantuarioPanel.js';
 export * from './web/panels/OficinaForjaPanel.js';
 export * from './web/panels/TVSertaoReplayPanel.js';
+export * from './web/panels/ModoHistoriaDialogoPanel.js';
 export * from './web/RoostersTabView.js';
 export * from './web/FarmTabView.js';
 export * from './main.js';

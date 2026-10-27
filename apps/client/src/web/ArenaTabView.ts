@@ -10,12 +10,20 @@ import { ClimaticTowerPanel } from './panels/ClimaticTowerPanel.js';
 import { AlternativeCombatModesPanel } from './panels/AlternativeCombatModesPanel.js';
 import { CampaignTorreVisualPanel } from './panels/CampaignTorreVisualPanel.js';
 import { TVSertaoReplayPanel } from './panels/TVSertaoReplayPanel.js';
+import { ModoHistoriaDialogoPanel } from './panels/ModoHistoriaDialogoPanel.js';
 import { useGameStore } from '../stores/useGameStore.js';
 
 const btnStyle = (bg: string, fg: string = CORDEL_PALETTE.tintaXilo) => ({
   backgroundColor: bg, color: fg, border: '2px solid #1B1B1B',
   padding: '8px 12px', fontWeight: 'bold', cursor: 'pointer',
 });
+
+const MODE_DEFS = [
+  { key: 'arena', label: 'Arena 3v3', testId: 'btn-select-mode-arena' },
+  { key: 'campanha', label: 'Estrada do Sertão & Torre', testId: 'btn-select-mode-estrada-torre' },
+  { key: 'tvsertao', label: 'TV Sertão', testId: 'btn-select-mode-tv-sertao' },
+  { key: 'historia', label: 'Modo História', testId: 'btn-select-mode-historia' },
+] as const;
 
 export const ArenaTabView = defineComponent({
   name: 'ArenaTabView',
@@ -24,7 +32,7 @@ export const ArenaTabView = defineComponent({
     onDesistir: { type: Function as PropType<() => void> },
   },
   setup(props) {
-    const selectedMode = ref<'arena' | 'campanha' | 'tvsertao'>('arena');
+    const selectedMode = ref<'arena' | 'campanha' | 'tvsertao' | 'historia'>('arena');
     const campaignStage = ref(1);
     const towerFloor = ref(props.runtime.pve.getCurrentTowerFloor());
     const handleAdvanceTower = () => { towerFloor.value = props.runtime.pve.advanceTowerFloor(); };
@@ -127,25 +135,18 @@ export const ArenaTabView = defineComponent({
             h(RankedLeaguePanel, { runtime: props.runtime }),
             h(ClimaticTowerPanel, { runtime: props.runtime }),
             h(AlternativeCombatModesPanel, { runtime: props.runtime }),
-            h('div', { style: { display: 'flex', gap: '8px', marginTop: '10px' } }, [
-              h('button', {
-                type: 'button', 'data-testid': 'btn-select-mode-arena',
-                style: btnStyle(selectedMode.value === 'arena' ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel),
-                onClick: () => { selectedMode.value = 'arena'; },
-              }, 'Arena 3v3'),
-              h('button', {
-                type: 'button', 'data-testid': 'btn-select-mode-estrada-torre',
-                style: btnStyle(selectedMode.value === 'campanha' ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel),
-                onClick: () => { selectedMode.value = 'campanha'; },
-              }, 'Estrada do Sertão & Torre'),
-              h('button', {
-                type: 'button', 'data-testid': 'btn-select-mode-tv-sertao',
-                style: btnStyle(selectedMode.value === 'tvsertao' ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel),
-                onClick: () => { selectedMode.value = 'tvsertao'; cordelAudio.playZabumbaTabSwitch(); },
-              }, 'TV Sertão'),
-            ]),
+            h('div', { style: { display: 'flex', gap: '8px', marginTop: '10px', flexWrap: 'wrap' } },
+              MODE_DEFS.map((m) =>
+                h('button', {
+                  key: m.key, type: 'button', 'data-testid': m.testId,
+                  style: btnStyle(selectedMode.value === m.key ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel),
+                  onClick: () => { selectedMode.value = m.key; if (m.key !== 'arena') cordelAudio.playZabumbaTabSwitch(); },
+                }, m.label),
+              ),
+            ),
             h(CampaignTorreVisualPanel, { runtime: props.runtime }),
             h(TVSertaoReplayPanel, { runtime: props.runtime }),
+            h(ModoHistoriaDialogoPanel, { runtime: props.runtime }),
           ]),
         ],
       });

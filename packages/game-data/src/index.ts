@@ -13,3 +13,4 @@ export * from './divine-pass-calendar.js';
 export * from './growth-fund-table.js';
 export * from './uf-federation.js';
 export * from './cordel-puzzles.js';
+export * from './cordel-story-dialogues.js';

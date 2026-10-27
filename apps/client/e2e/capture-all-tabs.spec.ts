@@ -36,6 +36,14 @@ test('Capture Screenshots of All Pranchas and Systems', async ({ page }) => {
     await page.screenshot({ path: `${SCREENSHOT_DIR}/03c_tv_sertao.png`, fullPage: false });
   }
 
+  // Tab 2 Subtab: Modo História - Diálogos de Cordel
+  const btnHistoria = page.getByTestId('btn-select-mode-historia');
+  if (await btnHistoria.isVisible()) {
+    await btnHistoria.click();
+    await page.waitForTimeout(400);
+    await page.screenshot({ path: `${SCREENSHOT_DIR}/03d_modo_historia.png`, fullPage: false });
+  }
+
   // Tab 3: Galos - Plantel (Prancha 07)
   await page.getByTestId('nav-tab-Galos').click();
   await page.waitForTimeout(600);
