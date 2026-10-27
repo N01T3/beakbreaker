@@ -1,0 +1,76 @@
+================================================================================
+BEAKBREAKER GDD v5.0 MASTER - ACERVO COMPLETO DE ARTES E INTERFACES (33 PRANCHAS)
+================================================================================
+
+Total de arquivos de imagem neste pacote: 33 pranchas em alta resolucao (.PNG)
+- 01 a 15: Todas as 15 Pranchas Originais da Biblia GDD v4.0 Master
+- 16 a 33: Todas as 18 Novas Pranchas Geradas na sessao (Complemento v5.0)
+
+LISTA DETALHADA DE ARQUIVOS:
+----------------------------
+* 01_ORIG_P01_Painel_Fundacional_Pitch_BeakBreaker.png (2,469,647 bytes)
+  -> Original GDD v4.0 (Pag. 01) - Figura 1.1: Painel Fundacional de Pitch 18+, Pilares e Referencias
+* 02_ORIG_P02_Direcao_Visual_Cordel_Pop_8_Telas.png (2,880,186 bytes)
+  -> Original GDD v4.0 (Pag. 02) - Figura 2.1: Paleta Oficial, Tipografia e 8 Telas Fundacionais
+* 03_ORIG_P04_Fazenda_Viva_2_0_Poleiros_Elementais.png (2,155,170 bytes)
+  -> Original GDD v4.0 (Pag. 04) - Figura 4.1: Fazenda Isométrica com 5 Poleiros Elementais, Sede, Milharal e Ninhal
+* 04_ORIG_P06_Oficina_da_Vila_e_6_Classes_Sinergias.png (1,800,387 bytes)
+  -> Original GDD v4.0 (Pag. 06) - Figura 6.1: Oficina da Vila (+15) e As 6 Classes Taticas & Sinergias
+* 05_ORIG_P07_Combate_3v3_Arena_Arraial_PAH.png (1,769,854 bytes)
+  -> Original GDD v4.0 (Pag. 07) - Figura 7.1: Combate 3v3 na Arena com Vigor/Canto, PAH! -182 e Torcida
+* 06_ORIG_P08_Heranca_Evolucao_Ramificada_Mutacao.png (1,470,265 bytes)
+  -> Original GDD v4.0 (Pag. 08) - Figura 8.1: Evolucao Ramificada (Caatinga vs Agreste) e Sombra Armorial
+* 07_ORIG_P09_Santuario_Genetico_e_Arvore_da_Vida.png (1,826,117 bytes)
+  -> Original GDD v4.0 (Pag. 09) - Figura 9.1: Santuario Genetico da Serra (Nv. 8) e Arvore da Vida
+* 08_ORIG_P10_Despertar_Astral_Ficha_Sol_do_Sertao.png (1,638,965 bytes)
+  -> Original GDD v4.0 (Pag. 10) - Figura 10.1: Despertar Astral e Ficha do Galo Sol do Sertao (NG 60)
+* 09_ORIG_P11_Album_Mestre_Pags_01_02_Galos_01_a_24.png (2,073,098 bytes)
+  -> Original GDD v4.0 (Pag. 11) - Figura 11.1: Livro de Cordel Pags. 01 e 02 (Cards #01 a #24)
+* 10_ORIG_P12_Lendas_do_Sertao_8_Guerreiros.png (1,921,159 bytes)
+  -> Original GDD v4.0 (Pag. 12) - Figura 12.1: Cards de Lendas do Sertao (Saci, Boitata, Carcara, Asa Branca Celestial, Cuca, Capoeira, Mamulengo, Fogo-Apagou)
+* 11_ORIG_P14_Sertao_Ancestral_Minas_e_6_Primordiais.png (2,142,470 bytes)
+  -> Original GDD v4.0 (Pag. 14) - Figura 14.1: Minas de Cristais, Lapidario e Os 6 Galos Primordiais do Folclore
+* 12_ORIG_P15_Campanha_Estrada_do_Sertao_e_Torre_100F.png (1,902,269 bytes)
+  -> Original GDD v4.0 (Pag. 15) - Figura 15.1: Mapa dos 6 Capitulos da Campanha e Torre do Mandacaru (100 Andares)
+* 13_ORIG_P16_Chocadeira_Pity_e_Corrida_de_Herois.png (1,648,422 bytes)
+  -> Original GDD v4.0 (Pag. 16) - Figura 16.1: Chocadeira (Banner Trovao do Sertao, Pity 57/80) e Corrida de Herois (Volta 5)
+* 14_ORIG_P17_Bando_Raid_Galo_Colosso_e_Guerra_Clans.png (1,806,286 bytes)
+  -> Original GDD v4.0 (Pag. 17) - Figura 17.1: Raid contra o Chefe Galo Colosso e Mapa da Guerra de Territorios
+* 15_ORIG_P18_Passe_Divino_e_Temporadas_Culturais.png (1,746,404 bytes)
+  -> Original GDD v4.0 (Pag. 18) - Figura 18.1: Passe Divino (Galo Balao 3 Estrelas, Altar) e 4 Cards Sazonais
+* 16_NOVO_Album_Mestre_Pags_03_04_Galos_25_a_40.png (910,831 bytes)
+  -> Nova Prancha v5.0 - Livro de Cordel Pags. 03 e 04: Cards #25 a #40 (incluindo Bacurau, Barro Vermelho, Carranca, Pescador, Baladeira, Mamulengo, Capoeira, Pifano, Fogo-Apagou e Arco-Iris do Sertao)
+* 17_NOVO_As_6_Mutacoes_Secretas_do_Ninhal_5pct.png (998,440 bytes)
+  -> Nova Prancha v5.0 - As 6 Mutacoes Secretas (5%): Sombra Armorial, Galo de Vapor, Galo Queimada, Galo Mare Alta, Galo Eclipse e Galo do Mangue
+* 18_NOVO_Os_6_Chefes_Finais_da_Campanha_Estrada_Sertao.png (1,026,804 bytes)
+  -> Nova Prancha v5.0 - Os 6 Chefes de Capitulo: Valentao, Zabumba Gigante, Barqueira do Rio, Caipora Ancestral, Jangadeiro do Vento e Galo de Ferro
+* 19_NOVO_Saque_Fazenda_4_Defesas_e_4_Torres_Santos.png (990,769 bytes)
+  -> Nova Prancha v5.0 - Saque de Fazenda (Cerca, Estilingue, Espantalho, Cata-Vento, Escudo 8h, Revanche +50%) e As 4 Torres dos Santos Padroeiros
+* 20_NOVO_Liga_Ranqueada_Supremo_9v9_e_TV_Sertao_Emotes.png (920,289 bytes)
+  -> Nova Prancha v5.0 - As 6 Faixas da Liga Ranqueada, Ranking UF, Liga Supremo 9v9, TV Sertao Ao Vivo (Bolao 500 Milho) e Emotes de Cordel
+* 21_NOVO_Labirinto_Sao_Joao_Neblina_Roda_e_Loteria.png (1,082,386 bytes)
+  -> Nova Prancha v5.0 - Eventos Live-Ops: Tabuleiro do Labirinto de Sao Joao & Neblina, Roda do Arraial e Loteria Semanal
+* 22_NOVO_Feira_Troca_Orbes_Loja_Bando_Encomendas_Enfermaria.png (988,187 bytes)
+  -> Nova Prancha v5.0 - Feira de Troca de Orbes, Loja do Bando (Joia da Fenix, Essencia Astral), Encomendas da Feira e Enfermaria Legal 18+
+* 23_NOVO_Loja_P2W_Cofre_Oferta_Pity_Web_Pix_e_Blindagem_18.png (837,709 bytes)
+  -> Nova Prancha v5.0 - Cofre do Galo de Ouro (Piggy Bank), Pacote Iniciante R$ 9,90, Oferta Relampago Pity, Loja Web Pix (+15%) e Blindagem 18+ ECA Digital
+* 24_NOVO_Joias_Vantagem_Conjuntos_e_Rig_Mestre_Spine2D.png (885,393 bytes)
+  -> Nova Prancha v5.0 - Joias de Vantagem (Fenix, Ceifador, Procriacao), Conjuntos da Oficina e Diagrama Modular do Rig Mestre Spine 2D (6 pecas)
+* 25_NOVO_Galeria_13_Temporadas_Culturais_Ano1_Parte_1.png (1,101,793 bytes)
+  -> Nova Prancha v5.0 - Galeria Sazonal do Ano 1 (Parte 1 - 13 Campeoes): Fogueteiro, Mestre-Sala, Senhor das Chuvas, Rei do Milho, Rainha do Xote, Marcador da Quadrilha, Aboiador, Matinta, Ipe, Visagento, Cantador de Ouro, Pastorinha e Velho Campeao
+* 26_NOVO_Loja_Completa_do_Arraial_Assinaturas_Fundo_VIP15.png (901,177 bytes)
+  -> Nova Prancha v5.0 - Tela Completa da Loja do Arraial: Cartao do Fazendeiro, Clube de Orbes, Fundo de Crescimento da Sede, Combo Happy Hour, Bau de Joias e VIP 1-15
+* 27_NOVO_Calculadora_Ninhal_Centro_Treino_e_Poleiro_VIP.png (1,016,148 bytes)
+  -> Nova Prancha v5.0 - Calculadora Genetica do Ninhal (Barra de Empoderamento, 35% Hibrido, 5% Mutacao), Centro de Treino e Poleiro Armorial Universal VIP
+* 28_NOVO_Torneio_Arraial_Rei_Terreiro_Duelo_1x1_Predadores.png (1,019,163 bytes)
+  -> Nova Prancha v5.0 - Chaveamento do Torneio do Arraial, Rei do Terreiro, Arena Nivelada, Duelo Amistoso 1x1 (45s) e Caca a Predadores da Roca
+* 29_NOVO_Perfil_Vitrine_Chat_UF_e_Desafios_de_Cordel.png (1,033,331 bytes)
+  -> Nova Prancha v5.0 - Perfil do Jogador, Vitrine de Galos, Visitar Fazenda, Chat Estadual por UF, Desafios de Cordel e Conquistas
+* 30_NOVO_Tutorial_FTUE_15_Minutos_Escolha_3_Ovos_Vo_Tonho.png (984,033 bytes)
+  -> Nova Prancha v5.0 - Primeiros 15 Minutos (FTUE): Escolha dos 3 Ovos com Vo Tonho (Brisa do Rio Raro Garantido) e linha do tempo inicial
+* 31_NOVO_Galeria_Sazonal_Ano1_Parte_2_Meses_1_a_7.png (989,148 bytes)
+  -> Nova Prancha v5.0 - Galeria Sazonal do Ano 1 (Parte 2 - 11 Galos Meses 1 a 7): Senhor do Ano Novo, Esperanca, Passista, Acudeiro, Cururu, Debulhador, Roceiro, Triangulo, Rabequeiro, Quadrilheiro e Boiadeiro
+* 32_NOVO_Galeria_Sazonal_Ano1_Parte_3_Meses_8_a_13.png (1,101,680 bytes)
+  -> Nova Prancha v5.0 - Galeria Sazonal do Ano 1 (Parte 3 - 11 Galos Meses 8 a 13): Guardiao do Folclore, Bumba, Florada, Florado, Lamparina, Coruja, Feirante, Estrela Guia, Lapinha, Galo do Arraial e Pe-de-Serra
+* 33_NOVO_Os_8_Conjuntos_Oficina_e_11_Efeitos_de_Status.png (943,586 bytes)
+  -> Nova Prancha v5.0 - Os 8 Brasoes de Conjunto da Oficina (+15) e Iconografia Oficial dos 11 Efeitos de Status + Corta-Canto

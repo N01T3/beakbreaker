@@ -98,10 +98,17 @@ export const BranchingEvolutionPanel = defineComponent({
         ]),
         h('div', { 'data-testid': 'stats-preview-card', style: { border: `2px solid ${cardBorder}`, padding: '8px', backgroundColor: '#FFF', margin: '8px 0' } }, [
           h('div', { style: { fontWeight: 'bold' } }, `Preview de Atributos (${selectedBranch.value}):`),
-          h('div', { style: { fontSize: '13px' } }, isCaatinga
-            ? 'Força: 750 ➔ 1.012 (+35% Ataque Brasa) | Vigor: 9.500 ➔ 11.500 (+2.000) | Canto: 280 ➔ 400 (+120)'
-            : 'Força: 750 ➔ 900 (+150) | Vigor: 9.500 ➔ 13.300 (+40% Defesa Casca-Grossa) | Canto: 280 ➔ 380 (+100)'),
-          h('div', { style: { fontSize: '12px', fontStyle: 'italic', marginTop: '4px' } }, isCaatinga ? 'Passiva: Fogo Eterno' : 'Passiva: Regeneração Sertaneja'),
+          h('div', { style: { fontSize: '12px' } }, isCaatinga
+            ? 'Força: 750 ➔ 1.012 (+35% Ataque Brasa) | Vigor: 9.500 ➔ 11.500 | Canto: 280 ➔ 400'
+            : 'Força: 750 ➔ 900 (+150) | Vigor: 9.500 ➔ 13.300 (+40% Defesa Casca-Grossa) | Canto: 280 ➔ 380'),
+          h('div', { style: { fontSize: '11px', fontStyle: 'italic', marginTop: '2px' } }, isCaatinga ? 'Passiva: Fogo Eterno' : 'Passiva: Regeneração Sertaneja'),
+          h('div', { style: { marginTop: '6px', display: 'flex', alignItems: 'center', gap: '8px' } }, [
+            h('img', {
+              src: secretMutationActive.value ? '/assets/roosters/card_26.webp' : (isCaatinga ? '/assets/roosters/card_21.webp' : '/assets/roosters/card_25.webp'),
+              alt: 'Preview', style: { width: '48px', height: '60px', objectFit: 'contain', borderRadius: '4px', border: '1px solid #1B1B1B' },
+            }),
+            h('span', { style: { fontSize: '12px', fontWeight: 'bold' } }, secretMutationActive.value ? 'Galo Sombra Armorial (Mítico)' : (isCaatinga ? 'Galo Cangaceiro Brasa' : 'Galo Mata-Guerreiro')),
+          ]),
         ]),
         h('div', {
           'data-testid': 'secret-mutation-card',

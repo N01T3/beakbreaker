@@ -18,6 +18,10 @@ test('Capture Screenshots of All Pranchas and Systems', async ({ page }) => {
   // Tab 2: Lutar / Arena 3v3 (Prancha 09)
   await page.getByTestId('nav-tab-Lutar').click();
   await page.waitForTimeout(600);
+  const combatField = page.getByTestId('arena-combat-field');
+  if (await combatField.isVisible()) {
+    await combatField.scrollIntoViewIfNeeded();
+  }
   await page.screenshot({ path: `${SCREENSHOT_DIR}/03_arena_combate.png`, fullPage: false });
 
   // Tab 2 Subtab: Estrada do Sertão & Torre (Prancha 18)
@@ -47,6 +51,10 @@ test('Capture Screenshots of All Pranchas and Systems', async ({ page }) => {
   // Tab 3: Galos - Plantel (Prancha 07)
   await page.getByTestId('nav-tab-Galos').click();
   await page.waitForTimeout(600);
+  const albumElem = page.getByTestId('rooster-album-40');
+  if (await albumElem.isVisible()) {
+    await albumElem.scrollIntoViewIfNeeded();
+  }
   await page.screenshot({ path: `${SCREENSHOT_DIR}/04_album_galos.png`, fullPage: false });
 
   // Tab 3 Subtab: Evolução Ramificada (Prancha 10)
@@ -84,6 +92,15 @@ test('Capture Screenshots of All Pranchas and Systems', async ({ page }) => {
   // Tab 4: Bando & Passe (Pranchas 15, 16, 17, 21)
   await page.getByTestId('nav-tab-Bando').click();
   await page.waitForTimeout(600);
+  const vitrineToggle = page.getByTestId('btn-toggle-social-vitrine');
+  if (await vitrineToggle.isVisible()) {
+    await vitrineToggle.click();
+    await page.waitForTimeout(300);
+  }
+  const pedestals = page.getByTestId('vitrine-pedestals');
+  if (await pedestals.isVisible()) {
+    await pedestals.scrollIntoViewIfNeeded();
+  }
   await page.screenshot({ path: `${SCREENSHOT_DIR}/06_bando_passe_conquistas.png`, fullPage: false });
 
   // Tab 5: Loja PIX (Prancha 14)

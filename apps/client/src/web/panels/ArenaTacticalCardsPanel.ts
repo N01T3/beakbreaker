@@ -40,6 +40,11 @@ export const ArenaTacticalCardsPanel = defineComponent({
       const theme = ELEMENT_THEMES[card.element] ?? ELEMENT_THEMES.Brasa;
       const isSpecialReady = card.canto >= (card.maxCanto ?? 1000);
       const cantoPct = Math.min(100, Math.round((card.canto / (card.maxCanto ?? 1000)) * 100));
+      const roosterArt = card.slotIndex === 0
+        ? '/assets/roosters/card_18.webp'
+        : card.slotIndex === 1
+          ? '/assets/roosters/card_05.webp'
+          : '/assets/roosters/card_13.webp';
 
       return h('div', {
         key: card.slotIndex,
@@ -54,11 +59,13 @@ export const ArenaTacticalCardsPanel = defineComponent({
         h('div', {
           'data-testid': 'athlete-portrait',
           style: {
-            width: '42px', height: '42px', borderRadius: '50%', backgroundColor: CORDEL_PALETTE.cremePapel,
+            width: '42px', height: '42px', borderRadius: '50%', backgroundColor: '#FFF',
             border: `2px solid ${theme.border}`, display: 'flex', alignItems: 'center',
-            justifyContent: 'center', fontSize: '20px', marginBottom: '4px',
+            justifyContent: 'center', overflow: 'hidden', marginBottom: '4px',
           },
-        }, card.portraitEmoji ?? '🐓'),
+        }, [
+          h('img', { src: roosterArt, alt: card.name, style: { width: '100%', height: '100%', objectFit: 'cover' } }),
+        ]),
         h('strong', { style: { fontSize: '12px', color: CORDEL_PALETTE.tintaXilo } }, card.name),
         h('span', {
           style: { fontSize: '9px', fontWeight: 'bold', color: theme.text, textTransform: 'uppercase', marginBottom: '3px' },

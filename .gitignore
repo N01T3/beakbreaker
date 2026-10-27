@@ -4,3 +4,5 @@ dist/
 *.log
 coverage/
 docs/GDD_v5.0.pdf
+downloaded_gdrive/
+*.zip

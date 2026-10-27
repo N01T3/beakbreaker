@@ -107,6 +107,14 @@ export const RoosterAtletaCard = defineComponent({
             h('strong', { class: 'rooster-card__name' }, model.title),
             h('span', { class: 'rooster-card__level' }, model.levelLabel),
           ]),
+          h('div', { class: 'rooster-card__art-box', style: { textAlign: 'center', margin: '4px 0' } }, [
+            h('img', {
+              src: `/assets/roosters/card_${String(props.rooster.number).padStart(2, '0')}.webp`,
+              alt: model.title,
+              'data-testid': `rooster-art-${model.id}`,
+              style: { width: '100%', maxHeight: '130px', objectFit: 'contain', borderRadius: '4px', border: '1px solid #6D4C41' },
+            }),
+          ]),
           h('div', { class: 'rooster-card__badges' }, [
             h(RopeBadge, {
               text: props.rooster.primaryElement,

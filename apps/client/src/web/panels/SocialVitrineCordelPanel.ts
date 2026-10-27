@@ -96,13 +96,17 @@ export const SocialVitrineCordelPanel = defineComponent({
                   h('div', {
                     key: p.id, 'data-testid': `vitrine-pedestal-${p.id}`,
                     style: {
-                      border: '2px solid #1B1B1B', padding: '6px 10px',
-                      backgroundColor: CORDEL_PALETTE.cremePapel, textAlign: 'center', minWidth: '130px',
+                      border: '2px solid #1B1B1B', padding: '4px 6px',
+                      backgroundColor: CORDEL_PALETTE.cremePapel, textAlign: 'center', minWidth: '95px',
                     },
                   }, [
-                    h('strong', { style: { fontSize: '12px', display: 'block', color: CORDEL_PALETTE.vermelhoCrista } }, p.label),
-                    h('p', { style: { margin: '4px 0 2px 0', fontSize: '12px', fontWeight: 'bold' } }, p.name),
-                    h('span', { style: { fontSize: '11px', color: CORDEL_PALETTE.azulAnil } }, `Poder: ${p.power}`),
+                    h('strong', { style: { fontSize: '11px', display: 'block', color: CORDEL_PALETTE.vermelhoCrista } }, p.label),
+                    h('img', {
+                      src: p.id === 1 ? '/assets/roosters/card_01.webp' : p.id === 2 ? '/assets/roosters/card_02.webp' : '/assets/roosters/card_04.webp',
+                      alt: p.name, style: { width: '40px', height: '50px', objectFit: 'contain', borderRadius: '3px', margin: '2px 0' },
+                    }),
+                    h('p', { style: { margin: '0', fontSize: '11px', fontWeight: 'bold' } }, p.name),
+                    h('span', { style: { fontSize: '10px', color: CORDEL_PALETTE.azulAnil } }, `Poder: ${p.power}`),
                   ]),
                 ),
               ),

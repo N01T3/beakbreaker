@@ -74,21 +74,29 @@ export const ChocadeiraBannerPanel = defineComponent({
           'data-testid': 'chocadeira-egg-nest',
           style: {
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-            padding: '14px', margin: '10px 0', border: '2px solid #1B1B1B',
+            padding: '10px', margin: '8px 0', border: '2px solid #1B1B1B',
             background: 'radial-gradient(circle, #FFF8DC 25%, #E8D8B8 100%)',
           },
         }, [
           h('div', {
-            style: { position: 'relative', width: '120px', height: '90px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+            style: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' },
           }, [
-            h('div', {
-              style: {
-                position: 'absolute', width: '85px', height: '85px', borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(230,175,46,0.85) 0%, rgba(184,51,42,0.2) 70%, transparent 100%)',
-              },
+            h('img', {
+              src: '/assets/roosters/card_18.webp', alt: 'Trovão do Sertão',
+              style: { width: '65px', height: '82px', objectFit: 'contain', borderRadius: '4px', border: '2px solid #5C3A21' },
             }),
-            h('span', { style: { fontSize: '46px', zIndex: 2 } }, '🪺'),
-            h('span', { style: { position: 'absolute', top: '10px', fontSize: '30px', zIndex: 3 } }, '✨🥚✨'),
+            h('div', {
+              style: { position: 'relative', width: '85px', height: '82px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+            }, [
+              h('div', {
+                style: {
+                  position: 'absolute', width: '75px', height: '75px', borderRadius: '50%',
+                  background: 'radial-gradient(circle, rgba(230,175,46,0.85) 0%, rgba(184,51,42,0.2) 70%, transparent 100%)',
+                },
+              }),
+              h('span', { style: { fontSize: '38px', zIndex: 2 } }, '🪺'),
+              h('span', { style: { position: 'absolute', top: '8px', fontSize: '24px', zIndex: 3 } }, '✨🥚✨'),
+            ]),
           ]),
           h('p', {
             style: { margin: '4px 0 0 0', fontWeight: 'bold', fontSize: '12px', color: CORDEL_PALETTE.terracota },

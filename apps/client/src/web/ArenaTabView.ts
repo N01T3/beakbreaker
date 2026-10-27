@@ -79,16 +79,25 @@ export const ArenaTabView = defineComponent({
                 'data-testid': 'arena-combat-field',
                 style: { minHeight: '110px', margin: '8px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 12px' },
               }, [
-                h('div', { style: { display: 'flex', flexDirection: 'column', gap: '4px' } }, [
-                  h('span', { class: 'cordel-badge', style: { backgroundColor: '#1D7846', color: '#FFF', fontSize: '10px' } }, '🛡️ Trio Atleta'),
-                  h('div', { style: { fontSize: '26px' } }, '🐓 🪶 🛡️'),
+                h('div', { style: { display: 'flex', flexDirection: 'column', gap: '3px' } }, [
+                  h('span', { class: 'cordel-badge', style: { backgroundColor: '#1D7846', color: '#FFF', fontSize: '9px' } }, '🛡️ VOCÊ (Trio)'),
+                  h('div', { style: { display: 'flex', gap: '3px', alignItems: 'center' } }, [
+                    h('img', { src: '/assets/roosters/trovao_sprite_transparent.png', alt: 'Trovão', style: { width: '52px', height: '52px', objectFit: 'contain' } }),
+                    h('img', { src: '/assets/roosters/card_05.webp', alt: 'Brisa', style: { width: '34px', height: '42px', objectFit: 'contain', borderRadius: '4px' } }),
+                    h('img', { src: '/assets/roosters/card_13.webp', alt: 'Pedra', style: { width: '34px', height: '42px', objectFit: 'contain', borderRadius: '4px' } }),
+                  ]),
                 ]),
-                h('div', { style: { textAlign: 'center' } }, [
-                  h('span', { class: 'cordel-badge', style: { backgroundColor: CORDEL_PALETTE.amareloMilho, color: '#1B1B1B', fontWeight: '900', fontSize: '13px' } }, props.runtime.state.activePopups[0] ?? '⚔️ DUELO 3v3'),
+                h('div', { style: { textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' } }, [
+                  h('img', { src: '/assets/roosters/arena_starburst_pah.webp', alt: 'PAH!', style: { width: '48px', height: '48px', objectFit: 'contain' } }),
+                  h('span', { class: 'cordel-badge', style: { backgroundColor: CORDEL_PALETTE.amareloMilho, color: '#1B1B1B', fontWeight: '900', fontSize: '11px' } }, props.runtime.state.activePopups[0] ?? '⚔️ DUELO 3v3'),
                 ]),
-                h('div', { style: { display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' } }, [
-                  h('span', { class: 'cordel-badge', style: { backgroundColor: '#D7263D', color: '#FFF', fontSize: '10px' } }, '🦅 Sertão Inimigo'),
-                  h('div', { style: { fontSize: '26px' } }, '🦅 🦉 🪓'),
+                h('div', { style: { display: 'flex', flexDirection: 'column', gap: '3px', alignItems: 'flex-end' } }, [
+                  h('span', { class: 'cordel-badge', style: { backgroundColor: '#D7263D', color: '#FFF', fontSize: '9px' } }, '🦅 SERTÃO (Inimigo)'),
+                  h('div', { style: { display: 'flex', gap: '3px', alignItems: 'center' } }, [
+                    h('img', { src: '/assets/roosters/card_11.webp', alt: 'Cangaceiro', style: { width: '34px', height: '42px', objectFit: 'contain', borderRadius: '4px' } }),
+                    h('img', { src: '/assets/roosters/card_03.webp', alt: 'Caboré', style: { width: '34px', height: '42px', objectFit: 'contain', borderRadius: '4px' } }),
+                    h('img', { src: '/assets/roosters/card_14.webp', alt: 'Vaqueiro', style: { width: '34px', height: '42px', objectFit: 'contain', borderRadius: '4px' } }),
+                  ]),
                 ]),
               ]),
               h(ArenaTacticalCardsPanel, {
