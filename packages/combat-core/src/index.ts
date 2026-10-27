@@ -14,3 +14,4 @@ export * from './simulator/CombatReplaySerializer.js';
 export * from './simulator/TVReplayDecoder.js';
 export * from './systems/FarmDefenseSystem.js';
 export * from './simulator/TwoWaveRaidSimulator.js';
+export * from './systems/RankedLeagueSystem.js';

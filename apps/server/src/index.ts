@@ -60,6 +60,7 @@ export * from './modules/auth-18plus.js';
 export * from './modules/battle.js';
 export * from './modules/billing.js';
 export * from './modules/clan.js';
+export * from './modules/clan-tech-market.js';
 export * from './modules/farm.js';
 export * from './modules/gacha.js';
 export * from './server.js';
