@@ -9,6 +9,7 @@ import { RankedLeaguePanel } from './panels/RankedLeaguePanel.js';
 import { ClimaticTowerPanel } from './panels/ClimaticTowerPanel.js';
 import { AlternativeCombatModesPanel } from './panels/AlternativeCombatModesPanel.js';
 import { CampaignTorreVisualPanel } from './panels/CampaignTorreVisualPanel.js';
+import { TVSertaoReplayPanel } from './panels/TVSertaoReplayPanel.js';
 import { useGameStore } from '../stores/useGameStore.js';
 
 const btnStyle = (bg: string, fg: string = CORDEL_PALETTE.tintaXilo) => ({
@@ -23,7 +24,7 @@ export const ArenaTabView = defineComponent({
     onDesistir: { type: Function as PropType<() => void> },
   },
   setup(props) {
-    const selectedMode = ref<'arena' | 'campanha'>('arena');
+    const selectedMode = ref<'arena' | 'campanha' | 'tvsertao'>('arena');
     const campaignStage = ref(1);
     const towerFloor = ref(props.runtime.pve.getCurrentTowerFloor());
     const handleAdvanceTower = () => { towerFloor.value = props.runtime.pve.advanceTowerFloor(); };
@@ -137,8 +138,14 @@ export const ArenaTabView = defineComponent({
                 style: btnStyle(selectedMode.value === 'campanha' ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel),
                 onClick: () => { selectedMode.value = 'campanha'; },
               }, 'Estrada do Sertão & Torre'),
+              h('button', {
+                type: 'button', 'data-testid': 'btn-select-mode-tv-sertao',
+                style: btnStyle(selectedMode.value === 'tvsertao' ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel),
+                onClick: () => { selectedMode.value = 'tvsertao'; cordelAudio.playZabumbaTabSwitch(); },
+              }, 'TV Sertão'),
             ]),
             h(CampaignTorreVisualPanel, { runtime: props.runtime }),
+            h(TVSertaoReplayPanel, { runtime: props.runtime }),
           ]),
         ],
       });

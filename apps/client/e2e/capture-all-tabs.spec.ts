@@ -28,6 +28,14 @@ test('Capture Screenshots of All Pranchas and Systems', async ({ page }) => {
     await page.screenshot({ path: `${SCREENSHOT_DIR}/03b_estrada_torre.png`, fullPage: false });
   }
 
+  // Tab 2 Subtab: TV Sertão & Replay (Prancha 19)
+  const btnTVSertao = page.getByTestId('btn-select-mode-tv-sertao');
+  if (await btnTVSertao.isVisible()) {
+    await btnTVSertao.click();
+    await page.waitForTimeout(400);
+    await page.screenshot({ path: `${SCREENSHOT_DIR}/03c_tv_sertao.png`, fullPage: false });
+  }
+
   // Tab 3: Galos - Plantel (Prancha 07)
   await page.getByTestId('nav-tab-Galos').click();
   await page.waitForTimeout(600);
@@ -39,6 +47,14 @@ test('Capture Screenshots of All Pranchas and Systems', async ({ page }) => {
     await btnEvolucao.click();
     await page.waitForTimeout(400);
     await page.screenshot({ path: `${SCREENSHOT_DIR}/04b_evolucao_ramificada.png`, fullPage: false });
+  }
+
+  // Tab 3 Subtab: Oficina +15 & Forja (Prancha 12)
+  const btnOficina = page.getByTestId('subtab-oficina');
+  if (await btnOficina.isVisible()) {
+    await btnOficina.click();
+    await page.waitForTimeout(400);
+    await page.screenshot({ path: `${SCREENSHOT_DIR}/04c_oficina_forja.png`, fullPage: false });
   }
 
   // Tab 4: Bando & Passe (Pranchas 15, 16, 17, 21)

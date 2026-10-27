@@ -124,6 +124,7 @@ export class AudioService {
   public playXiloHitSfx(): boolean { return this.playWithSynth('sfx_xilo_pah'); }
   public playTorcidaCheer(): boolean { return this.playWithSynth('sfx_canto_especial'); }
   public playCortaCantoSfx(): boolean { return this.playWithSynth('sfx_corta_canto'); }
+  public playApitoCortaCanto(): boolean { return this.playWithSynth('sfx_corta_canto'); }
 
   public getSynthStats(): SynthStats {
     return { sfxCount: this.synth.sfxCount, lastPlayedSfx: this.synth.lastPlayedSfx };

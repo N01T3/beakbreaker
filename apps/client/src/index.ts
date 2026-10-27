@@ -52,6 +52,8 @@ export * from './web/panels/ChocadeiraBannerPanel.js';
 export * from './web/panels/HeroRaceTrackPanel.js';
 export * from './web/panels/LabirintoRodaVisualPanel.js';
 export * from './web/panels/BranchingEvolutionPanel.js';
+export * from './web/panels/OficinaForjaPanel.js';
+export * from './web/panels/TVSertaoReplayPanel.js';
 export * from './web/RoostersTabView.js';
 export * from './web/FarmTabView.js';
 export * from './main.js';
