@@ -6,3 +6,4 @@ export * from './genetics-recipes.js';
 export * from './gacha-pity.js';
 export * from './roosters/index.js';
 export * from './campaign-stages.js';
+export * from './infirmary-potions.js';

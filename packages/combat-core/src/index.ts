@@ -12,3 +12,5 @@ export * from './systems/ClimaticModifierSystem.js';
 export * from './simulator/BattleEngine.js';
 export * from './simulator/CombatReplaySerializer.js';
 export * from './simulator/TVReplayDecoder.js';
+export * from './systems/FarmDefenseSystem.js';
+export * from './simulator/TwoWaveRaidSimulator.js';

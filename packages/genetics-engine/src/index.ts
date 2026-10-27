@@ -5,3 +5,5 @@ export * from './OrbEconomy.js';
 export * from './GachaEngine.js';
 export * from './HeroRacePoolService.js';
 export * from './PerchCalculator.js';
+export * from './TrainingCenterCalculator.js';
+export * from './BarnProtectionCalculator.js';
