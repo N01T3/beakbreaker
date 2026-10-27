@@ -15,3 +15,4 @@ export * from './simulator/TVReplayDecoder.js';
 export * from './systems/FarmDefenseSystem.js';
 export * from './simulator/TwoWaveRaidSimulator.js';
 export * from './systems/RankedLeagueSystem.js';
+export * from './systems/LabyrinthDungeonEngine.js';

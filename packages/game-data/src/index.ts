@@ -9,3 +9,4 @@ export * from './campaign-stages.js';
 export * from './infirmary-potions.js';
 export * from './pedigree-lineage.js';
 export * from './achievements-catalog.js';
+export * from './divine-pass-calendar.js';

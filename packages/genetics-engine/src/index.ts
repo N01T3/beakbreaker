@@ -9,3 +9,4 @@ export * from './TrainingCenterCalculator.js';
 export * from './BarnProtectionCalculator.js';
 export * from './AstralAwakeningCalculator.js';
 export * from './LapidarySystem.js';
+export * from './FortuneWheelEngine.js';
