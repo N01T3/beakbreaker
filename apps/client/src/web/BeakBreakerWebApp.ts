@@ -83,23 +83,15 @@ export const BeakBreakerWebApp = defineComponent({
             onOpenStore: () => handleTabChange('Loja'),
             onToggleAudio: handleToggleAudio,
           }),
-          h(
-            'div',
-            {
-              'data-testid': 'milho-balance',
-              style: {
-                marginTop: '6px', padding: '4px 10px', backgroundColor: CORDEL_PALETTE.amareloMilho,
-                border: '2px solid #1B1B1B', boxShadow: '2px 2px 0 #1B1B1B', fontWeight: 'bold', display: 'inline-block',
-              },
-            },
-            `Saldo de Milho: ${store.milho}`,
-          ),
-          h(PlatformBridgeBar),
+          h('div', {
+            'data-testid': 'milho-balance',
+            style: { display: 'none' },
+          }, `Saldo de Milho: ${store.milho}`),
         ]),
-        h('div', { style: { marginTop: '12px' } }, [
+        !store.ageVerified18Plus ? h('div', { style: { marginBottom: '8px' } }, [
           h(FtueGateView, { runtime, onFtueReady: () => { store.setAgeVerified(true); } }),
-        ]),
-        h('div', { style: { marginTop: '12px' } }, [
+        ]) : null,
+        h('div', { style: { display: 'none' } }, [
           h(CordelStageCanvas, {
             activeTab: store.activeHubTab,
             sedeLevel: store.sedeLevel >= 12 ? store.sedeLevel : 12,
@@ -111,7 +103,7 @@ export const BeakBreakerWebApp = defineComponent({
             heroRaceLap: runtime.state.heroRaceLap,
           }),
         ]),
-        h('main', { 'data-testid': 'active-tab-stage', style: { marginTop: '12px', flex: '1' } }, [
+        h('main', { 'data-testid': 'active-tab-stage', style: { marginTop: '8px', flex: '1', width: '100%' } }, [
           renderActiveTab(),
         ]),
         h(

@@ -1,0 +1,530 @@
+/* ==========================================================================
+   BEAKBREAKER: SERTÃO ROYALE — SUPERCELL GAME DESIGN SYSTEM
+   Inspirado na direção de arte e UX de Clash of Clans & Clash Royale
+   Combinado com a essência cultural do Cordel Pop Nordestino
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@500;700;900&family=Luckiest+Guy&display=swap');
+
+:root {
+  --font-game-title: 'Luckiest Guy', cursive, sans-serif;
+  --font-game-display: 'Bungee', cursive, sans-serif;
+  --font-game-ui: 'Fredoka', -apple-system, system-ui, sans-serif;
+
+  /* Cores Supercell & Cordel */
+  --sc-gold-light: #FFE066;
+  --sc-gold-main: #F5A60B;
+  --sc-gold-dark: #B45309;
+  --sc-gold-shadow: #78350F;
+
+  --sc-green-light: #5BE139;
+  --sc-green-main: #22C55E;
+  --sc-green-dark: #15803D;
+  --sc-green-shadow: #0A2D03;
+
+  --sc-blue-light: #60A5FA;
+  --sc-blue-main: #3B82F6;
+  --sc-blue-dark: #1D4ED8;
+  --sc-blue-shadow: #1E3A8A;
+
+  --sc-red-light: #F87171;
+  --sc-red-main: #EF4444;
+  --sc-red-dark: #B91C1C;
+  --sc-red-shadow: #7F1D1D;
+
+  --sc-wood-light: #854D0E;
+  --sc-wood-main: #451A03;
+  --sc-wood-dark: #270F03;
+  --sc-dark-panel: #1A120B;
+
+  --sc-card-radius: 14px;
+  --sc-btn-radius: 12px;
+}
+
+/* Base Mobile Container */
+body {
+  background: #0B0907 radial-gradient(circle at 50% 20%, #26160C 0%, #0A0705 100%) !important;
+  font-family: var(--font-game-ui) !important;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  max-width: 440px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  min-height: 100vh !important;
+  background: #1C130D linear-gradient(180deg, #24160E 0%, #150E09 100%) !important;
+  border-left: 3px solid #5A3517 !important;
+  border-right: 3px solid #5A3517 !important;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), inset 0 0 100px rgba(0, 0, 0, 0.5) !important;
+  color: #FFF !important;
+  position: relative !important;
+  overflow-x: hidden !important;
+}
+
+/* ==========================================================================
+   TOP BAR HUD (Clash of Clans & Clash Royale Style)
+   ========================================================================== */
+.woodcut-header {
+  background: linear-gradient(180deg, #2D1B11 0%, #180D07 100%) !important;
+  border: none !important;
+  border-bottom: 3px solid #854D0E !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8) !important;
+  padding: 6px 8px !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+}
+
+.woodcut-header__identity {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.woodcut-header__avatar {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 38px !important;
+  height: 38px !important;
+  background: radial-gradient(circle, #F5A60B 0%, #78350F 100%) !important;
+  border: 2px solid #FFE066 !important;
+  border-radius: 50% !important;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6), inset 0 2px 2px rgba(255, 255, 255, 0.4) !important;
+  font-size: 20px !important;
+}
+
+.woodcut-header__name {
+  font-family: var(--font-game-title) !important;
+  font-size: 15px !important;
+  color: #FFE066 !important;
+  text-shadow: 0 2px 0 #3E1E07, 0 3px 4px rgba(0, 0, 0, 0.8) !important;
+  letter-spacing: 0.5px !important;
+}
+
+.woodcut-header__nc {
+  background: linear-gradient(180deg, #3B82F6 0%, #1D4ED8 100%) !important;
+  border: 2px solid #60A5FA !important;
+  border-radius: 8px !important;
+  color: #FFF !important;
+  font-family: var(--font-game-display) !important;
+  font-size: 11px !important;
+  padding: 2px 6px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  text-shadow: 0 1px 2px #000 !important;
+}
+
+.woodcut-header__sede {
+  background: linear-gradient(180deg, #22C55E 0%, #15803D 100%) !important;
+  border: 2px solid #86EFAC !important;
+  border-radius: 8px !important;
+  color: #FFF !important;
+  font-family: var(--font-game-display) !important;
+  font-size: 11px !important;
+  padding: 2px 6px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  text-shadow: 0 1px 2px #000 !important;
+}
+
+.button-audio-toggle {
+  background: linear-gradient(180deg, #FFE066 0%, #F5A60B 100%) !important;
+  border: 2px solid #78350F !important;
+  border-bottom: 4px solid #78350F !important;
+  border-radius: 10px !important;
+  color: #3E1E07 !important;
+  font-family: var(--font-game-ui) !important;
+  font-weight: 900 !important;
+  font-size: 12px !important;
+  padding: 4px 8px !important;
+  box-shadow: 0 3px 0 #451A03 !important;
+  transition: transform 0.08s ease !important;
+}
+.button-audio-toggle:active {
+  transform: translateY(2px) !important;
+  border-bottom-width: 2px !important;
+}
+
+/* Resource Pills (Moedas, Gemas, Fôlego) */
+.woodcut-header__resources {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 4px !important;
+  margin-top: 4px !important;
+}
+
+.resource-pill {
+  background: linear-gradient(180deg, #22140B 0%, #120A05 100%) !important;
+  border: 2px solid #5A3517 !important;
+  border-radius: 16px !important;
+  padding: 2px 8px 2px 6px !important;
+  color: #FFF !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 2px 4px rgba(0, 0, 0, 0.6) !important;
+}
+
+.resource-pill__label {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #CDB397 !important;
+  text-transform: uppercase !important;
+}
+
+.resource-pill__value {
+  font-family: var(--font-game-display) !important;
+  font-size: 12px !important;
+  color: #FFF !important;
+  text-shadow: 0 1px 2px #000 !important;
+}
+
+.resource-pill__plus {
+  background: linear-gradient(180deg, #5BE139 0%, #15803D 100%) !important;
+  border: 1px solid #86EFAC !important;
+  border-radius: 50% !important;
+  width: 17px !important;
+  height: 17px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #FFF !important;
+  font-weight: 900 !important;
+  font-size: 13px !important;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ==========================================================================
+   SUPERCELL 3D EXTRACTED BUTTONS
+   ========================================================================== */
+button, .game-btn {
+  font-family: var(--font-game-ui) !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border-radius: var(--sc-btn-radius) !important;
+  box-sizing: border-box !important;
+  cursor: pointer !important;
+  position: relative !important;
+  transition: transform 0.08s ease, filter 0.08s ease !important;
+}
+
+button:active, .game-btn:active {
+  transform: translateY(3px) !important;
+}
+
+/* Verde Clash (Batalhar / Melhorar / Confirmar) */
+.btn-green, [data-testid="btn-harvest-all"], [data-testid="btn-colher-milho-pronto"], [data-testid="btn-confirm-evolution"] {
+  background: linear-gradient(180deg, #5BE139 0%, #22C55E 48%, #16A34A 52%, #15803D 100%) !important;
+  border: 2px solid #14532D !important;
+  border-bottom: 5px solid #0A2D03 !important;
+  color: #FFF !important;
+  text-shadow: 0 2px 0 #0A2D03, 0 3px 4px rgba(0, 0, 0, 0.7) !important;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.6), 0 5px 0 #0A2D03, 0 8px 12px rgba(0, 0, 0, 0.6) !important;
+}
+.btn-green:active, [data-testid="btn-harvest-all"]:active {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 0 #0A2D03 !important;
+  border-bottom-width: 2px !important;
+}
+
+/* Dourado Clash (Comprar / Coletar / Recompensas) */
+.btn-gold, [data-testid="btn-upgrade-sede"], [data-testid="btn-cheer-torcida"] {
+  background: linear-gradient(180deg, #FFE066 0%, #F5A60B 48%, #D97706 52%, #B45309 100%) !important;
+  border: 2px solid #78350F !important;
+  border-bottom: 5px solid #451A03 !important;
+  color: #FFF !important;
+  text-shadow: 0 2px 0 #451A03, 0 3px 4px rgba(0, 0, 0, 0.7) !important;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.6), 0 5px 0 #451A03, 0 8px 12px rgba(0, 0, 0, 0.6) !important;
+}
+.btn-gold:active {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 0 #451A03 !important;
+  border-bottom-width: 2px !important;
+}
+
+/* Vermelho / Laranja Clash (Luta / Ataque) */
+.btn-red, [data-testid="branch-caatinga"] {
+  background: linear-gradient(180deg, #F87171 0%, #EF4444 48%, #DC2626 52%, #B91C1C 100%) !important;
+  border: 2px solid #7F1D1D !important;
+  border-bottom: 5px solid #450A0A !important;
+  color: #FFF !important;
+  text-shadow: 0 2px 0 #450A0A, 0 3px 4px rgba(0, 0, 0, 0.7) !important;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.6), 0 5px 0 #450A0A, 0 8px 12px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Azul Elixir Clash */
+.btn-blue, [data-testid="branch-agreste"] {
+  background: linear-gradient(180deg, #60A5FA 0%, #3B82F6 48%, #2563EB 52%, #1D4ED8 100%) !important;
+  border: 2px solid #1E3A8A !important;
+  border-bottom: 5px solid #0F172A !important;
+  color: #FFF !important;
+  text-shadow: 0 2px 0 #0F172A, 0 3px 4px rgba(0, 0, 0, 0.7) !important;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.6), 0 5px 0 #0F172A, 0 8px 12px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ==========================================================================
+   CLASH ROYALE STYLE CARDS (.rooster-card)
+   ========================================================================== */
+.rooster-card {
+  border-radius: var(--sc-card-radius) !important;
+  border: 3px solid #854D0E !important;
+  background: linear-gradient(180deg, #3A2315 0%, #1E120A 100%) !important;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 6px 14px rgba(0, 0, 0, 0.8) !important;
+  padding: 8px !important;
+  position: relative !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+  color: #FFF !important;
+}
+
+.rooster-card:hover {
+  transform: translateY(-4px) scale(1.02) !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(245, 166, 11, 0.4) !important;
+}
+
+.rooster-card__header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 6px !important;
+}
+
+.rooster-card__number {
+  font-family: var(--font-game-display) !important;
+  font-size: 11px !important;
+  color: #FFE066 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  padding: 2px 6px !important;
+  border-radius: 6px !important;
+  border: 1px solid #78350F !important;
+}
+
+.rooster-card__name {
+  font-family: var(--font-game-title) !important;
+  font-size: 13px !important;
+  color: #FFF !important;
+  text-shadow: 0 2px 0 #000, 0 0 8px rgba(0, 0, 0, 0.8) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 110px !important;
+}
+
+.rooster-card__level {
+  background: linear-gradient(180deg, #3B82F6 0%, #1D4ED8 100%) !important;
+  border: 1.5px solid #93C5FD !important;
+  border-radius: 6px !important;
+  font-family: var(--font-game-display) !important;
+  font-size: 10px !important;
+  padding: 2px 5px !important;
+  color: #FFF !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+.rooster-card__art-box {
+  background: radial-gradient(circle, #5A3517 0%, #1E120A 100%) !important;
+  border: 2px solid #854D0E !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  padding: 4px !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8) !important;
+}
+
+.rooster-card__art-box img {
+  border: none !important;
+  border-radius: 8px !important;
+  transition: transform 0.2s ease !important;
+}
+.rooster-card:hover .rooster-card__art-box img {
+  transform: scale(1.05) !important;
+}
+
+/* ==========================================================================
+   BOTTOM NAVIGATION DOCK (Clash Royale 5-Tab Bar)
+   ========================================================================== */
+[data-testid="cordel-bottom-nav"] {
+  background: linear-gradient(180deg, #2D1A10 0%, #150C07 100%) !important;
+  border: none !important;
+  border-top: 3px solid #854D0E !important;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.9) !important;
+  padding: 8px 6px 12px 6px !important;
+  position: sticky !important;
+  bottom: 0 !important;
+  z-index: 99 !important;
+}
+
+[data-testid^="nav-tab-"] {
+  background: linear-gradient(180deg, #3A2315 0%, #20130B 100%) !important;
+  border: 2px solid #5A3517 !important;
+  border-bottom: 4px solid #361E0D !important;
+  border-radius: 12px !important;
+  color: #CDB397 !important;
+  font-family: var(--font-game-ui) !important;
+  font-weight: 900 !important;
+  font-size: 11px !important;
+  padding: 6px 2px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6) !important;
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+}
+
+/* Tab Ativa Pops Up (estilo Clash Royale) */
+[data-testid^="nav-tab-"][style*="rgb(244, 180, 0)"],
+[data-testid^="nav-tab-"][style*="#F4B400"],
+[data-testid^="nav-tab-"][style*="#f4b400"] {
+  background: linear-gradient(180deg, #FFE066 0%, #F5A60B 48%, #D97706 52%, #B45309 100%) !important;
+  border: 2px solid #FFF !important;
+  border-bottom: 5px solid #451A03 !important;
+  color: #FFF !important;
+  text-shadow: 0 2px 0 #451A03, 0 3px 4px rgba(0, 0, 0, 0.8) !important;
+  transform: translateY(-8px) scale(1.08) !important;
+  box-shadow: 0 8px 18px rgba(245, 166, 11, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.8) !important;
+  z-index: 10 !important;
+}
+
+/* ==========================================================================
+   SUBTABS SELECTORS & PILLS
+   ========================================================================== */
+[data-testid="subtab-selector"],
+[data-testid="tab-selector-luta"],
+[data-testid="tab-selector-galos"],
+[data-testid="tab-selector-bando"],
+[data-testid="tab-selector-loja"] {
+  background: #150E09 !important;
+  border: 2px solid #452410 !important;
+  border-radius: 14px !important;
+  padding: 4px !important;
+  display: flex !important;
+  gap: 4px !important;
+  overflow-x: auto !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+  margin-bottom: 10px !important;
+}
+
+[data-testid="subtab-selector"] button,
+[data-testid="tab-selector-luta"] button,
+[data-testid="tab-selector-galos"] button,
+[data-testid="tab-selector-bando"] button,
+[data-testid="tab-selector-loja"] button {
+  background: transparent !important;
+  border: none !important;
+  color: #A8907A !important;
+  font-size: 11px !important;
+  padding: 6px 10px !important;
+  border-radius: 10px !important;
+  white-space: nowrap !important;
+}
+
+[data-testid="subtab-selector"] button[style*="rgb(244, 180, 0)"],
+[data-testid="tab-selector-luta"] button[style*="rgb(244, 180, 0)"],
+[data-testid="tab-selector-galos"] button[style*="rgb(244, 180, 0)"],
+[data-testid="tab-selector-bando"] button[style*="rgb(244, 180, 0)"],
+[data-testid="tab-selector-loja"] button[style*="rgb(244, 180, 0)"],
+[data-testid="subtab-selector"] button[style*="#1B1B1B"] {
+  background: linear-gradient(180deg, #F5A60B 0%, #B45309 100%) !important;
+  color: #FFF !important;
+  font-weight: 900 !important;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5) !important;
+  text-shadow: 0 1px 2px #000 !important;
+}
+
+/* Card no Plantel / Deck */
+.rooster-plantel-frame {
+  background: linear-gradient(180deg, #2A170C 0%, #170C06 100%) !important;
+  border: 2px solid #854D0E !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  padding: 8px !important;
+  transition: transform 0.15s ease !important;
+}
+.rooster-plantel-frame:hover {
+  transform: translateY(-3px) !important;
+  border-color: #F5A60B !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.9), 0 0 12px rgba(245, 166, 11, 0.5) !important;
+}
+
+/* Grid de Cartas Clash Royale */
+.cordel-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+  gap: 8px !important;
+}
+
+/* Arena de Batalha 3v3 Clash */
+.arena-combate-stage {
+  background: linear-gradient(180deg, #3A2315 0%, #1E120A 100%) !important;
+  border: 3px solid #F5A60B !important;
+  border-radius: 16px !important;
+  box-shadow: 0 0 25px rgba(245, 166, 11, 0.3), 0 10px 25px rgba(0, 0, 0, 0.8) !important;
+}
+
+[data-testid="btn-start-battle-3v3"] {
+  background: linear-gradient(180deg, #5BE139 0%, #22C55E 48%, #16A34A 52%, #15803D 100%) !important;
+  border: 2px solid #14532D !important;
+  border-bottom: 6px solid #0A2D03 !important;
+  border-radius: 16px !important;
+  padding: 12px 24px !important;
+  font-family: var(--font-game-title) !important;
+  font-size: 16px !important;
+  letter-spacing: 1px !important;
+  color: #FFF !important;
+  text-shadow: 0 2px 0 #0A2D03, 0 3px 6px rgba(0, 0, 0, 0.8) !important;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.7), 0 6px 0 #0A2D03, 0 10px 18px rgba(0, 0, 0, 0.7) !important;
+  width: 100% !important;
+}
+
+/* ==========================================================================
+   CARDS, PANELS & FRAMES (Clash Panels)
+   ========================================================================== */
+.cordel-card, .cordel-wood-frame {
+  background: linear-gradient(180deg, #26160D 0%, #180D07 100%) !important;
+  border: 3px solid #6B3E1A !important;
+  border-radius: 16px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 8px 20px rgba(0, 0, 0, 0.8) !important;
+  color: #FFF !important;
+  padding: 12px !important;
+  margin-bottom: 12px !important;
+}
+
+.cordel-wood-frame header {
+  background: linear-gradient(180deg, #4A2610 0%, #291206 100%) !important;
+  border-bottom: 2px solid #854D0E !important;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 8px 12px !important;
+  margin: -12px -12px 12px -12px !important;
+}
+
+.cordel-wood-frame h2 {
+  font-family: var(--font-game-title) !important;
+  color: #FFE066 !important;
+  text-shadow: 0 2px 0 #3E1E07, 0 3px 5px rgba(0, 0, 0, 0.8) !important;
+  font-size: 16px !important;
+  margin: 0 !important;
+}
+
+/* Floating Milharal Banner (Clash of Clans collector) */
+[data-testid="card-colheita-pronta"] {
+  background: linear-gradient(180deg, #3A2315 0%, #1E120A 100%) !important;
+  border: 3px solid #F5A60B !important;
+  border-radius: 16px !important;
+  box-shadow: 0 0 20px rgba(245, 166, 11, 0.4), 0 8px 16px rgba(0, 0, 0, 0.8) !important;
+}
+
+@keyframes bounceSupercell {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+[data-testid="badge-milharal-pronto"] {
+  animation: bounceSupercell 1.5s infinite ease-in-out !important;
+  background: linear-gradient(180deg, #5BE139 0%, #15803D 100%) !important;
+  border: 2px solid #86EFAC !important;
+  color: #FFF !important;
+  font-family: var(--font-game-display) !important;
+  text-shadow: 0 1px 2px #000 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 10px rgba(34, 197, 94, 0.5) !important;
+}

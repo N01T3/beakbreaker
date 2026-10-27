@@ -64,7 +64,7 @@ export const FarmMilharalBanner = defineComponent({
       }, [
         h('div', {
           'data-testid': 'farm-top-badges',
-          style: { display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' },
+          style: { display: 'none' },
         }, [
           h('span', { 'data-testid': 'badge-trainer-level', style: badgeStyle(CORDEL_PALETTE.verdeMata) }, `Nível ${lvl}`),
           h('span', { 'data-testid': 'badge-recurso-milho', style: badgeStyle(CORDEL_PALETTE.amareloMilho, CORDEL_PALETTE.tintaXilo) }, `🌽 ${corn.toLocaleString('pt-BR')}`),
