@@ -78,7 +78,14 @@ export const GrimorioSantuarioPanel = defineComponent({
       });
     };
 
-    return () => h('div', { class: 'cordel-card', 'data-testid': 'grimorio-santuario-panel' }, [
+    return () => h('div', {
+      class: 'cordel-card', 'data-testid': 'grimorio-santuario-panel',
+      style: {
+        border: '3px solid #5C3A21', borderRadius: '8px', padding: '12px',
+        backgroundImage: "linear-gradient(rgba(253, 248, 237, 0.90), rgba(253, 248, 237, 0.94)), url('/assets/pranchas/santuario-arvore-backdrop.webp')",
+        backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: 'inset 0 0 8px #3E2723, 0 4px 8px rgba(0,0,0,0.15)',
+      },
+    }, [
       h('h3', 'Santuário Genético da Serra (Prancha 11) — Grimório Ancestral'),
       h('p', { style: { fontSize: '13px', margin: '4px 0 10px 0' } },
         `Grimório de Cordel das 24 Receitas Ancestrais (Níveis 1 a 8, Sede 6 a 12) | Sede do Jogador: ${playerSede.value}`),
@@ -117,7 +124,10 @@ export const GrimorioSantuarioPanel = defineComponent({
           ]);
         }),
       ),
-      h('div', { 'data-testid': 'caldeirao-mistico-area', style: { border: '2px dashed #1B1B1B', padding: '10px', backgroundColor: '#FDFBF7' } }, [
+      h('div', {
+        'data-testid': 'caldeirao-mistico-area',
+        style: { border: '2px dashed #5C3A21', borderRadius: '6px', padding: '10px', backgroundColor: '#FFFDF8', boxShadow: 'inset 0 0 6px rgba(0,0,0,0.05)' },
+      }, [
         h('h4', { style: { margin: '0 0 8px 0' } }, '♨️ Caldeirão Místico da Serra (Mistura Genética)'),
         h('div', { style: { display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '8px' } }, [
           h('label', { style: { fontWeight: 'bold', fontSize: '13px' } }, 'Slot Matriz 1:'),

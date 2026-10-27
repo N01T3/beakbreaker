@@ -24,22 +24,13 @@ export const EQUIPMENT_SLOTS_OFICIAL = [
   { id: 'amuleto_couro' as const, name: 'Amuleto de Couro', icon: '📿', stat: 'Defesa', perLevel: 12 },
 ];
 
-export function getRefineSuccessRate(targetLevel: number): number {
-  if (targetLevel <= 5) return 1.0;
-  if (targetLevel <= 8) return 0.75;
-  if (targetLevel <= 11) return 0.50;
-  if (targetLevel <= 14) return 0.30;
-  return 0.15;
+export function getRefineSuccessRate(lvl: number): number {
+  return lvl <= 5 ? 1.0 : lvl <= 8 ? 0.75 : lvl <= 11 ? 0.50 : lvl <= 14 ? 0.30 : 0.15;
 }
 
 export interface RefineAttemptResult {
-  slot: EquipmentSlotId;
-  previousLevel: number;
-  newLevel: number;
-  success: boolean;
-  protectedByFerradura: boolean;
-  costMilho: number;
-  costPenas: number;
+  slot: EquipmentSlotId; previousLevel: number; newLevel: number;
+  success: boolean; protectedByFerradura: boolean; costMilho: number; costPenas: number;
 }
 
 export const OficinaForjaPanel = defineComponent({
@@ -107,7 +98,14 @@ export const OficinaForjaPanel = defineComponent({
       props.onRefined?.({ slot: selectedSlot.value, previousLevel: prev, newLevel: next, success, protectedByFerradura: wasProtected, costMilho: costMilho.value, costPenas: costPenas.value });
     };
 
-    return () => h('div', { class: 'cordel-card', 'data-testid': 'oficina-forja-panel' }, [
+    return () => h('div', {
+      class: 'cordel-card', 'data-testid': 'oficina-forja-panel',
+      style: {
+        border: '3px solid #5C3A21', borderRadius: '8px', padding: '12px',
+        backgroundImage: "linear-gradient(rgba(253, 248, 237, 0.90), rgba(253, 248, 237, 0.94)), url('/assets/pranchas/oficina-forja-backdrop.webp')",
+        backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: 'inset 0 0 8px #3E2723, 0 4px 8px rgba(0,0,0,0.15)',
+      },
+    }, [
       h('h3', 'Oficina Sertaneja — Bigorna de Refino +15 & Catálogo de Conjuntos'),
       h('div', { 'data-testid': 'oficina-sets-catalog', style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '6px', marginBottom: '12px' } },
         OFICINA_8_CONJUNTOS.map((s) => h('div', {
@@ -120,15 +118,15 @@ export const OficinaForjaPanel = defineComponent({
           onClick: () => { selectedSet.value = s.id; },
         }, [h('div', { style: { fontWeight: 'bold' } }, `${s.xiloSymbol} ${s.name}`), h('div', { style: { color: CORDEL_PALETTE.terracota } }, s.bonus)])),
       ),
-      h('div', { 'data-testid': 'bigorna-sertaneja-area', style: { border: '2px dashed #1B1B1B', padding: '10px', backgroundColor: '#FDFBF7' } }, [
+      h('div', {
+        'data-testid': 'bigorna-sertaneja-area',
+        style: { border: '2px dashed #5C3A21', borderRadius: '6px', padding: '10px', backgroundColor: '#FFFDF8', boxShadow: 'inset 0 0 6px rgba(0,0,0,0.05)' },
+      }, [
         h('h4', { style: { margin: '0 0 8px 0' } }, '⚒️ Bigorna Sertaneja de Refino (+0 a +15)'),
         h('div', { style: { display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' } },
           EQUIPMENT_SLOTS_OFICIAL.map((slot) => h('button', {
             key: slot.id, type: 'button', 'data-testid': `slot-btn-${slot.id}`,
-            style: {
-              backgroundColor: selectedSlot.value === slot.id ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel,
-              border: '2px solid #1B1B1B', padding: '6px 10px', fontWeight: 'bold', cursor: 'pointer',
-            },
+            style: { backgroundColor: selectedSlot.value === slot.id ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel, border: '2px solid #1B1B1B', padding: '6px 10px', fontWeight: 'bold', cursor: 'pointer' },
             onClick: () => { selectedSlot.value = slot.id; },
           }, `${slot.icon} ${slot.name} (+${slotLevels[slot.id]})`)),
         ),
@@ -146,11 +144,7 @@ export const OficinaForjaPanel = defineComponent({
         h('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' } }, [
           h('button', {
             type: 'button', 'data-testid': 'btn-toggle-ferradura',
-            style: {
-              backgroundColor: ferraduraAtiva.value ? CORDEL_PALETTE.verdeMata : CORDEL_PALETTE.cremePapel,
-              color: ferraduraAtiva.value ? '#FFFFFF' : CORDEL_PALETTE.tintaXilo,
-              border: '2px solid #1B1B1B', padding: '4px 8px', fontWeight: 'bold', cursor: 'pointer',
-            },
+            style: { backgroundColor: ferraduraAtiva.value ? CORDEL_PALETTE.verdeMata : CORDEL_PALETTE.cremePapel, color: ferraduraAtiva.value ? '#FFFFFF' : CORDEL_PALETTE.tintaXilo, border: '2px solid #1B1B1B', padding: '4px 8px', fontWeight: 'bold', cursor: 'pointer' },
             onClick: () => { ferraduraAtiva.value = !ferraduraAtiva.value; },
           }, ferraduraAtiva.value ? '🧲 Ferradura da Sorte: ATIVA' : '🧲 Ferradura da Sorte: INATIVA'),
           h('span', { 'data-testid': 'ferradura-status-text', style: { fontSize: '12px' } }, ferraduraAtiva.value ? 'Protegido contra perda de nível!' : 'Sem proteção (pode regredir se falhar).'),
@@ -160,11 +154,7 @@ export const OficinaForjaPanel = defineComponent({
         h('div', { style: { display: 'flex', gap: '8px', alignItems: 'center' } }, [
           h('button', {
             type: 'button', 'data-testid': 'btn-golpear-bigorna', disabled: currentLevel.value >= 15,
-            style: {
-              backgroundColor: currentLevel.value >= 15 ? '#CCC' : CORDEL_PALETTE.amareloMilho,
-              border: isStriking.value ? '3px solid #D7263D' : '2px solid #1B1B1B', padding: '8px 16px',
-              fontWeight: 'bold', cursor: currentLevel.value >= 15 ? 'not-allowed' : 'pointer',
-            },
+            style: { backgroundColor: currentLevel.value >= 15 ? '#CCC' : CORDEL_PALETTE.amareloMilho, border: isStriking.value ? '3px solid #D7263D' : '2px solid #1B1B1B', padding: '8px 16px', fontWeight: 'bold', cursor: currentLevel.value >= 15 ? 'not-allowed' : 'pointer' },
             onClick: handleGolpear,
           }, 'GOLPEAR BIGORNA (+Refino) ⚒️'),
           isStriking.value ? h('span', { 'data-testid': 'bigorna-anim-fx', style: { fontWeight: 'bold', color: '#D7263D' } }, '💥 PAH! GOLPE NA BIGORNA!') : null,

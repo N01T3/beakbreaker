@@ -23,9 +23,7 @@ export const FarmTabView = defineComponent({
   setup(props) {
     const handleHarvestAll = () => {
       cordelAudio.playTrianguloReward();
-      if (props.runtime.state.storedPerchMilho <= 0) {
-        props.runtime.refillPerches();
-      }
+      if (props.runtime.state.storedPerchMilho <= 0) props.runtime.refillPerches();
       const harvested = props.runtime.harvestFarm();
       props.onAddMilho(harvested);
     };
@@ -47,6 +45,35 @@ export const FarmTabView = defineComponent({
       }, {
         default: () => [
           h('div', { 'data-testid': 'tab-content-fazenda' }, [
+            h('div', {
+              class: 'cordel-card farm-backdrop-hero',
+              'data-testid': 'farm-backdrop-hero',
+              style: {
+                position: 'relative', padding: '0', overflow: 'hidden',
+                border: '3px solid #1B1B1B', boxShadow: '4px 4px 0 #1B1B1B',
+                borderRadius: '6px', marginBottom: '12px', backgroundColor: CORDEL_PALETTE.tintaXilo,
+              },
+            }, [
+              h('img', {
+                src: '/assets/pranchas/fazenda-viva-backdrop.webp',
+                alt: 'Fazenda Viva 2.0 Sertaneja',
+                'data-testid': 'farm-backdrop-img',
+                style: { width: '100%', height: '170px', objectFit: 'cover', display: 'block' },
+              }),
+              h('div', {
+                class: 'farm-backdrop-overlay',
+                'data-testid': 'farm-backdrop-overlay',
+                style: {
+                  position: 'absolute', inset: 0,
+                  background: 'linear-gradient(to top, rgba(27,27,27,0.85) 0%, rgba(27,27,27,0.15) 60%)',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
+                  padding: '10px 12px', color: CORDEL_PALETTE.cremePapel,
+                },
+              }, [
+                h('span', { style: { fontWeight: '900', fontSize: '15px', color: CORDEL_PALETTE.amareloMilho } }, '🌾 Fazenda Viva 2.0 — Vila Sertaneja'),
+                h('span', { class: 'cordel-badge', style: { backgroundColor: CORDEL_PALETTE.vermelhoCrista, color: CORDEL_PALETTE.cremePapel } }, `Sede Nv. ${sedeLevel}`),
+              ]),
+            ]),
             h(FarmMilharalBanner, {
               'data-testid': 'farm-milharal-banner',
               runtime: props.runtime,
@@ -73,12 +100,29 @@ export const FarmTabView = defineComponent({
                 ? h('p', { 'data-testid': 'harvest-feedback', style: { fontWeight: 'bold' } }, `Colheita realizada: +${props.runtime.state.lastHarvestedMilho} Milho!`)
                 : null,
             ]),
-            h('div', { class: 'cordel-grid' }, perches.map((perch) =>
-              h('div', { key: perch.perchId, class: 'cordel-card' }, [
-                h('strong', `${perch.habitatType} (Nv. ${perch.level})`),
-                h('p', `Aves alojadas: ${perch.getRoosters().length}/${perch.getMaxRoosterSlots()} | Cofre: ${perch.getStorageVaultCap()} Milho`),
-              ]),
-            )),
+            h('div', { class: 'cordel-card', 'data-testid': 'poleiros-section' }, [
+              h('h3', { style: { margin: '0 0 10px 0' } }, '🐓 Poleiros Elementais & Cofres'),
+              h('div', { class: 'cordel-grid' }, perches.map((perch) => {
+                const occ = perch.getRoosters().length;
+                const max = perch.getMaxRoosterSlots();
+                const cap = perch.getStorageVaultCap();
+                return h('div', {
+                  key: perch.perchId,
+                  'data-testid': `perch-card-${perch.perchId}`,
+                  class: 'cordel-card',
+                  style: { margin: 0, padding: '8px' },
+                }, [
+                  h('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } }, [
+                    h('strong', `${perch.habitatType} (Nv. ${perch.level})`),
+                    h('span', { class: 'cordel-badge', style: { fontSize: '10px', padding: '1px 4px' } }, occ >= max ? 'Lotado' : `${max - occ} vagas`),
+                  ]),
+                  h('p', { 'data-testid': 'perch-occupancy', style: { margin: '4px 0', fontSize: '12px' } },
+                    `Aves alojadas: ${occ}/${max} | Cofre: ${cap} Milho`),
+                  h('div', { 'data-testid': 'perch-vault-status', style: { fontSize: '11px', color: CORDEL_PALETTE.terracota, fontWeight: 'bold' } },
+                    `🌽 Milho acumulado: ${perch.storedMilho}/${cap}`),
+                ]);
+              })),
+            ]),
             h('div', { class: 'cordel-card', 'data-testid': 'saint-towers-panel' }, [
               h('h3', '4 Torres dos Santos Padroeiros'),
               h('div', { style: { display: 'flex', gap: '8px', flexWrap: 'wrap' } },

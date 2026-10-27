@@ -3,8 +3,10 @@ import { h } from 'vue';
 import { renderToString } from 'vue/server-renderer';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { createPinia, setActivePinia } from 'pinia';
 import { FarmMilharalBanner, formatMilharalCorn } from '../src/web/panels/FarmMilharalBanner.js';
 import { FarmTabView } from '../src/web/FarmTabView.js';
+import { BeakBreakerWebApp } from '../src/web/BeakBreakerWebApp.js';
 import { createWebRuntime } from '../src/web/createWebRuntime.js';
 import { cordelAudio } from '../src/services/AudioService.js';
 
@@ -114,6 +116,12 @@ describe('Prancha Oficial 04 — Fazenda Viva 2.0 Visual & FarmMilharalBanner', 
     expect(html).toContain('data-testid="farm-milharal-banner"');
     expect(html).toContain('data-testid="btn-colher-milho-pronto"');
     expect(html).toContain('data-testid="badge-milharal-pronto"');
+    expect(html).toContain('data-testid="farm-backdrop-hero"');
+    expect(html).toContain('/assets/pranchas/fazenda-viva-backdrop.webp');
+    expect(html).toContain('data-testid="farm-backdrop-overlay"');
+    expect(html).toContain('data-testid="poleiros-section"');
+    expect(html).toContain('data-testid="perch-occupancy"');
+    expect(html).toContain('data-testid="perch-vault-status"');
 
     const renderFn = FarmTabView.setup?.({ runtime, onAddMilho: (amt: number) => { addedMilho += amt; }, onUpgradeSede: () => {} }, { attrs: {}, slots: {}, emit: () => {}, expose: () => {} });
     const vnode = (renderFn as () => any)();
@@ -122,20 +130,41 @@ describe('Prancha Oficial 04 — Fazenda Viva 2.0 Visual & FarmMilharalBanner', 
     expect(cordelAudio.getSfxCountByTrack('sfx_triangulo_reward')).toBeGreaterThanOrEqual(1);
   });
 
+  it('renderiza BeakBreakerWebApp com moldura mobile, Top HUD e 5 abas na bottom nav', async () => {
+    setActivePinia(createPinia());
+    const html = await renderToString(h(BeakBreakerWebApp));
+    expect(html).toContain('data-testid="beakbreaker-web-shell"');
+    expect(html).toContain('data-testid="player-leather-hat-avatar"');
+    expect(html).toContain('🤠');
+    expect(html).toContain('Nível 12');
+    expect(html).toContain('data-testid="button-audio-toggle"');
+    expect(html).toContain('data-testid="cordel-bottom-nav"');
+    expect(html).toContain('data-testid="nav-tab-Fazenda"');
+    expect(html).toContain('🌾');
+    expect(html).toContain('⚔️');
+    expect(html).toContain('🐓');
+    expect(html).toContain('🏰');
+    expect(html).toContain('🏪');
+  });
+
   it('atende rigorosamente às regras de linhas (< 180) e Lei 9.605/98', () => {
     const bannerPath = resolve(__dirname, '../src/web/panels/FarmMilharalBanner.ts');
     const farmTabPath = resolve(__dirname, '../src/web/FarmTabView.ts');
+    const shellPath = resolve(__dirname, '../src/web/BeakBreakerWebApp.ts');
     const thisTestPath = resolve(__dirname, './farm-prancha04-visual.test.ts');
     expect(readFileSync(bannerPath, 'utf-8').split('\n').length).toBeLessThan(180);
     expect(readFileSync(farmTabPath, 'utf-8').split('\n').length).toBeLessThan(180);
+    expect(readFileSync(shellPath, 'utf-8').split('\n').length).toBeLessThan(180);
     expect(readFileSync(thisTestPath, 'utf-8').split('\n').length).toBeLessThan(180);
 
     const bannerContent = readFileSync(bannerPath, 'utf-8').toLowerCase();
     const farmTabContent = readFileSync(farmTabPath, 'utf-8').toLowerCase();
+    const shellContent = readFileSync(shellPath, 'utf-8').toLowerCase();
     const forbidden = ['r' + 'inha', 'r' + 'inhadeiro', 'gal' + 'ista', 'esp' + 'ora', 'ap' + 'osta'];
     for (const term of forbidden) {
       expect(bannerContent.includes(term)).toBe(false);
       expect(farmTabContent.includes(term)).toBe(false);
+      expect(shellContent.includes(term)).toBe(false);
     }
   });
 });

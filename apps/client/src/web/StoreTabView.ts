@@ -79,6 +79,19 @@ export const StoreTabView = defineComponent({
           default: () => [
             h('div', { 'data-testid': 'tab-content-loja' }, [
               h('div', {
+                'data-testid': 'loja-arraial-backdrop-banner',
+                class: 'cordel-card',
+                style: {
+                  backgroundImage: "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.65)), url('/assets/pranchas/loja-arraial-backdrop.webp')",
+                  backgroundSize: 'cover', backgroundPosition: 'center',
+                  padding: '12px 14px', borderRadius: '6px', border: '2px solid #1B1B1B',
+                  marginBottom: '10px', color: '#FFF8E7',
+                },
+              }, [
+                h('h3', { style: { margin: '0 0 2px 0', color: '#FFE082' } }, '🎪 Feira do Arraial & Mercado Sertanejo'),
+                h('p', { style: { margin: 0, fontSize: '12px' } }, 'Prancha 14: Ofertas de Troca, Chocadeiras & Checkout Pix (+15% Coroas)'),
+              ]),
+              h('div', {
                 'data-testid': 'store-subtabs-nav',
                 style: { display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' },
               }, [

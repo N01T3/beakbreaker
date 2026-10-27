@@ -45,7 +45,20 @@ export const CampaignTorreVisualPanel = defineComponent({
 
     return () =>
       h('div', { class: 'cordel-card', 'data-testid': 'campaign-torre-visual-panel', style: { marginTop: '10px' } }, [
-        h('h4', { style: { color: CORDEL_PALETTE.terracota, margin: '0 0 8px 0' } }, 'Campanha Estrada do Sertão & Torre do Mandacaru (Prancha 18)'),
+        h('div', {
+          'data-testid': 'campaign-torre-backdrop-container',
+          style: {
+            position: 'relative', borderRadius: '6px', overflow: 'hidden', border: '2px solid #1B1B1B',
+            marginBottom: '8px', minHeight: '110px',
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.55)), url('/assets/pranchas/estrada-torre-backdrop.webp')`,
+            backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', flexDirection: 'column',
+            justifyContent: 'center', alignItems: 'center', color: '#F5E9D3', padding: '10px', textAlign: 'center',
+          },
+        }, [
+          h('img', { src: '/assets/pranchas/estrada-torre-backdrop.webp', alt: 'Estrada do Sertão & Torre', 'data-testid': 'estrada-torre-backdrop', style: { display: 'none' } }),
+          h('h4', { style: { color: CORDEL_PALETTE.amareloMilho, margin: '0 0 2px 0', textShadow: '2px 2px 0 #000' } }, 'Campanha Estrada do Sertão & Torre do Mandacaru (Prancha 18)'),
+          h('p', { style: { margin: 0, fontSize: '11px', textShadow: '1px 1px 2px #000' } }, 'Jornada pelos 6 Capítulos e Torre Espiral de 100 Andares • 0 Fôlego'),
+        ]),
         h('div', {
           class: 'cordel-card', 'data-testid': 'vo-tonho-speech-balloon',
           style: { backgroundColor: '#FFFDF0', border: '2px solid #D4A373', marginBottom: '8px', cursor: 'pointer' },
@@ -89,16 +102,8 @@ export const CampaignTorreVisualPanel = defineComponent({
             style: { display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' },
           }, [
             h('strong', { style: { fontSize: '13px' } }, `Andar Selecionado: ${selectedFloor.value}/100`),
-            h('button', {
-              type: 'button', 'data-testid': 'btn-floor-prev',
-              style: { padding: '3px 8px', fontWeight: 'bold', cursor: 'pointer' },
-              onClick: () => setFloor(selectedFloor.value - 1),
-            }, '◀ -1'),
-            h('button', {
-              type: 'button', 'data-testid': 'btn-floor-next',
-              style: { padding: '3px 8px', fontWeight: 'bold', cursor: 'pointer' },
-              onClick: () => setFloor(selectedFloor.value + 1),
-            }, '+1 ▶'),
+            h('button', { type: 'button', 'data-testid': 'btn-floor-prev', style: { padding: '3px 8px', fontWeight: 'bold', cursor: 'pointer' }, onClick: () => setFloor(selectedFloor.value - 1) }, '◀ -1'),
+            h('button', { type: 'button', 'data-testid': 'btn-floor-next', style: { padding: '3px 8px', fontWeight: 'bold', cursor: 'pointer' }, onClick: () => setFloor(selectedFloor.value + 1) }, '+1 ▶'),
             h('button', {
               type: 'button', 'data-testid': 'btn-floor-42',
               style: { padding: '3px 8px', fontWeight: 'bold', cursor: 'pointer', backgroundColor: selectedFloor.value === 42 ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel },

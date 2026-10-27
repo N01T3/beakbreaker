@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#1B1B1B" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="BeakBreaker" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
@@ -19,23 +19,34 @@
       body {
         margin: 0;
         padding: 0;
-        background-color: #1B1B1B;
+        background-color: #12100E;
         color: #1B1B1B;
         font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
       }
       #app {
-        max-width: 960px;
-        margin: 0 auto;
+        width: 100%;
+        max-width: 480px;
         min-height: 100vh;
+        margin: 0 auto;
         background-color: #F5E9D3;
+        background-image: radial-gradient(#E8D7BA 1px, transparent 1px), radial-gradient(#DFCBAB 1px, #F5E9D3 1px);
+        background-size: 16px 16px;
         border-left: 4px solid #1B1B1B;
         border-right: 4px solid #1B1B1B;
+        box-shadow: 0 0 32px rgba(0, 0, 0, 0.85), 0 0 0 2px #1B1B1B;
         display: flex;
         flex-direction: column;
+        position: relative;
+        overflow-x: hidden;
       }
       button {
         cursor: pointer;
         font-family: inherit;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
       }
       .cordel-card {
         border: 3px solid #1B1B1B;
@@ -43,10 +54,11 @@
         box-shadow: 4px 4px 0px #1B1B1B;
         padding: 12px;
         margin-bottom: 12px;
+        border-radius: 4px;
       }
       .cordel-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         gap: 10px;
       }
       .cordel-badge {
@@ -56,6 +68,27 @@
         font-weight: 700;
         font-size: 12px;
         background: #F4B400;
+        box-shadow: 2px 2px 0 #1B1B1B;
+      }
+      @keyframes pulseGlow {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 2px 2px 0 #1B1B1B;
+        }
+        50% {
+          transform: scale(1.08);
+          box-shadow: 0 0 10px #F4B400, 2px 2px 0 #1B1B1B;
+        }
+      }
+      .pulse-badge {
+        animation: pulseGlow 1.8s infinite ease-in-out;
+      }
+      @media (max-width: 480px) {
+        #app {
+          border-left: none;
+          border-right: none;
+          box-shadow: none;
+        }
       }
     </style>
   </head>

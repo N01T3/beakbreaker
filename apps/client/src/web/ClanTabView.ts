@@ -48,6 +48,28 @@ export const ClanTabView = defineComponent({
         {
           default: () => [
             h('div', { 'data-testid': 'tab-content-bando' }, [
+              h('div', {
+                class: 'cordel-card',
+                'data-testid': 'bando-sede-backdrop',
+                style: {
+                  backgroundImage: "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.65)), url('/assets/pranchas/bando-cla-backdrop.webp')",
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  padding: '12px 14px',
+                  borderRadius: '6px',
+                  border: '2px solid #1B1B1B',
+                  marginBottom: '10px',
+                  color: '#FFF8E7',
+                },
+              }, [
+                h('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' } }, [
+                  h('div', [
+                    h('h3', { style: { margin: '0 0 2px 0', color: '#FFE082' } }, '🏕️ Sede do Bando: Acampamento Sertanejo'),
+                    h('p', { style: { margin: 0, fontSize: '12px' } }, 'Prancha 15: Convivência dos 30 Irmãos do Cangaço & Estratégias do Sertão'),
+                  ]),
+                  h('span', { class: 'cordel-badge', style: { backgroundColor: CORDEL_PALETTE.amareloMilho, color: '#1B1B1B', fontWeight: 'bold' } }, '30/30 Irmãos'),
+                ]),
+              ]),
               h('div', { class: 'cordel-card', 'data-testid': 'colossus-raid-panel' }, [
                 h('h3', 'Raid do Galo Colosso (3 Fases: Brasa -> Lua -> Fúria)'),
                 h(

@@ -76,7 +76,14 @@ export const ArvoreDaVidaOrbesPanel = defineComponent({
 
     return () => {
       const progressValue = Math.min(100, orbsBalance.value + (isHappyHourActive.value ? wildcardOrbs.value : Math.min(20, wildcardOrbs.value)));
-      return h('div', { class: 'cordel-card', 'data-testid': 'arvore-da-vida-orbes-panel', style: { padding: '12px' } }, [
+      return h('div', {
+        class: 'cordel-card', 'data-testid': 'arvore-da-vida-orbes-panel',
+        style: {
+          border: '3px solid #5C3A21', borderRadius: '8px', padding: '12px',
+          backgroundImage: "linear-gradient(rgba(253, 248, 237, 0.90), rgba(253, 248, 237, 0.94)), url('/assets/pranchas/santuario-arvore-backdrop.webp')",
+          backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: 'inset 0 0 8px #3E2723, 0 4px 8px rgba(0,0,0,0.15)',
+        },
+      }, [
         h('h3', { style: { marginTop: 0 } }, 'Árvore da Vida — Reciclagem & Orbes Curinga (Prancha 11)'),
         h('div', {
           'data-testid': 'happy-hour-banner',

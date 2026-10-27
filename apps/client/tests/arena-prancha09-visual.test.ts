@@ -16,12 +16,8 @@ describe('Prancha Oficial 09 — Visual da Arena 3v3 & HUD de Combate', () => {
 
     const html = await renderToString(
       h(ArenaHUD, {
-        timerSeconds: 47,
-        currentSpeed: 1,
-        torcidaCount: 2,
-        onTorcida: onTorcidaMock,
-        onSelectSpeed: onSpeedMock,
-        onDesistir: onDesistirMock,
+        timerSeconds: 47, currentSpeed: 1, torcidaCount: 2,
+        onTorcida: onTorcidaMock, onSelectSpeed: onSpeedMock, onDesistir: onDesistirMock,
       }),
     );
 
@@ -58,50 +54,40 @@ describe('Prancha Oficial 09 — Visual da Arena 3v3 & HUD de Combate', () => {
   it('renderiza cronômetro com contagem regressiva formatada', async () => {
     const htmlZero = await renderToString(h(ArenaHUD, { timerSeconds: 0 }));
     expect(htmlZero).toContain('0:00');
-
     const htmlCountdown = await renderToString(h(ArenaHUD, { timerSeconds: 85 }));
     expect(htmlCountdown).toContain('1:25');
   });
 
   it('renderiza Cartas Táticas com molduras elementais, percentuais de energia e efeito TOQUE!', async () => {
     const onSpecialMock = vi.fn();
-    const html = await renderToString(
-      h(ArenaTacticalCardsPanel, {
-        onSpecialTap: onSpecialMock,
-      }),
-    );
+    const html = await renderToString(h(ArenaTacticalCardsPanel, { onSpecialTap: onSpecialMock }));
 
-    // 3 cartas na base da tela
     expect(html).toContain('data-testid="card-atleta-slot-0"');
     expect(html).toContain('data-testid="card-atleta-slot-1"');
     expect(html).toContain('data-testid="card-atleta-slot-2"');
-
-    // Nomes e percentuais dos 3 atletas
     expect(html).toContain('Trovão');
     expect(html).toContain('84%');
     expect(html).toContain('Brisa');
     expect(html).toContain('31%');
     expect(html).toContain('Pedra');
-
-    // Molduras elementais: Brasa, Mata, Correnteza
     expect(html).toContain('#D7263D'); // Brasa
     expect(html).toContain('#1E3A8A'); // Correnteza
     expect(html).toContain('#1D7846'); // Mata
-
-    // Efeito pulsante TOQUE! quando Canto atinge 100%
     expect(html).toContain('data-testid="btn-toque-especial"');
     expect(html).toContain('TOQUE!');
-
-    // Controles presentes no painel tático
     expect(html).toContain('data-testid="btn-torcida-cheer"');
     expect(html).toContain('data-testid="speed-selector-group"');
+    expect(html).toContain('data-testid="link-desistir-fazenda"');
   });
 
-  it('integra ArenaHUD e ArenaTacticalCardsPanel na visualização ArenaTabView', async () => {
+  it('integra ArenaHUD e ArenaTacticalCardsPanel na visualização ArenaTabView com backdrop', async () => {
     const runtime = createWebRuntime();
     const html = await renderToString(h(ArenaTabView, { runtime }));
 
     expect(html).toContain('data-testid="tab-content-lutar"');
+    expect(html).toContain('arena-combate-backdrop.webp');
+    expect(html).toContain('data-testid="arena-combate-stage"');
+    expect(html).toContain('data-testid="arena-combat-field"');
     expect(html).toContain('data-testid="arena-hud"');
     expect(html).toContain('data-testid="arena-tactical-cards-panel"');
     expect(html).toContain('VOCÊ');

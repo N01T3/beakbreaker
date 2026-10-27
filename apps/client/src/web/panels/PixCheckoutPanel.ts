@@ -25,11 +25,8 @@ interface PendingPixOrder {
 }
 
 const btnStyle = (bg: string, active = false) => ({
-  backgroundColor: bg,
-  color: CORDEL_PALETTE.cremePapel,
-  border: active ? '3px double #1B1B1B' : '2px solid #1B1B1B',
-  padding: '8px 14px',
-  fontWeight: 'bold',
+  backgroundColor: bg, color: CORDEL_PALETTE.cremePapel,
+  border: active ? '3px double #1B1B1B' : '2px solid #1B1B1B', padding: '8px 14px', fontWeight: 'bold',
 });
 
 export const PixCheckoutPanel = defineComponent({
@@ -115,8 +112,17 @@ export const PixCheckoutPanel = defineComponent({
           `${b.name} (${b.totalCoroas.toLocaleString('pt-BR')} Coroas) — ${b.priceLabel}`,
         );
 
-      return h('div', { class: 'cordel-card', 'data-testid': 'pix-checkout-panel' }, [
-        h('h3', 'Checkout Pix Web — QR em Xilogravura'),
+      return h('div', {
+        class: 'cordel-card',
+        'data-testid': 'pix-checkout-panel',
+        style: {
+          backgroundImage: "linear-gradient(rgba(245,238,220,0.92), rgba(245,238,220,0.95)), url('/assets/pranchas/loja-arraial-backdrop.webp')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          border: '3px solid #1B1B1B',
+        },
+      }, [
+        h('h3', 'Checkout Pix Web — Feira Sertaneja & QR em Xilogravura'),
         h('div', { style: { display: 'flex', gap: '8px', flexWrap: 'wrap' } }, [
           bundleBtn(PIX_BUNDLES[0]!, CORDEL_PALETTE.vermelhoCrista),
           bundleBtn(PIX_BUNDLES[1]!, CORDEL_PALETTE.verdeMata),

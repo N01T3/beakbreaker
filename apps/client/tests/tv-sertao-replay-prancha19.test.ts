@@ -9,9 +9,11 @@ import { cordelAudio } from '../src/services/AudioService.js';
 import { createWebRuntime } from '../src/web/createWebRuntime.js';
 
 describe('Prancha 19 — TV Sertão Ao Vivo & Player Interativo de Replay', () => {
-  it('renderiza TV Sertão Ao Vivo com topo do ranking, cronômetro do Bolão e palpite', async () => {
+  it('renderiza TV Sertão Ao Vivo com backdrop, topo do ranking, cronômetro do Bolão e palpite', async () => {
     const html = await renderToString(h(TVSertaoReplayPanel, { initialMode: 'aovivo' }));
     expect(html).toContain('data-testid="tv-sertao-replay-panel"');
+    expect(html).toContain('tv-sertao-backdrop.webp');
+    expect(html).toContain('data-testid="tv-sertao-backdrop-banner"');
     expect(html).toContain('data-testid="top-ranking-broadcast"');
     expect(html).toContain('Time Lampião');
     expect(html).toContain('Bando da Caatinga');

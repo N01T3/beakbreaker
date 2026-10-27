@@ -52,10 +52,25 @@ export const LabirintoRodaVisualPanel = defineComponent({
     return () =>
       h('div', {
         class: 'cordel-card', 'data-testid': 'labirinto-roda-visual-panel',
-        style: { border: '3px solid #1B1B1B', padding: '12px', background: CORDEL_PALETTE.cremePapel },
+        style: {
+          border: '3px solid #1B1B1B', padding: '12px',
+          backgroundImage: "linear-gradient(rgba(245,238,220,0.91), rgba(245,238,220,0.94)), url('/assets/pranchas/labirinto-roda-backdrop.webp')",
+          backgroundSize: 'cover', backgroundPosition: 'center',
+        },
       }, [
-        h('h3', { style: { margin: '0 0 10px 0', color: CORDEL_PALETTE.tintaXilo } },
-          'Eventos de São João: Labirinto das Fogueiras & Roda do Arraial'),
+        h('div', {
+          'data-testid': 'labirinto-roda-backdrop-banner',
+          style: {
+            backgroundImage: "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.65)), url('/assets/pranchas/labirinto-roda-backdrop.webp')",
+            backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '6px',
+            padding: '10px 14px', marginBottom: '10px', color: '#FFF8E7', border: '2px solid #1B1B1B',
+          },
+        }, [
+          h('h3', { style: { margin: '0 0 2px 0', fontSize: '16px', color: '#FFE082' } },
+            'Eventos de São João: Labirinto das Fogueiras & Roda do Arraial'),
+          h('p', { style: { margin: 0, fontSize: '12px' } },
+            'Prancha 21: Tabuleiro de Pedras Juninas & Roda da Fortuna de 8 Fatias'),
+        ]),
         h('div', {
           'data-testid': 'labirinto-sao-joao-card',
           style: { border: '2px solid #1B1B1B', padding: '10px', background: '#F4ECE1', marginBottom: '12px' },

@@ -27,21 +27,15 @@ const DEFAULT_ATHLETES: TacticalAthleteCard[] = [
 export const ArenaTacticalCardsPanel = defineComponent({
   name: 'ArenaTacticalCardsPanel',
   props: {
-    athletes: {
-      type: Array as PropType<TacticalAthleteCard[]>,
-      default: () => DEFAULT_ATHLETES,
-    },
+    athletes: { type: Array as PropType<TacticalAthleteCard[]>, default: () => DEFAULT_ATHLETES },
     currentSpeed: { type: [Number, String] as PropType<number | string>, default: 1 },
     torcidaCount: { type: Number, default: 1 },
     onSpecialTap: { type: Function as PropType<(slot: number) => void> },
     onTorcida: { type: Function as PropType<() => void> },
     onSelectSpeed: { type: Function as PropType<(spd: number | string) => void> },
+    onDesistir: { type: Function as PropType<() => void> },
   },
   setup(props) {
-    const handleSpecial = (slot: number) => {
-      props.onSpecialTap?.(slot);
-    };
-
     const renderCard = (card: TacticalAthleteCard) => {
       const theme = ELEMENT_THEMES[card.element] ?? ELEMENT_THEMES.Brasa;
       const isSpecialReady = card.canto >= (card.maxCanto ?? 1000);
@@ -81,14 +75,13 @@ export const ArenaTacticalCardsPanel = defineComponent({
         ]),
         isSpecialReady
           ? h('button', {
-              type: 'button',
-              'data-testid': 'btn-toque-especial',
-              onClick: () => handleSpecial(card.slotIndex),
+              type: 'button', 'data-testid': 'btn-toque-especial',
+              onClick: () => props.onSpecialTap?.(card.slotIndex),
               style: {
                 marginTop: '5px', width: '100%', backgroundColor: CORDEL_PALETTE.amareloMilho,
                 color: CORDEL_PALETTE.tintaXilo, border: '2px solid #1B1B1B', borderRadius: '4px',
                 padding: '4px 2px', fontWeight: '900', fontSize: '11px', cursor: 'pointer',
-                boxShadow: '0 0 6px #F4B400',
+                boxShadow: '0 0 10px #F4B400, 0 0 4px #D7263D',
               },
             }, '⚡ TOQUE!')
           : h('span', { style: { marginTop: '5px', fontSize: '10px', color: '#666', fontStyle: 'italic' } }, `Canto ${cantoPct}%`),
@@ -132,12 +125,18 @@ export const ArenaTacticalCardsPanel = defineComponent({
           props.athletes.slice(0, 3).map((a) => renderCard(a)),
         ),
         h('div', {
-          style: { display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '6px', paddingTop: '4px', borderTop: '1px dashed #1B1B1B' },
+          style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px', paddingTop: '4px', borderTop: '1px dashed #1B1B1B' },
         }, [
-          h('span', { style: { fontSize: '11px', fontWeight: 'bold', marginRight: '6px' } }, 'Velocidade:'),
-          h('div', { 'data-testid': 'speed-selector-group', style: { display: 'flex', gap: '3px' } }, [
-            renderSpeedBtn('x1', 1, 'x1'), renderSpeedBtn('x2', 2, 'x2'), renderSpeedBtn('x3', 3, 'x3'),
-            renderSpeedBtn('x0', 0, 'x0'), renderSpeedBtn('pause', 'pause', '⏸'),
+          h('button', {
+            type: 'button', 'data-testid': 'link-desistir-fazenda', onClick: () => props.onDesistir?.(),
+            style: { background: 'none', border: 'none', color: '#C0652E', textDecoration: 'underline', cursor: 'pointer', fontSize: '11px', fontWeight: 'bold' },
+          }, 'Desistir e voltar à fazenda'),
+          h('div', { style: { display: 'flex', alignItems: 'center', gap: '4px' } }, [
+            h('span', { style: { fontSize: '11px', fontWeight: 'bold' } }, 'Velocidade:'),
+            h('div', { 'data-testid': 'speed-selector-group', style: { display: 'flex', gap: '3px' } }, [
+              renderSpeedBtn('x1', 1, 'x1'), renderSpeedBtn('x2', 2, 'x2'), renderSpeedBtn('x3', 3, 'x3'),
+              renderSpeedBtn('x0', 0, 'x0'), renderSpeedBtn('pause', 'pause', '⏸'),
+            ]),
           ]),
         ]),
       ]);

@@ -55,9 +55,16 @@ export const BranchingEvolutionPanel = defineComponent({
       const cardBorder = isCaatinga ? CORDEL_PALETTE.vermelhoCrista : CORDEL_PALETTE.verdeMata;
       const mutationAura = secretMutationActive.value ? '0 0 14px #7C3AED' : 'none';
 
-      return h('div', { class: 'cordel-card', 'data-testid': 'branching-evolution-panel', style: { border: '3px solid #1B1B1B', padding: '12px', backgroundColor: CORDEL_PALETTE.cremePapel } }, [
+      return h('div', {
+        class: 'cordel-card', 'data-testid': 'branching-evolution-panel',
+        style: {
+          border: '3px solid #5C3A21', borderRadius: '8px', padding: '12px',
+          backgroundImage: "linear-gradient(rgba(253, 248, 237, 0.88), rgba(253, 248, 237, 0.94)), url('/assets/pranchas/evolucao-backdrop.webp')",
+          backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: 'inset 0 0 8px #3E2723, 0 4px 8px rgba(0,0,0,0.15)',
+        },
+      }, [
         h('h3', { style: { margin: '0 0 8px 0', fontFamily: 'Lilita One' } }, 'Árvore de Evolução Ramificada (Prancha 10)'),
-        h('div', { 'data-testid': 'tree-root-node', style: { padding: '8px', border: '2px solid #1B1B1B', backgroundColor: '#FFF', marginBottom: '8px' } }, [
+        h('div', { 'data-testid': 'tree-root-node', style: { padding: '8px', border: '2px solid #5C3A21', borderRadius: '6px', backgroundColor: '#FFFDF9', marginBottom: '8px' } }, [
           h('div', { style: { fontWeight: 'bold' } }, 'Nó Raiz: Galo Moleque da Roça (Nível 20)'),
           h('div', { style: { fontSize: '13px', color: '#555' } }, 'Atributos Base: Força 750 | Vigor 9.500 | Canto 280'),
         ]),

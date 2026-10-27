@@ -3,12 +3,7 @@ import { CORDEL_PALETTE } from '@beakbreaker/ui-cordel';
 import { cordelAudio } from '../../services/AudioService.js';
 import type { WebRuntime } from '../createWebRuntime.js';
 
-export const CHOCADEIRA_DROP_RATES = {
-  legendary: 2,
-  epic: 10,
-  rare: 33,
-  common: 55,
-} as const;
+export const CHOCADEIRA_DROP_RATES = { legendary: 2, epic: 10, rare: 33, common: 55 } as const;
 
 export const ChocadeiraBannerPanel = defineComponent({
   name: 'ChocadeiraBannerPanel',
@@ -53,7 +48,11 @@ export const ChocadeiraBannerPanel = defineComponent({
       return h('div', {
         class: 'cordel-card',
         'data-testid': 'chocadeira-banner-panel',
-        style: { border: '3px solid #1B1B1B', padding: '14px', background: CORDEL_PALETTE.cremePapel },
+        style: {
+          border: '3px solid #1B1B1B', padding: '14px',
+          backgroundImage: "linear-gradient(rgba(245,238,220,0.91), rgba(245,238,220,0.94)), url('/assets/pranchas/chocadeira-corrida-backdrop.webp')",
+          backgroundSize: 'cover', backgroundPosition: 'center',
+        },
       }, [
         h('div', {
           style: {

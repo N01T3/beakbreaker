@@ -3,12 +3,7 @@ import { CORDEL_PALETTE } from '@beakbreaker/ui-cordel';
 import { cordelAudio } from '../../services/AudioService.js';
 import type { WebRuntime } from '../createWebRuntime.js';
 
-export interface RaceCheckpoint {
-  lap: number;
-  name: string;
-  badge: string;
-}
-
+export interface RaceCheckpoint { lap: number; name: string; badge: string; }
 export const RACE_CHECKPOINTS: readonly RaceCheckpoint[] = [
   { lap: 5, name: 'Baú do Sertão', badge: 'V5' },
   { lap: 10, name: 'Baú do Peregrino', badge: 'V10' },
@@ -66,7 +61,11 @@ export const HeroRaceTrackPanel = defineComponent({
       return h('div', {
         class: 'cordel-card',
         'data-testid': 'hero-race-track-panel',
-        style: { border: '3px solid #1B1B1B', padding: '14px', background: '#F8F4EC' },
+        style: {
+          border: '3px solid #1B1B1B', padding: '14px',
+          backgroundImage: "linear-gradient(rgba(248,244,236,0.92), rgba(248,244,236,0.95)), url('/assets/pranchas/chocadeira-corrida-backdrop.webp')",
+          backgroundSize: 'cover', backgroundPosition: 'center',
+        },
       }, [
         h('div', {
           style: {

@@ -14,8 +14,7 @@ import { ModoHistoriaDialogoPanel } from './panels/ModoHistoriaDialogoPanel.js';
 import { useGameStore } from '../stores/useGameStore.js';
 
 const btnStyle = (bg: string, fg: string = CORDEL_PALETTE.tintaXilo) => ({
-  backgroundColor: bg, color: fg, border: '2px solid #1B1B1B',
-  padding: '8px 12px', fontWeight: 'bold', cursor: 'pointer',
+  backgroundColor: bg, color: fg, border: '2px solid #1B1B1B', padding: '8px 12px', fontWeight: 'bold', cursor: 'pointer',
 });
 
 const MODE_DEFS = [
@@ -60,14 +59,45 @@ export const ArenaTabView = defineComponent({
       }, {
         default: () => [
           h('div', { 'data-testid': 'tab-content-lutar' }, [
-            h(ArenaHUD, {
-              currentSpeed: speed,
-              timerSeconds: 47,
-              torcidaCount: props.runtime.state.torcidaTriggeredCount,
-              onTorcida: () => { cordelAudio.playTorcidaCheer(); props.runtime.triggerTorcida(); },
-              onSelectSpeed: handleSpeed,
-              onDesistir: handleRetreat,
-            }),
+            h('div', {
+              class: 'cordel-card arena-combate-stage',
+              'data-testid': 'arena-combate-stage',
+              style: {
+                position: 'relative',
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.32)), url('/assets/pranchas/arena-combate-backdrop.webp')`,
+                backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '8px',
+                border: '3px solid #1B1B1B', padding: '8px', boxShadow: '4px 4px 0 #1B1B1B', overflow: 'hidden',
+              },
+            }, [
+              h('img', { src: '/assets/pranchas/arena-combate-backdrop.webp', alt: 'Arena Prancha 09', 'data-testid': 'arena-combate-backdrop', style: { display: 'none' } }),
+              h(ArenaHUD, {
+                currentSpeed: speed, timerSeconds: 47, torcidaCount: props.runtime.state.torcidaTriggeredCount,
+                onTorcida: () => { cordelAudio.playTorcidaCheer(); props.runtime.triggerTorcida(); },
+                onSelectSpeed: handleSpeed, onDesistir: handleRetreat,
+              }),
+              h('div', {
+                'data-testid': 'arena-combat-field',
+                style: { minHeight: '110px', margin: '8px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 12px' },
+              }, [
+                h('div', { style: { display: 'flex', flexDirection: 'column', gap: '4px' } }, [
+                  h('span', { class: 'cordel-badge', style: { backgroundColor: '#1D7846', color: '#FFF', fontSize: '10px' } }, '🛡️ Trio Atleta'),
+                  h('div', { style: { fontSize: '26px' } }, '🐓 🪶 🛡️'),
+                ]),
+                h('div', { style: { textAlign: 'center' } }, [
+                  h('span', { class: 'cordel-badge', style: { backgroundColor: CORDEL_PALETTE.amareloMilho, color: '#1B1B1B', fontWeight: '900', fontSize: '13px' } }, props.runtime.state.activePopups[0] ?? '⚔️ DUELO 3v3'),
+                ]),
+                h('div', { style: { display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' } }, [
+                  h('span', { class: 'cordel-badge', style: { backgroundColor: '#D7263D', color: '#FFF', fontSize: '10px' } }, '🦅 Sertão Inimigo'),
+                  h('div', { style: { fontSize: '26px' } }, '🦅 🦉 🪓'),
+                ]),
+              ]),
+              h(ArenaTacticalCardsPanel, {
+                currentSpeed: speed, torcidaCount: props.runtime.state.torcidaTriggeredCount,
+                onSpecialTap: () => { cordelAudio.playXiloHitSfx(); props.runtime.runArenaBattle3v3(); },
+                onTorcida: () => { cordelAudio.playTorcidaCheer(); props.runtime.triggerTorcida(); },
+                onSelectSpeed: handleSpeed, onDesistir: handleRetreat,
+              }),
+            ]),
             h('div', { class: 'cordel-card', 'data-testid': 'arena-controls', style: { marginTop: '10px' } }, [
               h('div', { style: { display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' } }, [
                 h('button', {
@@ -82,36 +112,16 @@ export const ArenaTabView = defineComponent({
                     onClick: () => props.runtime.setBattleSpeed(mult),
                   }, `${mult}x`),
                 ),
-                h('button', {
-                  type: 'button', 'data-testid': 'btn-cycle-speed',
-                  style: btnStyle(CORDEL_PALETTE.cremePapel),
-                  onClick: () => props.runtime.cycleBattleSpeed(),
-                }, `Velocidade Atual: ${speed}x`),
-                h('button', {
-                  type: 'button', 'data-testid': 'btn-torcida',
-                  style: btnStyle(CORDEL_PALETTE.verdeMata, CORDEL_PALETTE.cremePapel),
-                  onClick: () => { cordelAudio.playTorcidaCheer(); props.runtime.triggerTorcida(); },
-                }, `Torcida (+Canto) [${props.runtime.state.torcidaTriggeredCount}]`),
+                h('button', { type: 'button', 'data-testid': 'btn-cycle-speed', style: btnStyle(CORDEL_PALETTE.cremePapel), onClick: () => props.runtime.cycleBattleSpeed() }, `Velocidade Atual: ${speed}x`),
+                h('button', { type: 'button', 'data-testid': 'btn-torcida', style: btnStyle(CORDEL_PALETTE.verdeMata, CORDEL_PALETTE.cremePapel), onClick: () => { cordelAudio.playTorcidaCheer(); props.runtime.triggerTorcida(); } }, `Torcida (+Canto) [${props.runtime.state.torcidaTriggeredCount}]`),
               ]),
               h('div', { 'data-testid': 'xilo-popup-container', style: { marginTop: '10px', display: 'flex', gap: '8px', flexWrap: 'wrap' } },
                 props.runtime.state.activePopups.map((txt, idx) =>
-                  h('span', {
-                    key: idx, 'data-testid': 'xilo-popup-balloon', class: 'cordel-badge',
-                    style: { backgroundColor: CORDEL_PALETTE.amareloMilho, fontSize: '15px', padding: '6px 12px' },
-                  }, txt),
+                  h('span', { key: idx, 'data-testid': 'xilo-popup-balloon', class: 'cordel-badge', style: { backgroundColor: CORDEL_PALETTE.amareloMilho, fontSize: '15px', padding: '6px 12px' } }, txt),
                 ),
               ),
-              props.runtime.state.lastBattleWinner ? h('p', {
-                'data-testid': 'battle-result-banner', style: { fontWeight: 'bold' },
-              }, `Resultado 3v3: Vitória Time ${props.runtime.state.lastBattleWinner} (${props.runtime.state.lastBattleTicks} ticks)`) : null,
+              props.runtime.state.lastBattleWinner ? h('p', { 'data-testid': 'battle-result-banner', style: { fontWeight: 'bold' } }, `Resultado 3v3: Vitória Time ${props.runtime.state.lastBattleWinner} (${props.runtime.state.lastBattleTicks} ticks)`) : null,
             ]),
-            h(ArenaTacticalCardsPanel, {
-              currentSpeed: speed,
-              torcidaCount: props.runtime.state.torcidaTriggeredCount,
-              onSpecialTap: () => { cordelAudio.playXiloHitSfx(); props.runtime.runArenaBattle3v3(); },
-              onTorcida: () => { cordelAudio.playTorcidaCheer(); props.runtime.triggerTorcida(); },
-              onSelectSpeed: handleSpeed,
-            }),
             h('div', { class: 'cordel-grid', 'data-testid': 'arena-combat-bars', style: { marginTop: '10px' } },
               props.runtime.state.unitBars.map((unit) =>
                 h('div', { key: unit.id, class: 'cordel-card' }, [

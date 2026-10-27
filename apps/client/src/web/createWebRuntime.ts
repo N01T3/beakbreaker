@@ -15,6 +15,7 @@ import type { SaintTowerId } from '../canvas/scenes/farm/IsoFarmScene.js';
 export function createWebRuntime() {
   const ftue = new FtueController();
   const farm = new FarmController();
+  farm.getScene().setSedeLevel(12);
   const combatHud = new CombatHudController();
   const roster = new RosterController();
   const genetics = new GeneticsController();

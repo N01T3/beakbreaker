@@ -40,8 +40,27 @@ export const SocialVitrineCordelPanel = defineComponent({
     };
 
     return () =>
-      h('div', { class: 'cordel-card', 'data-testid': 'social-vitrine-cordel-panel', style: { marginTop: '10px' } }, [
-        h('h4', { style: { color: CORDEL_PALETTE.terracota, margin: '0 0 8px 0' } }, 'Hub Social: Vitrine de Galos & Folhetos de Desafio'),
+      h('div', {
+        class: 'cordel-card',
+        'data-testid': 'social-vitrine-cordel-panel',
+        style: {
+          marginTop: '10px',
+          backgroundImage: "linear-gradient(rgba(245,238,220,0.92), rgba(245,238,220,0.95)), url('/assets/pranchas/vitrine-social-backdrop.webp')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        },
+      }, [
+        h('div', {
+          'data-testid': 'vitrine-social-backdrop-banner',
+          style: {
+            backgroundImage: "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.65)), url('/assets/pranchas/vitrine-social-backdrop.webp')",
+            backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '6px',
+            padding: '10px 14px', marginBottom: '10px', color: '#FFF8E7', border: '2px solid #1B1B1B',
+          },
+        }, [
+          h('h4', { style: { color: '#FFE082', margin: '0 0 2px 0' } }, 'Hub Social: Vitrine de Galos & Folhetos de Desafio'),
+          h('p', { style: { margin: 0, fontSize: '12px' } }, 'Prancha 17: Exposição de Campeões, Honras de Cordel & Trilho Interestadual'),
+        ]),
         h('div', { style: { display: 'flex', gap: '10px', flexWrap: 'wrap' } }, [
           h('div', { class: 'cordel-card', 'data-testid': 'uf-rail', style: { minWidth: '70px', padding: '6px' } }, [
             h('strong', { style: { fontSize: '11px', display: 'block', marginBottom: '4px' } }, 'UF Nordeste'),

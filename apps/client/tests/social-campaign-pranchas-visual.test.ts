@@ -45,6 +45,8 @@ describe('Prancha 18 — Campanha Estrada do Sertão & Torre do Mandacaru', () =
   it('renderiza os 6 capítulos da campanha, balão do Vô Tonho e Torre 100F', async () => {
     const html = await renderToString(h(CampaignTorreVisualPanel));
     expect(html).toContain('data-testid="campaign-torre-visual-panel"');
+    expect(html).toContain('estrada-torre-backdrop.webp');
+    expect(html).toContain('data-testid="campaign-torre-backdrop-container"');
     expect(html).toContain('Chapada do Araripe');
     expect(html).toContain('Vale do Cariri');
     expect(html).toContain('Sertão dos Inhamuns');

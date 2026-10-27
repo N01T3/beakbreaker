@@ -12,22 +12,12 @@ export const VIP_PERKS: Record<number, string> = {
 };
 
 const cordelBtn = (bg: string) => ({
-  backgroundColor: bg,
-  color: CORDEL_PALETTE.cremePapel,
-  border: '2px solid #1B1B1B',
-  padding: '6px 12px',
-  fontWeight: 'bold' as const,
-  cursor: 'pointer',
-  marginRight: '6px',
-  marginBottom: '6px',
+  backgroundColor: bg, color: CORDEL_PALETTE.cremePapel, border: '2px solid #1B1B1B',
+  padding: '6px 12px', fontWeight: 'bold' as const, cursor: 'pointer', marginRight: '6px', marginBottom: '6px',
 });
 
 const sectionCard = (extraStyle?: Record<string, string>) => ({
-  backgroundColor: CORDEL_PALETTE.cremePapel,
-  border: '2px solid #1B1B1B',
-  padding: '10px',
-  marginBottom: '10px',
-  ...extraStyle,
+  backgroundColor: CORDEL_PALETTE.cremePapel, border: '2px solid #1B1B1B', padding: '10px', marginBottom: '10px', ...extraStyle,
 });
 
 export const StoreMonetizationOffersPanel = defineComponent({
@@ -110,8 +100,14 @@ export const StoreMonetizationOffersPanel = defineComponent({
       msg.value = 'Oferta Relâmpago resgatada: 10 ovos com 40% de desconto!';
     };
 
-    return () => h('div', { class: 'cordel-card', 'data-testid': 'store-monetization-offers-panel' }, [
-      h('h3', { style: { color: CORDEL_PALETTE.vermelhoCrista, marginTop: '0' } }, 'Ofertas Éticas & Clube do Arraial'),
+    return () => h('div', {
+      class: 'cordel-card', 'data-testid': 'store-monetization-offers-panel',
+      style: {
+        backgroundImage: "linear-gradient(rgba(245,238,220,0.92), rgba(245,238,220,0.95)), url('/assets/pranchas/loja-arraial-backdrop.webp')",
+        backgroundSize: 'cover', backgroundPosition: 'center',
+      },
+    }, [
+      h('h3', { style: { color: CORDEL_PALETTE.vermelhoCrista, marginTop: '0' } }, '🎪 Feira Sertaneja: Ofertas Éticas & Clube do Arraial'),
       h('p', { 'data-testid': 'offer-status-message', style: { fontStyle: 'italic', color: CORDEL_PALETTE.azulAnil } }, msg.value),
 
       h('div', { 'data-testid': 'golden-vault-card', style: sectionCard() }, [

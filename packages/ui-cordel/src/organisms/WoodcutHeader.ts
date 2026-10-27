@@ -12,10 +12,13 @@ export interface WoodcutHeaderProps {
   folego: number;
   maxFolego?: number;
   isMuted?: boolean;
+  avatar?: string;
 }
 
 export interface WoodcutHeaderModel {
   playerName: string;
+  avatar: string;
+  levelNumber: number;
   breederBadge: string;
   sedeBadge: string;
   borderClass: string;
@@ -39,6 +42,8 @@ export function buildWoodcutHeader(props: WoodcutHeaderProps): WoodcutHeaderMode
 
   return {
     playerName: props.playerName,
+    avatar: props.avatar ?? '🤠',
+    levelNumber: nc,
     breederBadge: `NC ${nc}`,
     sedeBadge: `Sede ${sede}`,
     borderClass: CORDEL_BORDERS.xiloFrame,
@@ -77,6 +82,7 @@ export const WoodcutHeader = defineComponent({
     folego: { type: Number, required: true },
     maxFolego: { type: Number, default: 120 },
     isMuted: { type: Boolean, default: false },
+    avatar: { type: String, default: '🤠' },
   },
   emits: ['openStore', 'toggleAudio'],
   setup(props, { emit }) {
@@ -111,8 +117,9 @@ export const WoodcutHeader = defineComponent({
 
       return h('header', { class: `woodcut-header ${model.borderClass}`, style: headerStyle }, [
         h('div', { class: 'woodcut-header__identity', style: { display: 'flex', alignItems: 'center', gap: '8px' } }, [
-          h('strong', { class: 'woodcut-header__name', style: { fontFamily: model.fontFamily, fontSize: '16px' } }, model.playerName),
-          h('span', { class: 'woodcut-header__nc', style: badgeStyle(CORDEL_PALETTE.terracota) }, model.breederBadge),
+          h('span', { class: 'woodcut-header__avatar', 'data-testid': 'player-leather-hat-avatar', style: { fontSize: '20px', lineHeight: 1 } }, model.avatar),
+          h('strong', { class: 'woodcut-header__name', style: { fontFamily: model.fontFamily, fontSize: '15px' } }, model.playerName),
+          h('span', { class: 'woodcut-header__nc', 'data-testid': 'badge-hud-trainer-level', style: badgeStyle(CORDEL_PALETTE.terracota) }, `Nível ${model.levelNumber}`),
           h('span', { class: 'woodcut-header__sede', style: badgeStyle(CORDEL_PALETTE.verdeMata) }, model.sedeBadge),
           h('button', {
             type: 'button',
