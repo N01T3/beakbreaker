@@ -10,6 +10,7 @@ import { ClanAndWarService } from '../modules/clan.js';
 import { FarmService } from '../modules/farm.js';
 import { GachaAndGeneticsService } from '../modules/gacha.js';
 import { SocketHub } from '../ws/SocketHub.js';
+import { registerStoreRoutes } from './storeRoutes.js';
 
 export interface ServerContainer {
   db: InMemoryDatabase;
@@ -165,6 +166,8 @@ export async function registerApiRoutes(
     ensureDefaultPlayer(container.db, playerId);
     return { ...container.auth18Plus.deleteAccountImmediatelyLgpd(playerId), playerId };
   });
+
+  await registerStoreRoutes(app, container);
 }
 
 export async function buildFastifyServer(
