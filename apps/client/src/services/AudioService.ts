@@ -89,6 +89,16 @@ export class AudioService {
     this.muted = initialMuted !== undefined ? initialMuted : readStoredMuted();
   }
 
+  public static play(sound: string): boolean {
+    return cordelAudio.play(sound);
+  }
+
+  public play(sound: string): boolean {
+    if (sound === 'skill' || sound === 'sfx_canto_especial') return this.playTorcidaCheer();
+    if (sound === 'milho' || sound === 'sfx_colheita_milho') return this.playHarvestMilho();
+    return this.playTrianguloReward();
+  }
+
   public playBgm(track: CordelSoundTrack): void { this.currentBgm = track; }
   public getCurrentBgm(): CordelSoundTrack | null { return this.currentBgm; }
 

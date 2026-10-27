@@ -6,6 +6,8 @@ import { DivinePassCalendarPanel } from './panels/DivinePassCalendarPanel.js';
 import { ClanTechMarketPanel } from './panels/ClanTechMarketPanel.js';
 import { AchievementsCordelPanel } from './panels/AchievementsCordelPanel.js';
 import { UFRankingProfilePanel } from './panels/UFRankingProfilePanel.js';
+import { SocialVitrineCordelPanel } from './panels/SocialVitrineCordelPanel.js';
+import { LabirintoRodaVisualPanel } from './panels/LabirintoRodaVisualPanel.js';
 
 export const ClanTabView = defineComponent({
   name: 'ClanTabView',
@@ -14,6 +16,7 @@ export const ClanTabView = defineComponent({
   },
   setup(props) {
     const capturedTerritory = ref('forte_do_cangaco');
+    const showVitrine = ref(true);
 
     const handleAttackColossus = () => {
       const res = props.runtime.clan.recordRaidDamage(7_500_000);
@@ -114,10 +117,23 @@ export const ClanTabView = defineComponent({
                 ),
               ]),
               h(LiveOpsFestivalPanel, { runtime: props.runtime }),
+              h(LabirintoRodaVisualPanel, { runtime: props.runtime }),
               h(DivinePassCalendarPanel, { runtime: props.runtime }),
               h(ClanTechMarketPanel, { runtime: props.runtime }),
               h(AchievementsCordelPanel, { runtime: props.runtime }),
               h(UFRankingProfilePanel, { runtime: props.runtime }),
+              h('div', { style: { marginTop: '8px' } }, [
+                h('button', {
+                  type: 'button',
+                  'data-testid': 'btn-toggle-vitrine-cordel',
+                  style: {
+                    backgroundColor: showVitrine.value ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel,
+                    border: '2px solid #1B1B1B', padding: '6px 12px', fontWeight: 'bold', cursor: 'pointer',
+                  },
+                  onClick: () => { showVitrine.value = !showVitrine.value; },
+                }, showVitrine.value ? 'Ocultar Vitrine & Folhetos' : 'Abrir Vitrine & Folhetos de Cordel'),
+              ]),
+              showVitrine.value ? h(SocialVitrineCordelPanel, { runtime: props.runtime }) : null,
             ]),
           ],
         },

@@ -2,10 +2,14 @@ import { defineComponent, h, ref, type PropType } from 'vue';
 import { CORDEL_PALETTE, CordelWoodFrame, DualCombatBar } from '@beakbreaker/ui-cordel';
 import type { WebRuntime } from './createWebRuntime.js';
 import { cordelAudio } from '../services/AudioService.js';
+import { ArenaHUD } from '../canvas/scenes/arena/ArenaHUD.js';
+import { ArenaTacticalCardsPanel } from './panels/ArenaTacticalCardsPanel.js';
 import { ArenaTeamSynergyPanel } from './panels/ArenaTeamSynergyPanel.js';
 import { RankedLeaguePanel } from './panels/RankedLeaguePanel.js';
 import { ClimaticTowerPanel } from './panels/ClimaticTowerPanel.js';
 import { AlternativeCombatModesPanel } from './panels/AlternativeCombatModesPanel.js';
+import { CampaignTorreVisualPanel } from './panels/CampaignTorreVisualPanel.js';
+import { useGameStore } from '../stores/useGameStore.js';
 
 const btnStyle = (bg: string, fg: string = CORDEL_PALETTE.tintaXilo) => ({
   backgroundColor: bg, color: fg, border: '2px solid #1B1B1B',
@@ -14,14 +18,26 @@ const btnStyle = (bg: string, fg: string = CORDEL_PALETTE.tintaXilo) => ({
 
 export const ArenaTabView = defineComponent({
   name: 'ArenaTabView',
-  props: { runtime: { type: Object as PropType<WebRuntime>, required: true } },
+  props: {
+    runtime: { type: Object as PropType<WebRuntime>, required: true },
+    onDesistir: { type: Function as PropType<() => void> },
+  },
   setup(props) {
+    const selectedMode = ref<'arena' | 'campanha'>('arena');
     const campaignStage = ref(1);
     const towerFloor = ref(props.runtime.pve.getCurrentTowerFloor());
     const handleAdvanceTower = () => { towerFloor.value = props.runtime.pve.advanceTowerFloor(); };
     const handleClearCampaign = () => {
       props.runtime.pve.recordCampaignClear(campaignStage.value, 3);
       campaignStage.value = Math.min(90, campaignStage.value + 1);
+    };
+    const handleRetreat = () => {
+      try { useGameStore().setActiveTab('Fazenda'); } catch {}
+      props.onDesistir?.();
+    };
+    const handleSpeed = (s: number | string) => {
+      if (s === 1 || s === 2 || s === 3) props.runtime.setBattleSpeed(s);
+      else if (s === 0 || s === 'pause') props.runtime.setBattleSpeed(1);
     };
 
     return () => {
@@ -35,7 +51,15 @@ export const ArenaTabView = defineComponent({
       }, {
         default: () => [
           h('div', { 'data-testid': 'tab-content-lutar' }, [
-            h('div', { class: 'cordel-card', 'data-testid': 'arena-controls' }, [
+            h(ArenaHUD, {
+              currentSpeed: speed,
+              timerSeconds: 47,
+              torcidaCount: props.runtime.state.torcidaTriggeredCount,
+              onTorcida: () => { cordelAudio.playTorcidaCheer(); props.runtime.triggerTorcida(); },
+              onSelectSpeed: handleSpeed,
+              onDesistir: handleRetreat,
+            }),
+            h('div', { class: 'cordel-card', 'data-testid': 'arena-controls', style: { marginTop: '10px' } }, [
               h('div', { style: { display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' } }, [
                 h('button', {
                   type: 'button', 'data-testid': 'btn-start-battle-3v3',
@@ -72,7 +96,14 @@ export const ArenaTabView = defineComponent({
                 'data-testid': 'battle-result-banner', style: { fontWeight: 'bold' },
               }, `Resultado 3v3: Vitória Time ${props.runtime.state.lastBattleWinner} (${props.runtime.state.lastBattleTicks} ticks)`) : null,
             ]),
-            h('div', { class: 'cordel-grid', 'data-testid': 'arena-combat-bars' },
+            h(ArenaTacticalCardsPanel, {
+              currentSpeed: speed,
+              torcidaCount: props.runtime.state.torcidaTriggeredCount,
+              onSpecialTap: () => { cordelAudio.playXiloHitSfx(); props.runtime.runArenaBattle3v3(); },
+              onTorcida: () => { cordelAudio.playTorcidaCheer(); props.runtime.triggerTorcida(); },
+              onSelectSpeed: handleSpeed,
+            }),
+            h('div', { class: 'cordel-grid', 'data-testid': 'arena-combat-bars', style: { marginTop: '10px' } },
               props.runtime.state.unitBars.map((unit) =>
                 h('div', { key: unit.id, class: 'cordel-card' }, [
                   h('strong', `${unit.name} (${unit.roosterClass})`),
@@ -81,7 +112,7 @@ export const ArenaTabView = defineComponent({
                 ]),
               ),
             ),
-            h('div', { class: 'cordel-grid' }, [
+            h('div', { class: 'cordel-grid', style: { marginTop: '10px' } }, [
               h('div', { class: 'cordel-card', 'data-testid': 'campaign-panel' }, [
                 h('h4', `Campanha Estrada do Sertão: Fase ${stageInfo.stageNumber}/90 (Cap. ${stageInfo.chapterNumber}/6)`),
                 h('button', { type: 'button', 'data-testid': 'btn-campaign-advance', onClick: handleClearCampaign }, 'Concluir Fase 3★ (-6 Fôlego)'),
@@ -95,6 +126,19 @@ export const ArenaTabView = defineComponent({
             h(RankedLeaguePanel, { runtime: props.runtime }),
             h(ClimaticTowerPanel, { runtime: props.runtime }),
             h(AlternativeCombatModesPanel, { runtime: props.runtime }),
+            h('div', { style: { display: 'flex', gap: '8px', marginTop: '10px' } }, [
+              h('button', {
+                type: 'button', 'data-testid': 'btn-select-mode-arena',
+                style: btnStyle(selectedMode.value === 'arena' ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel),
+                onClick: () => { selectedMode.value = 'arena'; },
+              }, 'Arena 3v3'),
+              h('button', {
+                type: 'button', 'data-testid': 'btn-select-mode-estrada-torre',
+                style: btnStyle(selectedMode.value === 'campanha' ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel),
+                onClick: () => { selectedMode.value = 'campanha'; },
+              }, 'Estrada do Sertão & Torre'),
+            ]),
+            h(CampaignTorreVisualPanel, { runtime: props.runtime }),
           ]),
         ],
       });
