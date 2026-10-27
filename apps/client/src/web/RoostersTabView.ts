@@ -8,6 +8,8 @@ import { AstralLapidaryPanel } from './panels/AstralLapidaryPanel.js';
 import { PedigreeLineagePanel } from './panels/PedigreeLineagePanel.js';
 import { BranchingEvolutionPanel } from './panels/BranchingEvolutionPanel.js';
 import { OficinaForjaPanel } from './panels/OficinaForjaPanel.js';
+import { ArvoreDaVidaOrbesPanel } from './panels/ArvoreDaVidaOrbesPanel.js';
+import { GrimorioSantuarioPanel } from './panels/GrimorioSantuarioPanel.js';
 
 export const RoostersTabView = defineComponent({
   name: 'RoostersTabView',
@@ -15,7 +17,7 @@ export const RoostersTabView = defineComponent({
     runtime: { type: Object as PropType<WebRuntime>, required: true },
   },
   setup(props) {
-    const activeSubTab = ref<'plantel' | 'evolucao' | 'oficina'>('plantel');
+    const activeSubTab = ref<'plantel' | 'evolucao' | 'oficina' | 'arvore' | 'grimorio'>('plantel');
     const parentANg = ref(32);
     const parentBNg = ref(35);
     const extractedOrbs = ref(props.runtime.genetics.calculateTreeOfLifeExtractionOrbs(30));
@@ -65,12 +67,32 @@ export const RoostersTabView = defineComponent({
                 },
                 onClick: () => { activeSubTab.value = 'oficina'; },
               }, 'Oficina +15 (Prancha 12)'),
+              h('button', {
+                type: 'button', 'data-testid': 'subtab-arvore',
+                style: {
+                  padding: '8px 14px', fontWeight: 'bold', cursor: 'pointer', border: '2px solid #1B1B1B',
+                  backgroundColor: activeSubTab.value === 'arvore' ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel,
+                },
+                onClick: () => { activeSubTab.value = 'arvore'; },
+              }, 'Árvore da Vida (Orbes)'),
+              h('button', {
+                type: 'button', 'data-testid': 'subtab-grimorio',
+                style: {
+                  padding: '8px 14px', fontWeight: 'bold', cursor: 'pointer', border: '2px solid #1B1B1B',
+                  backgroundColor: activeSubTab.value === 'grimorio' ? CORDEL_PALETTE.amareloMilho : CORDEL_PALETTE.cremePapel,
+                },
+                onClick: () => { activeSubTab.value = 'grimorio'; },
+              }, 'Grimório 24 Receitas (Prancha 11)'),
             ]),
             activeSubTab.value === 'oficina'
               ? h(OficinaForjaPanel, { runtime: props.runtime })
               : activeSubTab.value === 'evolucao'
                 ? h(BranchingEvolutionPanel, { runtime: props.runtime })
-                : h('div', { 'data-testid': 'plantel-view-wrapper' }, [
+                : activeSubTab.value === 'arvore'
+                  ? h(ArvoreDaVidaOrbesPanel, { runtime: props.runtime })
+                  : activeSubTab.value === 'grimorio'
+                    ? h(GrimorioSantuarioPanel, { runtime: props.runtime })
+                    : h('div', { 'data-testid': 'plantel-view-wrapper' }, [
                     h('div', { class: 'cordel-grid' }, [
                       h('div', { class: 'cordel-card', 'data-testid': 'ninhal-calculator' }, [
                         h('h3', 'Calculadora do Ninhal'),

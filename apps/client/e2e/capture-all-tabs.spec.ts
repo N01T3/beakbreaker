@@ -57,6 +57,22 @@ test('Capture Screenshots of All Pranchas and Systems', async ({ page }) => {
     await page.screenshot({ path: `${SCREENSHOT_DIR}/04c_oficina_forja.png`, fullPage: false });
   }
 
+  // Tab 3 Subtab: Árvore da Vida & Orbes (Prancha 11)
+  const btnArvore = page.getByTestId('subtab-arvore');
+  if (await btnArvore.isVisible()) {
+    await btnArvore.click();
+    await page.waitForTimeout(400);
+    await page.screenshot({ path: `${SCREENSHOT_DIR}/04e_arvore_da_vida.png`, fullPage: false });
+  }
+
+  // Tab 3 Subtab: Grimório 24 Receitas do Santuário (Prancha 11)
+  const btnGrimorio = page.getByTestId('subtab-grimorio');
+  if (await btnGrimorio.isVisible()) {
+    await btnGrimorio.click();
+    await page.waitForTimeout(400);
+    await page.screenshot({ path: `${SCREENSHOT_DIR}/04d_grimorio_santuario.png`, fullPage: false });
+  }
+
   // Tab 4: Bando & Passe (Pranchas 15, 16, 17, 21)
   await page.getByTestId('nav-tab-Bando').click();
   await page.waitForTimeout(600);
