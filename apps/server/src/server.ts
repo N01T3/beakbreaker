@@ -1,4 +1,8 @@
 import { buildFastifyServer, createServerContainer } from './routes/apiRoutes.js';
+import { registerGrowthFundRoutes } from './routes/growth-fund.js';
+import { registerSocialUfRoutes } from './routes/social-uf.js';
+
+export { registerGrowthFundRoutes, registerSocialUfRoutes };
 
 export async function startServer(port = Number(process.env.PORT || 3001)) {
   const container = createServerContainer();

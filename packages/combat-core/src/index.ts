@@ -16,3 +16,8 @@ export * from './systems/FarmDefenseSystem.js';
 export * from './simulator/TwoWaveRaidSimulator.js';
 export * from './systems/RankedLeagueSystem.js';
 export * from './systems/LabyrinthDungeonEngine.js';
+export * from './modes/DueloAmistosoEngine.js';
+export * from './modes/ArenaNiveladaEngine.js';
+export * from './modes/ReiDoTerreiroEngine.js';
+export * from './modes/TorneioArraialEngine.js';
+

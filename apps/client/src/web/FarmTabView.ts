@@ -5,6 +5,7 @@ import type { SaintTowerId } from '../canvas/scenes/farm/IsoFarmScene.js';
 import { PvpRaidDefensePanel } from './panels/PvpRaidDefensePanel.js';
 import { BarnTrainingPanel } from './panels/BarnTrainingPanel.js';
 import { InfirmaryPotionsPanel } from './panels/InfirmaryPotionsPanel.js';
+import { CordelChallengesPredatorsPanel } from './panels/CordelChallengesPredatorsPanel.js';
 
 const SAINT_TOWERS: readonly SaintTowerId[] = [
   'Torre de São Jorge',
@@ -142,6 +143,7 @@ export const FarmTabView = defineComponent({
               h(BarnTrainingPanel, { runtime: props.runtime }),
               h(InfirmaryPotionsPanel, { runtime: props.runtime }),
               h(PvpRaidDefensePanel, { runtime: props.runtime }),
+              h(CordelChallengesPredatorsPanel, { runtime: props.runtime }),
             ]),
           ],
         },

@@ -10,3 +10,6 @@ export * from './BarnProtectionCalculator.js';
 export * from './AstralAwakeningCalculator.js';
 export * from './LapidarySystem.js';
 export * from './FortuneWheelEngine.js';
+export * from './CordelPuzzleEngine.js';
+export * from './FarmPredatorDefenseEngine.js';
+export * from './WeeklyVillageLottery.js';

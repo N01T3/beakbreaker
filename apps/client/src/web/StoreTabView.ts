@@ -8,6 +8,7 @@ import {
 import type { WebRuntime } from './createWebRuntime.js';
 import { PixCheckoutPanel } from './panels/PixCheckoutPanel.js';
 import { StoreMonetizationOffersPanel } from './panels/StoreMonetizationOffersPanel.js';
+import { GrowthFundLotteryPanel } from './panels/GrowthFundLotteryPanel.js';
 
 export const StoreTabView = defineComponent({
   name: 'StoreTabView',
@@ -96,6 +97,7 @@ export const StoreTabView = defineComponent({
                 currentPity: props.currentPity,
                 onGrantCoroas: props.onGrantCoroas,
               }),
+              h(GrowthFundLotteryPanel, { runtime: props.runtime }),
             ]),
           ],
         },

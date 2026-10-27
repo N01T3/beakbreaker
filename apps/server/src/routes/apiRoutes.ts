@@ -11,6 +11,9 @@ import { FarmService } from '../modules/farm.js';
 import { GachaAndGeneticsService } from '../modules/gacha.js';
 import { SocketHub } from '../ws/SocketHub.js';
 import { registerStoreRoutes } from './storeRoutes.js';
+import { registerGrowthFundRoutes } from './growth-fund.js';
+import { registerSocialUfRoutes } from './social-uf.js';
+import { GrowthFundService } from '../modules/monetization/GrowthFundService.js';
 
 export interface ServerContainer {
   db: InMemoryDatabase;
@@ -23,6 +26,7 @@ export interface ServerContainer {
   gachaService: GachaAndGeneticsService;
   clanService: ClanAndWarService;
   billingService: BillingService;
+  growthFundService: GrowthFundService;
   socketHub: SocketHub;
   liveOps: LiveOpsWorkers;
   auth18Plus: {
@@ -45,19 +49,19 @@ export function createServerContainer(db = new InMemoryDatabase()): ServerContai
   const gachaService = new GachaAndGeneticsService(db, locks);
   const clanService = new ClanAndWarService(db, locks);
   const billingService = new BillingService(db, locks, ecaService);
+  const growthFundService = new GrowthFundService(db);
   const socketHub = new SocketHub(db);
   const liveOps = new LiveOpsWorkers(db);
 
   return {
     db, redis, locks, revengeGuard, ecaService, farmService,
-    battleService, gachaService, clanService, billingService, socketHub, liveOps,
+    battleService, gachaService, clanService, billingService,
+    growthFundService, socketHub, liveOps,
     auth18Plus: {
-      verifyAgeGate: (input, nowMs) => ecaService.verifyAge18Plus(input, nowMs),
-      deleteAccountImmediatelyLgpd: (playerId, nowMs) => ecaService.deletePersonalDataLgpd(playerId, nowMs),
+      verifyAgeGate: (i, nowMs) => ecaService.verifyAge18Plus(i, nowMs),
+      deleteAccountImmediatelyLgpd: (id, nowMs) => ecaService.deletePersonalDataLgpd(id, nowMs),
     },
-    farm: {
-      harvestPerch: (playerId, perchId, nowMs) => farmService.harvestPerchLazy(playerId, perchId, nowMs),
-    },
+    farm: { harvestPerch: (playerId, perchId, nowMs) => farmService.harvestPerchLazy(playerId, perchId, nowMs) },
     battle: {
       executePveBattle: (playerId, stage, starsEarned, isSweep) =>
         battleService.runCampaignStage(playerId, stage, starsEarned, isSweep),
@@ -66,9 +70,7 @@ export function createServerContainer(db = new InMemoryDatabase()): ServerContai
       pullChocadeira: (playerId, bannerId, featuredSpeciesId, rngRoll, fiftyFiftyRoll, nowMs) =>
         gachaService.pullChocadeira(playerId, bannerId, featuredSpeciesId, rngRoll, fiftyFiftyRoll, nowMs),
     },
-    billing: {
-      handlePixWebhook: (payload, nowMs) => billingService.processPixWebhook(payload, nowMs),
-    },
+    billing: { handlePixWebhook: (payload, nowMs) => billingService.processPixWebhook(payload, nowMs) },
   };
 }
 
@@ -98,15 +100,12 @@ export async function registerApiRoutes(
 
   app.post('/api/auth/verify-18plus', async (req, reply) => {
     try {
-      const body = req.body as {
-        playerId: string; birthDateIso: string; documentHash?: string; acceptZeroCashOutPolicy?: boolean;
-      };
-      ensureDefaultPlayer(container.db, body.playerId);
+      const b = req.body as { playerId: string; birthDateIso: string; documentHash?: string; acceptZeroCashOutPolicy?: boolean };
+      ensureDefaultPlayer(container.db, b.playerId);
       return container.auth18Plus.verifyAgeGate({
-        playerId: body.playerId,
-        birthDateIso: body.birthDateIso,
-        documentHash: body.documentHash ?? 'DOC_HASH_VERIFIED_18PLUS',
-        acceptZeroCashOutPolicy: body.acceptZeroCashOutPolicy ?? true,
+        playerId: b.playerId, birthDateIso: b.birthDateIso,
+        documentHash: b.documentHash ?? 'DOC_HASH_VERIFIED_18PLUS',
+        acceptZeroCashOutPolicy: b.acceptZeroCashOutPolicy ?? true,
       });
     } catch (err) {
       return reply.status(403).send({ error: (err as Error).message });
@@ -135,10 +134,7 @@ export async function registerApiRoutes(
 
   app.post('/api/gacha/pull', async (req, reply) => {
     try {
-      const b = req.body as {
-        playerId: string; bannerId?: string; featuredSpeciesId?: string;
-        rngRoll?: number; fiftyFiftyRoll?: number; nowMs?: number;
-      };
+      const b = req.body as { playerId: string; bannerId?: string; featuredSpeciesId?: string; rngRoll?: number; fiftyFiftyRoll?: number; nowMs?: number };
       ensureDefaultPlayer(container.db, b.playerId);
       return await container.gacha.pullChocadeira(
         b.playerId, b.bannerId ?? 'banner_trovao', b.featuredSpeciesId ?? '#18 Trovão do Sertão',
@@ -153,9 +149,7 @@ export async function registerApiRoutes(
     try {
       const b = req.body as { txid: string; playerId: string; packageId: string; nowMs?: number };
       ensureDefaultPlayer(container.db, b.playerId);
-      return await container.billing.handlePixWebhook(
-        { txid: b.txid, playerId: b.playerId, packageId: b.packageId }, b.nowMs
-      );
+      return await container.billing.handlePixWebhook({ txid: b.txid, playerId: b.playerId, packageId: b.packageId }, b.nowMs);
     } catch (err) {
       return reply.status(400).send({ error: (err as Error).message });
     }
@@ -168,6 +162,8 @@ export async function registerApiRoutes(
   });
 
   await registerStoreRoutes(app, container);
+  await registerGrowthFundRoutes(app, container);
+  await registerSocialUfRoutes(app, container);
 }
 
 export async function buildFastifyServer(

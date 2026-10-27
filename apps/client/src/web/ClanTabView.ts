@@ -5,6 +5,7 @@ import { LiveOpsFestivalPanel } from './panels/LiveOpsFestivalPanel.js';
 import { DivinePassCalendarPanel } from './panels/DivinePassCalendarPanel.js';
 import { ClanTechMarketPanel } from './panels/ClanTechMarketPanel.js';
 import { AchievementsCordelPanel } from './panels/AchievementsCordelPanel.js';
+import { UFRankingProfilePanel } from './panels/UFRankingProfilePanel.js';
 
 export const ClanTabView = defineComponent({
   name: 'ClanTabView',
@@ -116,6 +117,7 @@ export const ClanTabView = defineComponent({
               h(DivinePassCalendarPanel, { runtime: props.runtime }),
               h(ClanTechMarketPanel, { runtime: props.runtime }),
               h(AchievementsCordelPanel, { runtime: props.runtime }),
+              h(UFRankingProfilePanel, { runtime: props.runtime }),
             ]),
           ],
         },

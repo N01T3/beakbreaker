@@ -5,6 +5,7 @@ import { cordelAudio } from '../services/AudioService.js';
 import { ArenaTeamSynergyPanel } from './panels/ArenaTeamSynergyPanel.js';
 import { RankedLeaguePanel } from './panels/RankedLeaguePanel.js';
 import { ClimaticTowerPanel } from './panels/ClimaticTowerPanel.js';
+import { AlternativeCombatModesPanel } from './panels/AlternativeCombatModesPanel.js';
 
 const btnStyle = (bg: string, fg: string = CORDEL_PALETTE.tintaXilo) => ({
   backgroundColor: bg, color: fg, border: '2px solid #1B1B1B',
@@ -93,6 +94,7 @@ export const ArenaTabView = defineComponent({
             h(ArenaTeamSynergyPanel, { runtime: props.runtime }),
             h(RankedLeaguePanel, { runtime: props.runtime }),
             h(ClimaticTowerPanel, { runtime: props.runtime }),
+            h(AlternativeCombatModesPanel, { runtime: props.runtime }),
           ]),
         ],
       });
