@@ -8,4 +8,7 @@ export * from './systems/DamageCalculator.js';
 export * from './systems/CantoSystem.js';
 export * from './systems/InterruptSystem.js';
 export * from './systems/RaidBossSystem.js';
+export * from './systems/ClimaticModifierSystem.js';
 export * from './simulator/BattleEngine.js';
+export * from './simulator/CombatReplaySerializer.js';
+export * from './simulator/TVReplayDecoder.js';
