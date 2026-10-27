@@ -7,3 +7,5 @@ export * from './HeroRacePoolService.js';
 export * from './PerchCalculator.js';
 export * from './TrainingCenterCalculator.js';
 export * from './BarnProtectionCalculator.js';
+export * from './AstralAwakeningCalculator.js';
+export * from './LapidarySystem.js';
