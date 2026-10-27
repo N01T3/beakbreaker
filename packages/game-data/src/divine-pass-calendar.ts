@@ -98,6 +98,8 @@ export const LOGIN_CALENDAR_REWARDS: readonly LoginCalendarReward[] = RAW_LOGINS
   legendaryRoosterGuaranteed: r.legendaryRoosterGuaranteed ?? false, description: r.desc,
 }));
 
+export const LOGIN_CALENDAR_28_DAYS = LOGIN_CALENDAR_REWARDS;
+
 function buildPassLevel(level: number): DivinePassLevelRewards {
   const isLvl30 = level === 30;
   const isLvl40 = level === 40;

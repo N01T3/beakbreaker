@@ -123,4 +123,61 @@ test.describe('BeakBreaker Web E2E — ECA Digital, FTUE, 5 Abas Cordel Pop, Are
     await page.getByTestId('btn-simulate-pix-webhook').click();
     await expect(page.getByTestId('pix-webhook-status')).toContainText('Pix confirmado');
   });
+
+  test('E2E Novos Painéis v5.0: Ranqueada, Modificadores Climáticos, Celeiro Seguro, Enfermaria, Astral, Linhagem, Passe Divino, Mercado do Clã e Ofertas da Loja', async ({
+    page,
+  }) => {
+    await page.goto('/');
+    await page.getByTestId('input-birth-year').fill('1990');
+    await page.getByTestId('btn-confirm-18plus').click();
+    await page.getByTestId('btn-egg-1').click();
+
+    // 1. Fazenda: Celeiro Seguro e Enfermaria
+    await expect(page.getByTestId('barn-training-panel')).toBeVisible();
+    await page.getByTestId('btn-start-training').click();
+    await expect(page.getByTestId('training-status-display')).toContainText('Treino concluído');
+
+    await expect(page.getByTestId('infirmary-potions-panel')).toBeVisible();
+    await page.getByTestId('btn-apply-arnica').click();
+    await expect(page.getByTestId('infirmary-feedback')).toContainText('Arnica');
+
+    // 2. Lutar: Ranqueada e Modificadores Climáticos
+    await page.getByTestId('nav-tab-Lutar').click();
+    await expect(page.getByTestId('ranked-league-panel')).toBeVisible();
+    await page.getByTestId('btn-simulate-ranked-match').click();
+    await expect(page.getByTestId('ranked-win-streak')).toContainText('1');
+
+    await expect(page.getByTestId('climatic-tower-panel')).toBeVisible();
+    await page.getByTestId('btn-inspect-replay').click();
+    await expect(page.getByTestId('replay-size-badge')).toContainText('Conforme');
+
+    // 3. Galos: Despertar Astral e Genealogia
+    await page.getByTestId('nav-tab-Galos').click();
+    await expect(page.getByTestId('astral-lapidary-panel')).toBeVisible();
+    await page.getByTestId('btn-star-7').click();
+    await expect(page.getByTestId('astral-upgrade-info')).toContainText('7★');
+
+    await expect(page.getByTestId('pedigree-lineage-panel')).toBeVisible();
+    await page.getByTestId('btn-toggle-rooster-lineage').click();
+    await expect(page.getByTestId('lineage-status-badge')).toBeVisible();
+
+    // 4. Bando: Passe Divino, Mercado do Clã e Conquistas de Cordel
+    await page.getByTestId('nav-tab-Bando').click();
+    await expect(page.getByTestId('divine-pass-calendar-panel')).toBeVisible();
+    await page.getByTestId('btn-claim-pass-level').click();
+    await expect(page.getByTestId('pass-calendar-status')).toBeVisible();
+
+    await expect(page.getByTestId('clan-tech-market-panel')).toBeVisible();
+    await page.getByTestId('btn-donate-tech').click();
+    await expect(page.getByTestId('clan-tech-market-status')).toBeVisible();
+
+    await expect(page.getByTestId('achievements-cordel-panel')).toBeVisible();
+
+    // 5. Loja: Ofertas de Monetização Ética
+    await page.getByTestId('nav-tab-Loja').click();
+    await expect(page.getByTestId('store-monetization-offers-panel')).toBeVisible();
+    await expect(page.getByTestId('vault-crowns-display')).toBeVisible();
+    await page.getByTestId('btn-subscribe-farmer').click();
+    await expect(page.getByTestId('farmer-status-display')).toContainText('Ativo');
+  });
 });

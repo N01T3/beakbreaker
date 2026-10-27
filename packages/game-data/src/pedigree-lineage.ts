@@ -157,9 +157,17 @@ export function buildRoosterLineageTree(root: PedigreeNode): RoosterLineageTree 
   };
 }
 
+export function evaluatePedigreeBonus(node: PedigreeNode): number {
+  return buildRoosterLineageTree(node).roostBonusPercent;
+}
+
 export function isWildOrbHappyHour(timestampMs: number): boolean {
   const day = new Date(timestampMs).getUTCDay();
   return day === 3 || day === 5;
+}
+
+export function isWildOrbHappyHourActive(nowMs: number = Date.now()): boolean {
+  return isWildOrbHappyHour(nowMs);
 }
 
 export function calculateMaxWildOrbsAllowed(totalCost: number, timestampMs: number): number {

@@ -7,6 +7,7 @@ import {
 } from '@beakbreaker/ui-cordel';
 import type { WebRuntime } from './createWebRuntime.js';
 import { PixCheckoutPanel } from './panels/PixCheckoutPanel.js';
+import { StoreMonetizationOffersPanel } from './panels/StoreMonetizationOffersPanel.js';
 
 export const StoreTabView = defineComponent({
   name: 'StoreTabView',
@@ -22,11 +23,7 @@ export const StoreTabView = defineComponent({
     const handleBuyPixPackage = () => {
       const txId = `tx_${Date.now()}`;
       const res = props.runtime.storeCtrl.purchaseCoroasPackage(
-        txId,
-        'Pacote Cordel Pix (+15% Coroas)',
-        2_990,
-        300,
-        true,
+        txId, 'Pacote Cordel Pix (+15% Coroas)', 2_990, 300, true,
       );
       if (res.ok && res.record) {
         props.onGrantCoroas(res.record.coroasGranted);
@@ -34,18 +31,15 @@ export const StoreTabView = defineComponent({
       } else {
         props.runtime.state.lastStoreStatus = `Bloqueado pelo Limite Mensal ECA Digital (${res.reason})`;
       }
-      props.runtime.state.remainingBudgetCents =
-        props.runtime.storeCtrl.getRemainingMonthlyBudgetBrlCents();
-      props.runtime.state.transactionsCount =
-        props.runtime.storeCtrl.getTransactionsLast90Days().length;
+      props.runtime.state.remainingBudgetCents = props.runtime.storeCtrl.getRemainingMonthlyBudgetBrlCents();
+      props.runtime.state.transactionsCount = props.runtime.storeCtrl.getTransactionsLast90Days().length;
     };
 
     const handleUpdateLimit = () => {
       const cents = Math.max(1_000, Math.floor(customLimitReais.value * 100));
       props.runtime.storeCtrl.setMonthlyLimitBrlCents(cents);
       props.runtime.state.monthlyLimitCents = cents;
-      props.runtime.state.remainingBudgetCents =
-        props.runtime.storeCtrl.getRemainingMonthlyBudgetBrlCents();
+      props.runtime.state.remainingBudgetCents = props.runtime.storeCtrl.getRemainingMonthlyBudgetBrlCents();
     };
 
     return () => {
@@ -62,96 +56,41 @@ export const StoreTabView = defineComponent({
           default: () => [
             h('div', { 'data-testid': 'tab-content-loja' }, [
               h('div', { class: 'cordel-card', 'data-testid': 'chocadeira-panel' }, [
-                h(
-                  'h3',
-                  { 'data-testid': 'chocadeira-pity-counter' },
-                  `Chocadeira Real — Contador de Pity: ${props.currentPity}/80`,
-                ),
-                h(
-                  'p',
-                  { 'data-testid': 'chocadeira-explicit-odds' },
-                  `Probabilidades Explícitas: Base Lendário 2% (Atual: ${odds.legendaryPct.toFixed(1)}%) | Soft Pity tiro 61 (+5%/tiro) | Hard Pity 80/80`,
-                ),
+                h('h3', { 'data-testid': 'chocadeira-pity-counter' }, `Chocadeira Real — Contador de Pity: ${props.currentPity}/80`),
+                h('p', { 'data-testid': 'chocadeira-explicit-odds' }, `Probabilidades Explícitas: Base Lendário 2% (Atual: ${odds.legendaryPct.toFixed(1)}%) | Soft Pity tiro 61 (+5%/tiro) | Hard Pity 80/80`),
                 h(PityProgressBar, { currentPity: props.currentPity }),
                 h('div', { style: { display: 'flex', gap: '10px', marginTop: '10px' } }, [
-                  h(
-                    'button',
-                    {
-                      type: 'button',
-                      'data-testid': 'btn-pull-1x',
-                      style: {
-                        backgroundColor: CORDEL_PALETTE.amareloMilho,
-                        border: '2px solid #1B1B1B',
-                        padding: '10px 16px',
-                        fontWeight: 'bold',
-                      },
-                      onClick: () => props.onPullChocadeira(1),
-                    },
-                    'Chocar 1x Ovo (+1 Pity)',
-                  ),
-                  h(
-                    'button',
-                    {
-                      type: 'button',
-                      'data-testid': 'btn-pull-10x',
-                      style: {
-                        backgroundColor: CORDEL_PALETTE.vermelhoCrista,
-                        color: CORDEL_PALETTE.cremePapel,
-                        border: '2px solid #1B1B1B',
-                        padding: '10px 16px',
-                        fontWeight: 'bold',
-                      },
-                      onClick: () => props.onPullChocadeira(10),
-                    },
-                    'Chocar 10x Ovos (+10 Pity)',
-                  ),
+                  h('button', {
+                    type: 'button', 'data-testid': 'btn-pull-1x',
+                    style: { backgroundColor: CORDEL_PALETTE.amareloMilho, border: '2px solid #1B1B1B', padding: '10px 16px', fontWeight: 'bold' },
+                    onClick: () => props.onPullChocadeira(1),
+                  }, 'Chocar 1x Ovo (+1 Pity)'),
+                  h('button', {
+                    type: 'button', 'data-testid': 'btn-pull-10x',
+                    style: { backgroundColor: CORDEL_PALETTE.vermelhoCrista, color: CORDEL_PALETTE.cremePapel, border: '2px solid #1B1B1B', padding: '10px 16px', fontWeight: 'bold' },
+                    onClick: () => props.onPullChocadeira(10),
+                  }, 'Chocar 10x Ovos (+10 Pity)'),
                 ]),
               ]),
               h('div', { class: 'cordel-card', 'data-testid': 'eca-spending-limit-panel' }, [
                 h('h3', 'Limite Mensal de Gastos (ECA Digital) & Loja Web Pix (+15% Coroas)'),
-                h(
-                  'p',
-                  { 'data-testid': 'spending-limit-display' },
-                  `Limite Mensal Configurado: R$ ${(
-                    props.runtime.state.monthlyLimitCents / 100
-                  ).toFixed(2)} | Saldo Disponível no Mês: R$ ${(
-                    props.runtime.state.remainingBudgetCents / 100
-                  ).toFixed(2)}`,
-                ),
+                h('p', { 'data-testid': 'spending-limit-display' }, `Limite Mensal: R$ ${(props.runtime.state.monthlyLimitCents / 100).toFixed(2)} | Disponível: R$ ${(props.runtime.state.remainingBudgetCents / 100).toFixed(2)}`),
                 h('div', { style: { display: 'flex', gap: '8px', flexWrap: 'wrap' } }, [
-                  h(
-                    'button',
-                    {
-                      type: 'button',
-                      'data-testid': 'btn-buy-pix-coroas',
-                      style: {
-                        backgroundColor: CORDEL_PALETTE.verdeMata,
-                        color: CORDEL_PALETTE.cremePapel,
-                        border: '2px solid #1B1B1B',
-                        padding: '8px 14px',
-                        fontWeight: 'bold',
-                      },
-                      onClick: handleBuyPixPackage,
-                    },
-                    'Comprar Pacote Pix Web (R$ 29,90 -> 345 Coroas [+15%])',
-                  ),
-                  h(
-                    'button',
-                    {
-                      type: 'button',
-                      'data-testid': 'btn-apply-spending-limit',
-                      onClick: handleUpdateLimit,
-                    },
-                    'Atualizar Limite Mensal ECA Digital',
-                  ),
+                  h('button', {
+                    type: 'button', 'data-testid': 'btn-buy-pix-coroas',
+                    style: { backgroundColor: CORDEL_PALETTE.verdeMata, color: CORDEL_PALETTE.cremePapel, border: '2px solid #1B1B1B', padding: '8px 14px', fontWeight: 'bold' },
+                    onClick: handleBuyPixPackage,
+                  }, 'Comprar Pacote Pix Web (R$ 29,90 -> 345 Coroas [+15%])'),
+                  h('button', { type: 'button', 'data-testid': 'btn-apply-spending-limit', onClick: handleUpdateLimit }, 'Atualizar Limite Mensal ECA Digital'),
                 ]),
                 h('p', { 'data-testid': 'store-tx-status' }, props.runtime.state.lastStoreStatus),
-                h(
-                  'p',
-                  { 'data-testid': 'history-90-days' },
-                  `Histórico de Transações (90 dias): ${txs.length} registro(s)`,
-                ),
+                h('p', { 'data-testid': 'history-90-days' }, `Histórico de Transações (90 dias): ${txs.length} registro(s)`),
               ]),
+              h(StoreMonetizationOffersPanel, {
+                runtime: props.runtime,
+                currentPity: props.currentPity,
+                onGrantCoroas: props.onGrantCoroas,
+              }),
               h(PixCheckoutPanel, {
                 runtime: props.runtime,
                 currentPity: props.currentPity,

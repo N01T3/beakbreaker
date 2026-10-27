@@ -7,6 +7,8 @@ import {
 } from '@beakbreaker/ui-cordel';
 import type { WebRuntime } from './createWebRuntime.js';
 import { GeneticsSanctuaryPanel } from './panels/GeneticsSanctuaryPanel.js';
+import { AstralLapidaryPanel } from './panels/AstralLapidaryPanel.js';
+import { PedigreeLineagePanel } from './panels/PedigreeLineagePanel.js';
 
 export const RoostersTabView = defineComponent({
   name: 'RoostersTabView',
@@ -142,6 +144,8 @@ export const RoostersTabView = defineComponent({
                 ),
               ]),
               h(GeneticsSanctuaryPanel, { runtime: props.runtime }),
+              h(AstralLapidaryPanel, { runtime: props.runtime }),
+              h(PedigreeLineagePanel, { runtime: props.runtime }),
             ]),
           ],
         },

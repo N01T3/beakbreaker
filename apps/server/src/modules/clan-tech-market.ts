@@ -50,6 +50,9 @@ export const CLAN_TECH_DEFINITIONS: ClanTechDefinition[] = [
   { level: 10, name: 'Sertão Soberano', effect: '+10% em todas as recompensas de clã', effectKey: 'all_clan_rewards_bonus', bonusValue: 0.10, requiredXp: 50000 },
 ];
 
+export const CLAN_TECH_TREE = CLAN_TECH_DEFINITIONS;
+export { ClanTechAndMarketService as ClanTechMarketEngine };
+
 const KNOWN_SPECIES_RARITIES: Record<string, string> = {
   '#1 Galo Campina': 'Comum', rooster_01: 'Comum', '#2 Zabumba': 'Comum', rooster_02: 'Comum',
   '#3 Caboré': 'Comum', rooster_03: 'Comum', '#4 Faísca': 'Comum', rooster_04: 'Comum',

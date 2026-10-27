@@ -2,6 +2,9 @@ import { defineComponent, h, ref, type PropType } from 'vue';
 import { CORDEL_PALETTE, CordelWoodFrame } from '@beakbreaker/ui-cordel';
 import type { WebRuntime } from './createWebRuntime.js';
 import { LiveOpsFestivalPanel } from './panels/LiveOpsFestivalPanel.js';
+import { DivinePassCalendarPanel } from './panels/DivinePassCalendarPanel.js';
+import { ClanTechMarketPanel } from './panels/ClanTechMarketPanel.js';
+import { AchievementsCordelPanel } from './panels/AchievementsCordelPanel.js';
 
 export const ClanTabView = defineComponent({
   name: 'ClanTabView',
@@ -110,6 +113,9 @@ export const ClanTabView = defineComponent({
                 ),
               ]),
               h(LiveOpsFestivalPanel, { runtime: props.runtime }),
+              h(DivinePassCalendarPanel, { runtime: props.runtime }),
+              h(ClanTechMarketPanel, { runtime: props.runtime }),
+              h(AchievementsCordelPanel, { runtime: props.runtime }),
             ]),
           ],
         },

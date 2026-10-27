@@ -99,6 +99,8 @@ export const CORDEL_ACHIEVEMENTS: readonly CordelAchievementSpec[] = Object.free
   col('ach_col_11', 'Lira de Prata', 'Conclua a coleção completa de folhetos de repente.', 1, 250, 600, 'Mestre Poeta'),
 ]);
 
+export const CORDEL_ACHIEVEMENTS_50 = CORDEL_ACHIEVEMENTS;
+
 const ACHIEVEMENTS_BY_ID = new Map<string, CordelAchievementSpec>(
   CORDEL_ACHIEVEMENTS.map((ach) => [ach.id, ach])
 );
