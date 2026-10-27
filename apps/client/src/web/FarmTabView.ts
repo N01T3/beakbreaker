@@ -4,6 +4,7 @@ import type { WebRuntime } from './createWebRuntime.js';
 import type { SaintTowerId } from '../canvas/scenes/farm/IsoFarmScene.js';
 import { cordelAudio } from '../services/AudioService.js';
 import { FarmMilharalBanner } from './panels/FarmMilharalBanner.js';
+import { InteractiveVillageMap } from './panels/InteractiveVillageMap.js';
 import { PvpRaidDefensePanel } from './panels/PvpRaidDefensePanel.js';
 import { BarnTrainingPanel } from './panels/BarnTrainingPanel.js';
 import { InfirmaryPotionsPanel } from './panels/InfirmaryPotionsPanel.js';
@@ -74,6 +75,13 @@ export const FarmTabView = defineComponent({
                 h('span', { class: 'cordel-badge', style: { backgroundColor: CORDEL_PALETTE.vermelhoCrista, color: CORDEL_PALETTE.cremePapel } }, `Sede Nv. ${sedeLevel}`),
               ]),
             ]),
+            h(InteractiveVillageMap, {
+              runtime: props.runtime,
+              sedeLevel,
+              harvestReadyCorn: props.runtime.state.storedPerchMilho > 0 ? props.runtime.state.storedPerchMilho : 1200,
+              onHarvest: handleHarvestAll,
+              onUpgradeSede: handleUpgradeSede,
+            }),
             h(FarmMilharalBanner, {
               'data-testid': 'farm-milharal-banner',
               runtime: props.runtime,

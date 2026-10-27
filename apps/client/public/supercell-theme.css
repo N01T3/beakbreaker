@@ -477,6 +477,60 @@ button:active, .game-btn:active {
 }
 
 /* ==========================================================================
+   CLASH OF CLANS VILLAGE MAP (Vila da Fazenda)
+   ========================================================================== */
+.coc-village-container {
+  background: radial-gradient(ellipse at 50% 30%, #355C22 0%, #203A12 60%, #12210A 100%) !important;
+  background-image: 
+    radial-gradient(ellipse at 50% 30%, #355C22 0%, #203A12 60%, #12210A 100%),
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px) !important;
+  background-size: 100% 100%, 36px 36px, 36px 36px !important;
+  border: 3px solid #78350F !important;
+  border-radius: 18px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(0, 0, 0, 0.6) !important;
+}
+
+.coc-building-tile {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  border-radius: 14px !important;
+}
+
+.coc-building-tile:hover {
+  transform: translateY(-5px) scale(1.05) !important;
+  border-color: #FFE066 !important;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.8), 0 0 16px rgba(255, 224, 102, 0.6) !important;
+}
+
+.coc-floating-bubble {
+  animation: bounceBubble 1.6s infinite ease-in-out !important;
+  cursor: pointer !important;
+}
+
+@keyframes bounceBubble {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-6px);
+    box-shadow: 0 8px 12px rgba(34, 197, 94, 0.6);
+  }
+}
+
+.coc-roaming-lane {
+  background: rgba(18, 10, 5, 0.6) !important;
+  backdrop-filter: blur(4px) !important;
+  border: 1px dashed #A16207 !important;
+}
+
+.coc-action-bar {
+  background: linear-gradient(180deg, #3A2315 0%, #1A0F07 100%) !important;
+  border: 2px solid #A16207 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 6px 16px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* ==========================================================================
    CARDS, PANELS & FRAMES (Clash Panels)
    ========================================================================== */
 .cordel-card, .cordel-wood-frame {
