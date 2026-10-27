@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
+  CORDEL_BORDERS,
   CORDEL_PALETTE,
+  CORDEL_SHADOWS,
   CORDEL_TYPOGRAPHY,
   HUB_TABS,
   buildBottomNavHub,
@@ -30,6 +32,8 @@ describe('@beakbreaker/ui-cordel Design System', () => {
     expect(CORDEL_TYPOGRAPHY.displayFont).toBe('Lilita One');
     expect(CORDEL_TYPOGRAPHY.bodyFont).toBe('Nunito');
     expect(CORDEL_TYPOGRAPHY.woodcutSerif).toBe('Alfa Slab One');
+    expect(CORDEL_SHADOWS.woodcut).toBe('4px 4px 0 #1B1B1B');
+    expect(CORDEL_BORDERS.xiloShadow).toBe('4px 4px 0 #1B1B1B');
   });
 
   it('builds StarRow differentiating 1-5 yellow stars and 6-10 red Astral Awakening stars', () => {
@@ -121,6 +125,23 @@ describe('@beakbreaker/ui-cordel Design System', () => {
     });
     expect(header.breederBadge).toBe('NC 25');
     expect(header.sedeBadge).toBe('Sede 6');
+    expect(header.isMuted).toBe(false);
+    expect(header.audioIcon).toBe('🔊');
+    expect(header.audioLabel).toBe('Som Ativo');
+
+    const mutedHeader = buildWoodcutHeader({
+      playerName: 'Tonho',
+      breederLevel: 25,
+      sedeLevel: 6,
+      milho: 15400,
+      penasDouradas: 320,
+      coroas: 50,
+      folego: 100,
+      isMuted: true,
+    });
+    expect(mutedHeader.isMuted).toBe(true);
+    expect(mutedHeader.audioIcon).toBe('🔇');
+    expect(mutedHeader.audioLabel).toBe('Mudo');
 
     const nav = buildBottomNavHub({ activeTab: 'Lutar' });
     expect(HUB_TABS).toEqual(['Fazenda', 'Lutar', 'Galos', 'Bando', 'Loja']);

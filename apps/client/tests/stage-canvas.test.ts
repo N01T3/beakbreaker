@@ -88,9 +88,9 @@ describe('WoodcutCarver & CordelStageCanvas 2D Stage', () => {
       roosterCount: 5,
     });
 
-    expect(ctx.diamonds).toBe(5);
+    expect(ctx.diamonds).toBe(7);
     expect(ctx.texts).toContain('SEDE NV.3 | MILHO:480');
-    expect(ctx.texts).toEqual(expect.arrayContaining(['TERRA', 'FOGO', 'AGUA', 'AR']));
+    expect(ctx.texts).toEqual(expect.arrayContaining(['TERRA', 'FOGO', 'AGUA', 'AR', 'SOL', 'LUA']));
     expect(ctx.arcs).toBe(1 + 5);
   });
 

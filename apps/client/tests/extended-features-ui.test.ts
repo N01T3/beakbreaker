@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { h } from 'vue';
 import { renderToString } from 'vue/server-renderer';
+import { createPinia, setActivePinia } from 'pinia';
 import { AlternativeCombatModesPanel } from '../src/web/panels/AlternativeCombatModesPanel.js';
 import { UFRankingProfilePanel } from '../src/web/panels/UFRankingProfilePanel.js';
 import { CordelChallengesPredatorsPanel } from '../src/web/panels/CordelChallengesPredatorsPanel.js';
@@ -10,6 +11,8 @@ import { ArenaTabView } from '../src/web/ArenaTabView.js';
 import { FarmTabView } from '../src/web/FarmTabView.js';
 import { ClanTabView } from '../src/web/ClanTabView.js';
 import { StoreTabView } from '../src/web/StoreTabView.js';
+import { BeakBreakerWebApp } from '../src/web/BeakBreakerWebApp.js';
+import { cordelAudio } from '../src/services/AudioService.js';
 
 describe('Painéis Estendidos v5.0 — UI & Integração E2E', () => {
   it('renderiza AlternativeCombatModesPanel com os 4 modos e executa simulações', async () => {
@@ -79,5 +82,25 @@ describe('Painéis Estendidos v5.0 — UI & Integração E2E', () => {
       runtime, currentPity: 10, onPullChocadeira: () => {}, onGrantCoroas: () => {},
     }));
     expect(storeHtml).toContain('data-testid="growth-fund-lottery-panel"');
+  });
+
+  it('renderiza BeakBreakerWebApp com botão de áudio no header e aciona sons', async () => {
+    setActivePinia(createPinia());
+    cordelAudio.setMuted(false);
+    cordelAudio.clearHistory();
+
+    const html = await renderToString(h(BeakBreakerWebApp));
+    expect(html).toContain('data-testid="button-audio-toggle"');
+    expect(html).toContain('button-audio-toggle');
+    expect(html).toContain('Som Ativo');
+
+    cordelAudio.playZabumbaTabSwitch();
+    expect(cordelAudio.getSfxCountByTrack('sfx_zabumba_tab')).toBe(1);
+
+    cordelAudio.playTrianguloReward();
+    expect(cordelAudio.getSfxCountByTrack('sfx_triangulo_reward')).toBe(1);
+
+    cordelAudio.setMuted(!cordelAudio.isMuted());
+    expect(cordelAudio.isMuted()).toBe(true);
   });
 });

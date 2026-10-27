@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue';
+import { defineComponent, h, ref } from 'vue';
 import {
   CORDEL_PALETTE,
   HUB_TABS,
@@ -7,6 +7,7 @@ import {
 } from '@beakbreaker/ui-cordel';
 import { useGameStore } from '../stores/useGameStore.js';
 import { createWebRuntime } from './createWebRuntime.js';
+import { cordelAudio } from '../services/AudioService.js';
 import { FtueGateView } from './FtueGateView.js';
 import { FarmTabView } from './FarmTabView.js';
 import { ArenaTabView } from './ArenaTabView.js';
@@ -21,37 +22,43 @@ export const BeakBreakerWebApp = defineComponent({
   setup() {
     const store = useGameStore();
     const runtime = createWebRuntime();
+    const isAudioMuted = ref(cordelAudio.isMuted());
+
+    const handleToggleAudio = () => {
+      cordelAudio.setMuted(!cordelAudio.isMuted());
+      isAudioMuted.value = cordelAudio.isMuted();
+    };
 
     const handleTabChange = (tab: HubTabId) => {
       store.setActiveTab(tab);
+      cordelAudio.playZabumbaTabSwitch();
     };
 
     const renderActiveTab = () => {
       if (store.activeHubTab === 'Fazenda') {
         return h(FarmTabView, {
           runtime,
-          onAddMilho: (amount: number) => store.addMilho(amount),
+          onAddMilho: (amount: number) => {
+            cordelAudio.playTrianguloReward();
+            store.addMilho(amount);
+          },
           onUpgradeSede: (level: number) => {
             store.sedeLevel = level;
           },
         });
       }
-      if (store.activeHubTab === 'Lutar') {
-        return h(ArenaTabView, { runtime });
-      }
-      if (store.activeHubTab === 'Galos') {
-        return h(RoostersTabView, { runtime });
-      }
-      if (store.activeHubTab === 'Bando') {
-        return h(ClanTabView, { runtime });
-      }
+      if (store.activeHubTab === 'Lutar') return h(ArenaTabView, { runtime });
+      if (store.activeHubTab === 'Galos') return h(RoostersTabView, { runtime });
+      if (store.activeHubTab === 'Bando') return h(ClanTabView, { runtime });
       return h(StoreTabView, {
         runtime,
         currentPity: store.currentPity,
         onPullChocadeira: (pulls: number) => {
+          cordelAudio.playTrianguloReward();
           store.advancePity(pulls, false);
         },
         onGrantCoroas: (coroas: number) => {
+          cordelAudio.playTrianguloReward();
           store.coroas += coroas;
         },
       });
@@ -69,7 +76,9 @@ export const BeakBreakerWebApp = defineComponent({
             coroas: store.coroas,
             folego: store.folego,
             maxFolego: store.maxFolego,
+            isMuted: isAudioMuted.value,
             onOpenStore: () => handleTabChange('Loja'),
+            onToggleAudio: handleToggleAudio,
           }),
           h(
             'div',
@@ -89,12 +98,7 @@ export const BeakBreakerWebApp = defineComponent({
           h(PlatformBridgeBar),
         ]),
         h('div', { style: { marginTop: '12px' } }, [
-          h(FtueGateView, {
-            runtime,
-            onFtueReady: () => {
-              store.setAgeVerified(true);
-            },
-          }),
+          h(FtueGateView, { runtime, onFtueReady: () => { store.setAgeVerified(true); } }),
         ]),
         h('div', { style: { marginTop: '12px' } }, [
           h(CordelStageCanvas, {

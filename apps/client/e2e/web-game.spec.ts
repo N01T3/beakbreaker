@@ -12,6 +12,11 @@ test.describe('BeakBreaker Web E2E — ECA Digital, FTUE, 5 Abas, Arena 3v3 & No
     await expect(page.getByTestId('ftue-awarded-banner')).toBeVisible();
 
     await expect(page.getByTestId('platform-bridge-bar')).toBeVisible();
+    await expect(page.getByTestId('button-audio-toggle')).toBeVisible();
+    await page.getByTestId('button-audio-toggle').click();
+    await expect(page.getByTestId('button-audio-toggle')).toContainText('Mudo');
+    await page.getByTestId('button-audio-toggle').click();
+    await expect(page.getByTestId('button-audio-toggle')).toContainText('Som Ativo');
     await page.getByTestId('btn-save-snapshot').click();
     await expect(page.getByTestId('snapshot-save-status')).toContainText('Progresso salvo');
 

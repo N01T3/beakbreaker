@@ -64,9 +64,17 @@ export const RARITY_COLORS: Record<CordelRarity, string> = {
   Primordial: '#111827',
 };
 
+export const CORDEL_SHADOWS = {
+  woodcut: '4px 4px 0 #1B1B1B',
+  woodcutSm: '2px 2px 0 #1B1B1B',
+  woodcutLg: '6px 6px 0 #1B1B1B',
+} as const;
+
 export const CORDEL_BORDERS = {
   xiloFrame: 'border-2 border-[#1B1B1B]',
-  xiloShadow: '4px 4px 0px #1B1B1B',
+  xiloFrameThick: 'border-4 border-[#1B1B1B]',
+  xiloShadow: '4px 4px 0 #1B1B1B',
+  boxShadow: '4px 4px 0 #1B1B1B',
   paperBackground: CORDEL_PALETTE.cremePapel,
 } as const;
 
@@ -76,4 +84,5 @@ export const cordelTokens = {
   elements: ELEMENT_COLORS,
   rarities: RARITY_COLORS,
   borders: CORDEL_BORDERS,
+  shadows: CORDEL_SHADOWS,
 } as const;

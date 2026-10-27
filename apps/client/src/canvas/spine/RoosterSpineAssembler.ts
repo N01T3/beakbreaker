@@ -1,13 +1,11 @@
-export const ROOSTER_SLOTS = [
-  'tronco',
-  'cabeca',
-  'crista',
-  'asa_frente',
-  'cauda',
-  'canelas',
-] as const;
+import {
+  ROOSTER_SLOTS,
+  type RoosterPoseTransforms,
+  type RoosterSlotKey,
+} from './RoosterRigTypes.js';
 
-export type RoosterSlotKey = (typeof ROOSTER_SLOTS)[number];
+export * from './RoosterRigTypes.js';
+export * from './RoosterProceduralAnim.js';
 
 export interface RoosterVisualDNA {
   id: string;
@@ -28,10 +26,12 @@ export interface SpineSkeletonAdapter {
   activeSkin: SpineSkinLike | null;
   tintHex: string;
   slotsAtSetupPose: boolean;
+  currentPose?: RoosterPoseTransforms;
   createSkin(name: string): SpineSkinLike;
   findSkin(name: string): SpineSkinLike | null;
   setSkin(skin: SpineSkinLike): void;
   setSlotsToSetupPose(): void;
+  applyBoneTransforms?(transforms: RoosterPoseTransforms): void;
 }
 
 export interface AssembledRoosterSkinResult {
@@ -54,6 +54,7 @@ export function createMockSkeletonAdapter(
     activeSkin: null,
     tintHex: '#FFFFFF',
     slotsAtSetupPose: false,
+    currentPose: undefined,
     createSkin(name: string): SpineSkinLike {
       return {
         name,
@@ -64,20 +65,17 @@ export function createMockSkeletonAdapter(
       };
     },
     findSkin(name: string): SpineSkinLike | null {
-      if (known.size > 0 && !known.has(name)) {
-        return null;
-      }
-      return {
-        name,
-        attachedSkins: [name],
-        addSkin() {},
-      };
+      if (known.size > 0 && !known.has(name)) return null;
+      return { name, attachedSkins: [name], addSkin() {} };
     },
     setSkin(skin: SpineSkinLike) {
       this.activeSkin = skin;
     },
     setSlotsToSetupPose() {
       this.slotsAtSetupPose = true;
+    },
+    applyBoneTransforms(transforms: RoosterPoseTransforms) {
+      this.currentPose = transforms;
     },
   };
 }
@@ -117,9 +115,7 @@ export function assembleRoosterSkin(
   const isGoldenPlumage = Boolean(dna.isGoldenPlumage);
   if (isGoldenPlumage) {
     const goldenOverlay = skeletonAdapter.findSkin('mutation/plumagem_dourada');
-    if (goldenOverlay) {
-      customSkin.addSkin(goldenOverlay);
-    }
+    if (goldenOverlay) customSkin.addSkin(goldenOverlay);
     skeletonAdapter.tintHex = '#F4B400';
   } else {
     skeletonAdapter.tintHex = '#FFFFFF';
@@ -137,4 +133,15 @@ export function assembleRoosterSkin(
     tintHex: skeletonAdapter.tintHex,
     drawCallsUsed: 1,
   };
+}
+
+export function applyPoseToSkeletonAdapter(
+  adapter: SpineSkeletonAdapter,
+  transforms: RoosterPoseTransforms,
+): void {
+  if (adapter.applyBoneTransforms) {
+    adapter.applyBoneTransforms(transforms);
+  } else {
+    adapter.currentPose = transforms;
+  }
 }

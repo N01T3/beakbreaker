@@ -94,6 +94,9 @@ export class ArenaScene implements GameScene {
       this.consumeCurrentTickEvents();
       this.popupPool.tickAll();
     }
+    for (const actor of this.actors.values()) {
+      actor.update(deltaMs, this.currentTick);
+    }
   }
 
   private consumeCurrentTickEvents(): void {
